@@ -580,6 +580,15 @@ function initForm() {
     await new Promise(r => setTimeout(r, 900));
     success.classList.add('show');
     submitBtn.style.display = 'none';
+
+    // Track waitlist signup in GA4
+    if (typeof gtag === 'function') {
+      gtag('event', 'waitlist_signup', {
+        event_category: 'engagement',
+        event_label: emailEl.value.trim(),
+        value: 1
+      });
+    }
   });
 }
 
