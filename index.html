@@ -77,19 +77,79 @@
 <!-- ─── Sidebar ─── -->
 <aside id="sidebar" aria-label="Story navigation">
   <div class="sidebar-top">
-    <img src="assets/icon-128.jpg" alt="AdiOS icon" class="sidebar-icon" />
+    <img src="assets/icon-transparent.jpg" alt="AdiOS" class="sidebar-icon" />
+    <span class="sidebar-brand">AdiOS</span>
   </div>
+
+  <!-- Scroll progress bar -->
+  <div class="sidebar-progress-track">
+    <div class="sidebar-progress-fill" id="sidebar-progress"></div>
+  </div>
+
   <nav class="sidebar-nav" aria-label="Section navigation">
-    <a href="#prologue" class="sidebar-item active" data-section="prologue">Prologue</a>
-    <a href="#act-1" class="sidebar-item" data-section="act-1">Act I · The OS</a>
-    <a href="#act-2" class="sidebar-item" data-section="act-2">Act II · The Brain</a>
-    <a href="#act-3" class="sidebar-item" data-section="act-3">Act III · Pillars</a>
-    <a href="#act-4" class="sidebar-item" data-section="act-4">Act IV · Architecture</a>
-    <a href="#act-5" class="sidebar-item" data-section="act-5">Act V · The Loop</a>
-    <a href="#act-6" class="sidebar-item" data-section="act-6">Act VI · The Market</a>
-    <a href="#act-7" class="sidebar-item" data-section="act-7">Act VII · The Company</a>
-    <a href="#coda" class="sidebar-item" data-section="coda">Coda</a>
+    <a href="#prologue" class="sb-link active" data-section="prologue">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Prologue</span>
+      <span class="sb-desc">Boot Sovereign</span>
+    </a>
+    <a href="#act-1" class="sb-link" data-section="act-1">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Act I</span>
+      <span class="sb-desc">The Operating System</span>
+    </a>
+    <a href="#act-2" class="sb-link" data-section="act-2">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Act II</span>
+      <span class="sb-desc">The Three-Layer Brain</span>
+    </a>
+    <a href="#act-3" class="sb-link" data-section="act-3">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Act III</span>
+      <span class="sb-desc">Three Pillars</span>
+    </a>
+    <a href="#act-4" class="sb-link" data-section="act-4">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Act IV</span>
+      <span class="sb-desc">The Architecture</span>
+    </a>
+    <a href="#act-5" class="sb-link" data-section="act-5">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Act V</span>
+      <span class="sb-desc">The Circular Loop</span>
+    </a>
+    <a href="#act-6" class="sb-link" data-section="act-6">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Act VI</span>
+      <span class="sb-desc">The Market</span>
+    </a>
+    <a href="#act-7" class="sb-link" data-section="act-7">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Act VII</span>
+      <span class="sb-desc">The Company</span>
+    </a>
+    <a href="#coda" class="sb-link" data-section="coda">
+      <span class="sb-dot"></span>
+      <span class="sb-line"></span>
+      <span class="sb-label">Coda</span>
+      <span class="sb-desc">Boot Sovereign</span>
+    </a>
   </nav>
+
+  <div class="sidebar-footer">
+    <div class="sb-reading">
+      <span class="sb-reading-label">Reading Progress</span>
+      <span class="sb-reading-pct" id="sb-pct">0%</span>
+    </div>
+  </div>
+
   <div class="sidebar-status">
     <span class="status-dot"></span>
     <em>Active</em>

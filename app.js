@@ -149,23 +149,63 @@ function initHeader() {
   updateHeader();
 }
 
-/* ─── 4. SIDEBAR ACTIVE STATE ─── */
+/* ─── 4. SIDEBAR TIMELINE + PROGRESS ─── */
 function initSidebar() {
-  const items = document.querySelectorAll('.sidebar-item[data-section]');
+  const items = document.querySelectorAll('.sb-link[data-section]');
+  if (!items.length) return;
   const sections = Array.from(items).map(i => document.getElementById(i.dataset.section)).filter(Boolean);
+  const progressBar = document.getElementById('sidebar-progress');
+  const pctLabel = document.getElementById('sb-pct');
+  let activeIdx = 0;
 
+  // Scroll-spy: mark active section + visited sections above it
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
-        items.forEach(item => {
-          item.classList.toggle('active', item.dataset.section === id);
+        let foundIdx = -1;
+        items.forEach((item, idx) => {
+          const isActive = item.dataset.section === id;
+          if (isActive) foundIdx = idx;
+          item.classList.remove('active', 'visited');
+          if (isActive) {
+            item.classList.add('active');
+            activeIdx = idx;
+          } else if (idx < foundIdx || (foundIdx === -1 && idx < activeIdx)) {
+            item.classList.add('visited');
+          }
         });
+        // Re-apply visited to all items above active
+        if (foundIdx >= 0) {
+          items.forEach((item, idx) => {
+            if (idx < foundIdx) item.classList.add('visited');
+          });
+        }
       }
     });
-  }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+  }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
 
   sections.forEach(s => io.observe(s));
+
+  // Scroll progress bar + percentage
+  function updateProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = Math.min(Math.round((scrollTop / docHeight) * 100), 100);
+    if (progressBar) progressBar.style.width = pct + '%';
+    if (pctLabel) pctLabel.textContent = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // Smooth scroll on click
+  items.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(item.dataset.section);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
 }
 
 /* ─── 5. REVEAL ANIMATIONS — scroll-driven ─── */
