@@ -74,87 +74,21 @@
   <a href="#act-7" class="mobile-nav-item">Company</a>
 </div>
 
-<!-- ─── Sidebar ─── -->
-<aside id="sidebar" aria-label="Story navigation">
-  <div class="sidebar-top">
-    <img src="assets/icon-transparent.jpg" alt="AdiOS" class="sidebar-icon" />
-    <span class="sidebar-brand">AdiOS</span>
-  </div>
+<!-- ─── Floating Nav Dots (right side) ─── -->
+<nav id="dot-nav" aria-label="Section navigation">
+  <a href="#prologue" class="dot-link active" data-section="prologue" title="Prologue"><span class="dot"></span></a>
+  <a href="#act-1" class="dot-link" data-section="act-1" title="The OS"><span class="dot"></span></a>
+  <a href="#act-2" class="dot-link" data-section="act-2" title="The Brain"><span class="dot"></span></a>
+  <a href="#act-3" class="dot-link" data-section="act-3" title="Pillars"><span class="dot"></span></a>
+  <a href="#act-4" class="dot-link" data-section="act-4" title="Architecture"><span class="dot"></span></a>
+  <a href="#act-5" class="dot-link" data-section="act-5" title="The Loop"><span class="dot"></span></a>
+  <a href="#act-6" class="dot-link" data-section="act-6" title="Market"><span class="dot"></span></a>
+  <a href="#act-7" class="dot-link" data-section="act-7" title="Company"><span class="dot"></span></a>
+  <a href="#coda" class="dot-link" data-section="coda" title="Coda"><span class="dot"></span></a>
+</nav>
 
-  <!-- Scroll progress bar -->
-  <div class="sidebar-progress-track">
-    <div class="sidebar-progress-fill" id="sidebar-progress"></div>
-  </div>
-
-  <nav class="sidebar-nav" aria-label="Section navigation">
-    <a href="#prologue" class="sb-link active" data-section="prologue">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Prologue</span>
-      <span class="sb-desc">Boot Sovereign</span>
-    </a>
-    <a href="#act-1" class="sb-link" data-section="act-1">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Act I</span>
-      <span class="sb-desc">The Operating System</span>
-    </a>
-    <a href="#act-2" class="sb-link" data-section="act-2">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Act II</span>
-      <span class="sb-desc">The Three-Layer Brain</span>
-    </a>
-    <a href="#act-3" class="sb-link" data-section="act-3">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Act III</span>
-      <span class="sb-desc">Three Pillars</span>
-    </a>
-    <a href="#act-4" class="sb-link" data-section="act-4">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Act IV</span>
-      <span class="sb-desc">The Architecture</span>
-    </a>
-    <a href="#act-5" class="sb-link" data-section="act-5">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Act V</span>
-      <span class="sb-desc">The Circular Loop</span>
-    </a>
-    <a href="#act-6" class="sb-link" data-section="act-6">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Act VI</span>
-      <span class="sb-desc">The Market</span>
-    </a>
-    <a href="#act-7" class="sb-link" data-section="act-7">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Act VII</span>
-      <span class="sb-desc">The Company</span>
-    </a>
-    <a href="#coda" class="sb-link" data-section="coda">
-      <span class="sb-dot"></span>
-      <span class="sb-line"></span>
-      <span class="sb-label">Coda</span>
-      <span class="sb-desc">Boot Sovereign</span>
-    </a>
-  </nav>
-
-  <div class="sidebar-footer">
-    <div class="sb-reading">
-      <span class="sb-reading-label">Reading Progress</span>
-      <span class="sb-reading-pct" id="sb-pct">0%</span>
-    </div>
-  </div>
-
-  <div class="sidebar-status">
-    <span class="status-dot"></span>
-    <em>Active</em>
-  </div>
-</aside>
+<!-- Scroll progress bar (top) -->
+<div id="top-progress"><div id="top-progress-fill"></div></div>
 
 <!-- ─── Main Content ─── -->
 <main id="main-content">
@@ -269,13 +203,53 @@
         </div>
       </div>
 
-      <!-- Act I Diagram: Traditional vs AdiOS — high contrast SVG -->
-      <div class="comparison-diagram reveal-up" style="--delay:0.25s">
-        <div class="comparison-label-row">
-          <span class="comp-label">Traditional AI</span>
-          <span class="comp-label accent">With AdiOS</span>
-        </div>
-        <!-- Striking two-panel comparison SVG -->
+      <!-- Act I: Animated Comparison Table -->
+      <div class="comp-table-wrap reveal-up" style="--delay:0.25s">
+        <table class="comp-table" id="comp-table">
+          <thead>
+            <tr>
+              <th class="comp-th-metric"></th>
+              <th class="comp-th-trad">Traditional AI</th>
+              <th class="comp-th-adios">With AdiOS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="comp-row" style="--row-delay:0s">
+              <td class="comp-metric">Data Sovereignty</td>
+              <td class="comp-trad"><span class="comp-bad">Data leaves India</span></td>
+              <td class="comp-adios"><span class="comp-good">Data never moves</span></td>
+            </tr>
+            <tr class="comp-row" style="--row-delay:0.12s">
+              <td class="comp-metric">Provenance</td>
+              <td class="comp-trad"><span class="comp-bad">0% traceability</span></td>
+              <td class="comp-adios"><span class="comp-good">100% traced</span></td>
+            </tr>
+            <tr class="comp-row" style="--row-delay:0.24s">
+              <td class="comp-metric">Confidence Scoring</td>
+              <td class="comp-trad"><span class="comp-bad">None — black box</span></td>
+              <td class="comp-adios"><span class="comp-good">0.70 → 0.85 → 0.95+</span></td>
+            </tr>
+            <tr class="comp-row" style="--row-delay:0.36s">
+              <td class="comp-metric">Compliance</td>
+              <td class="comp-trad"><span class="comp-bad">Manual — 3 weeks</span></td>
+              <td class="comp-adios"><span class="comp-good">Automated — inline</span></td>
+            </tr>
+            <tr class="comp-row" style="--row-delay:0.48s">
+              <td class="comp-metric">Query Speed</td>
+              <td class="comp-trad"><span class="comp-bad">7 months manual</span></td>
+              <td class="comp-adios"><span class="comp-good comp-highlight">127 milliseconds</span></td>
+            </tr>
+            <tr class="comp-row" style="--row-delay:0.6s">
+              <td class="comp-metric">Breach Surface</td>
+              <td class="comp-trad"><span class="comp-bad">500+ TB exposed</span></td>
+              <td class="comp-adios"><span class="comp-good comp-highlight">0 TB — zero movement</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div><!-- end comp-table-wrap -->
+
+      <!-- OLD SVG removed — replaced by table above. Hide remaining SVG wrapper -->
+      <div style="display:none">
         <svg class="comp-svg" viewBox="0 0 640 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Traditional AI vs AdiOS comparison">
           <defs>
             <linearGradient id="tealGlow" x1="0%" y1="0%" x2="100%" y2="100%">

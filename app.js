@@ -149,63 +149,56 @@ function initHeader() {
   updateHeader();
 }
 
-/* ─── 4. SIDEBAR TIMELINE + PROGRESS ─── */
+/* ─── 4. DOT NAV + PROGRESS BAR ─── */
 function initSidebar() {
-  const items = document.querySelectorAll('.sb-link[data-section]');
-  if (!items.length) return;
-  const sections = Array.from(items).map(i => document.getElementById(i.dataset.section)).filter(Boolean);
-  const progressBar = document.getElementById('sidebar-progress');
-  const pctLabel = document.getElementById('sb-pct');
-  let activeIdx = 0;
+  const dots = document.querySelectorAll('.dot-link[data-section]');
+  if (!dots.length) return;
+  const sections = Array.from(dots).map(d => document.getElementById(d.dataset.section)).filter(Boolean);
+  const progressFill = document.getElementById('top-progress-fill');
 
-  // Scroll-spy: mark active section + visited sections above it
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
         let foundIdx = -1;
-        items.forEach((item, idx) => {
-          const isActive = item.dataset.section === id;
-          if (isActive) foundIdx = idx;
-          item.classList.remove('active', 'visited');
-          if (isActive) {
-            item.classList.add('active');
-            activeIdx = idx;
-          } else if (idx < foundIdx || (foundIdx === -1 && idx < activeIdx)) {
-            item.classList.add('visited');
-          }
+        dots.forEach((dot, idx) => {
+          if (dot.dataset.section === id) foundIdx = idx;
+          dot.classList.remove('active', 'visited');
         });
-        // Re-apply visited to all items above active
         if (foundIdx >= 0) {
-          items.forEach((item, idx) => {
-            if (idx < foundIdx) item.classList.add('visited');
-          });
+          dots[foundIdx].classList.add('active');
+          for (let i = 0; i < foundIdx; i++) dots[i].classList.add('visited');
         }
       }
     });
   }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
-
   sections.forEach(s => io.observe(s));
 
-  // Scroll progress bar + percentage
+  // Progress bar
   function updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = Math.min(Math.round((scrollTop / docHeight) * 100), 100);
-    if (progressBar) progressBar.style.width = pct + '%';
-    if (pctLabel) pctLabel.textContent = pct + '%';
+    const pct = Math.min((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100, 100);
+    if (progressFill) progressFill.style.width = pct + '%';
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
 
-  // Smooth scroll on click
-  items.forEach(item => {
-    item.addEventListener('click', e => {
+  // Click to scroll
+  dots.forEach(dot => {
+    dot.addEventListener('click', e => {
       e.preventDefault();
-      const target = document.getElementById(item.dataset.section);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const t = document.getElementById(dot.dataset.section);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
+
+  // Animate comparison table rows on scroll
+  const compRows = document.querySelectorAll('.comp-row');
+  if (compRows.length) {
+    const rowIO = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.2 });
+    compRows.forEach(r => rowIO.observe(r));
+  }
 }
 
 /* ─── 5. REVEAL ANIMATIONS — scroll-driven ─── */
