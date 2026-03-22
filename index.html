@@ -25,6 +25,9 @@
   <meta property="og:description" content="India's first sovereign AI operating system. Intelligence at the kernel, not the cloud." />
   <meta property="og:image" content="assets/icon-transparent.jpg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="adi-chat.css" />
 
@@ -41,1018 +44,949 @@
 </head>
 <body>
 
-<!-- ─── Scroll Progress ─── -->
-<div id="scroll-progress"></div>
+<!-- ─── Particle Canvas ─── -->
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
 
-<!-- ─── Section Dots ─── -->
-<nav id="section-dots" aria-label="Section navigation">
-  <div class="section-dot active" data-section="prologue" data-label="Prologue"></div>
-  <div class="section-dot" data-section="act-1" data-label="Act I — OS"></div>
-  <div class="section-dot" data-section="act-2" data-label="Act II — Brain"></div>
-  <div class="section-dot" data-section="act-3" data-label="Act III — Pillars"></div>
-  <div class="section-dot" data-section="act-4" data-label="Act IV — Architecture"></div>
-  <div class="section-dot" data-section="act-5" data-label="Act V — Loop"></div>
-  <div class="section-dot" data-section="act-6" data-label="Act VI — Market"></div>
-  <div class="section-dot" data-section="act-7" data-label="Act VII — Patents"></div>
-  <div class="section-dot" data-section="act-8" data-label="Act VIII — Company"></div>
-  <div class="section-dot" data-section="coda" data-label="Coda"></div>
-</nav>
-
-<!-- ─── Canvas Starfield ─── -->
-<canvas id="starfield" aria-hidden="true"></canvas>
-
-<!-- ─── Navigation ─── -->
-<header id="nav" role="banner">
-  <a href="#prologue" class="nav-logo" aria-label="AdiOS Platform — Home">
-    <img src="assets/logo-dark.jpg" alt="AdiOS" height="32" />
-  </a>
-  <ul class="nav-links" role="list">
-    <li><a href="#act-1">Operating System</a></li>
-    <li><a href="#act-3">Platform</a></li>
-    <li><a href="#act-5">Ecosystem</a></li>
-    <li><a href="#act-8">Company</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-    <span></span><span></span><span></span>
-  </button>
+<!-- ─── Header ─── -->
+<header id="site-header">
+  <div class="header-inner">
+    <a href="#prologue" class="header-logo" aria-label="AdiOS Home">
+      <img src="assets/logo-light.jpg" alt="AdiOS" height="32" />
+    </a>
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="#act-1" class="nav-item">Operating System</a>
+      <a href="#act-3" class="nav-item">Platform</a>
+      <a href="#act-7" class="nav-item">Ecosystem</a>
+      <a href="#act-7" class="nav-item">Company</a>
+    </nav>
+    <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
 
-<!-- Mobile Nav -->
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-  <a href="#act-1" class="mobile-nav-link">Operating System</a>
-  <a href="#act-3" class="mobile-nav-link">Platform</a>
-  <a href="#act-5" class="mobile-nav-link">Ecosystem</a>
-  <a href="#act-8" class="mobile-nav-link">Company</a>
-</nav>
+<!-- ─── Mobile Nav Drawer ─── -->
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <a href="#act-1" class="mobile-nav-item">Operating System</a>
+  <a href="#act-3" class="mobile-nav-item">Platform</a>
+  <a href="#act-7" class="mobile-nav-item">Ecosystem</a>
+  <a href="#act-7" class="mobile-nav-item">Company</a>
+</div>
 
-<!-- ═══════════════════════════════════════════════
-     PROLOGUE — THE HERO
-     ═══════════════════════════════════════════════ -->
-<section id="prologue" class="full-screen" data-section="prologue">
-  <div class="section-inner text-center">
-
-    <!-- Logo orbit -->
-    <div class="logo-orbit-container" aria-hidden="true">
-      <div class="orbit-ring orbit-ring-2"></div>
-      <div class="orbit-ring orbit-ring-1"></div>
-      <img src="assets/icon-transparent.jpg" alt="AdiOS icon" class="logo-icon" />
-    </div>
-
-    <!-- Wordmark -->
-    <h1 class="wordmark reveal">AdiOS</h1>
-    <p class="wordmark-sub reveal reveal-delay-1">Architecture-Driven Intelligent Operating System</p>
-    <p class="boot-sovereign reveal reveal-delay-2">Boot Sovereign.</p>
-
-    <!-- Boot Terminal -->
-    <div class="terminal" id="boot-terminal" aria-live="polite" aria-label="Boot sequence">
-      <div class="terminal-line" id="tl-1">
-        <span class="terminal-check">✓</span>
-        <span class="terminal-service">adios-brains.mount</span>
-        <span class="terminal-desc">LUKS-encrypted brain partition</span>
-      </div>
-      <div class="terminal-line" id="tl-2">
-        <span class="terminal-check">✓</span>
-        <span class="terminal-service">adios-oxigraph.service</span>
-        <span class="terminal-desc">Knowledge graph engine</span>
-      </div>
-      <div class="terminal-line" id="tl-3">
-        <span class="terminal-check">✓</span>
-        <span class="terminal-service">adios-strata.service</span>
-        <span class="terminal-desc">Sovereign data lakehouse</span>
-      </div>
-      <div class="terminal-line" id="tl-4">
-        <span class="terminal-check">✓</span>
-        <span class="terminal-service">adios-sentinel.service</span>
-        <span class="terminal-desc">Governance engine</span>
-      </div>
-      <div class="terminal-line" id="tl-5">
-        <span class="terminal-check">✓</span>
-        <span class="terminal-service">adios-prism.service</span>
-        <span class="terminal-desc">Model router</span>
-      </div>
-      <div class="terminal-line" id="tl-6">
-        <span class="terminal-check">✓</span>
-        <span class="terminal-service">adios-conductor.service</span>
-        <span class="terminal-desc">Query orchestrator</span>
-      </div>
-      <div class="terminal-ready" id="terminal-ready">
-        ADIOS PLATFORM READY. SOVEREIGNTY ACTIVE.
-      </div>
-    </div>
-
-    <!-- Stat Ribbon -->
-    <div class="stat-ribbon" aria-label="Platform statistics">
-      <div class="stat-item">
-        <span class="stat-number" data-count="38">0</span>
-        <span class="stat-label">Components</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number" data-count="5">0</span>
-        <span class="stat-label">Divisions</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number" data-count="7">0</span>
-        <span class="stat-label">Patent Claims</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number" data-count="1570" data-suffix="+">0</span>
-        <span class="stat-label">Tests Passing</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number" data-count="127" data-suffix="ms">0</span>
-        <span class="stat-label">Query</span>
-      </div>
-    </div>
-
+<!-- ─── Sidebar ─── -->
+<aside id="sidebar" aria-label="Story navigation">
+  <div class="sidebar-top">
+    <img src="assets/icon-128.jpg" alt="AdiOS icon" width="28" height="28" class="sidebar-icon" />
   </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ═══════════════════════════════════════════════
-     ACT I — THE OPERATING SYSTEM
-     ═══════════════════════════════════════════════ -->
-<section id="act-1" class="full-screen" data-section="act-1">
-  <div class="section-inner">
-    <div class="act-label">Act I</div>
-    <h2 class="act-title reveal">Why an Operating System?</h2>
-
-    <p class="lead-text reveal reveal-delay-1">
-      Every generation of computing has been defined by its operating system. Unix gave us files. Windows gave us interfaces. Linux gave us freedom. macOS gave us design. None of them gave us intelligence.
-    </p>
-
-    <div class="sep-line"></div>
-
-    <p class="pullquote reveal mt-lg mb-lg">
-      "What if intelligence was as fundamental as the file system?"
-    </p>
-
-    <div class="sep-line"></div>
-
-    <p class="lead-text reveal reveal-delay-1 mt-lg" style="max-width: 680px;">
-      What if you booted a machine, and it already knew your business? Your customers. Your compliance obligations. Your internal policies — encoded in a knowledge graph that can reason, not just retrieve.
-    </p>
-
-    <p class="lead-text reveal reveal-delay-2 mt-md" style="max-width: 680px;">
-      AdiOS is not an AI tool that runs on your OS. AdiOS <em>is</em> the OS — sovereign by design, intelligent by architecture. Intelligence lives at the kernel level, not in a cloud API call that crosses a border and leaks context.
-    </p>
-
-    <!-- System Tray Mockup -->
-    <div class="system-tray reveal reveal-delay-3" role="region" aria-label="AdiOS System Tray">
-      <div class="tray-header">AdiOS System Tray — Active Services</div>
-
-      <div class="tray-item">
-        <span class="tray-indicator">◉</span>
-        <div>
-          <div><span class="tray-service-name">Brain</span><span class="tray-status"> Active</span></div>
-          <div class="tray-detail">
-            Personal: 1,247 assertions (0.70) &nbsp;|&nbsp;
-            Domain: 8,402 (0.85) &nbsp;|&nbsp;
-            Org: 42,891 (0.95+)
-          </div>
-        </div>
-      </div>
-
-      <div class="tray-item">
-        <span class="tray-indicator">◉</span>
-        <div>
-          <div><span class="tray-service-name">Lakehouse</span><span class="tray-status"> Active</span></div>
-          <div class="tray-detail">12 tables &nbsp;·&nbsp; 847 MB &nbsp;·&nbsp; 3 domains</div>
-        </div>
-      </div>
-
-      <div class="tray-item">
-        <span class="tray-indicator">◉</span>
-        <div>
-          <div><span class="tray-service-name">Sentinel</span><span class="tray-status"> Enforcing</span></div>
-          <div class="tray-detail">DPDP Act &nbsp;·&nbsp; RBI &nbsp;·&nbsp; IRDAI</div>
-        </div>
-      </div>
-    </div>
-
+  <nav class="sidebar-nav" aria-label="Section navigation">
+    <a href="#prologue" class="sidebar-item active" data-section="prologue">Prologue</a>
+    <a href="#act-1" class="sidebar-item" data-section="act-1">Act I · The OS</a>
+    <a href="#act-2" class="sidebar-item" data-section="act-2">Act II · The Brain</a>
+    <a href="#act-3" class="sidebar-item" data-section="act-3">Act III · Pillars</a>
+    <a href="#act-4" class="sidebar-item" data-section="act-4">Act IV · Architecture</a>
+    <a href="#act-5" class="sidebar-item" data-section="act-5">Act V · The Loop</a>
+    <a href="#act-6" class="sidebar-item" data-section="act-6">Act VI · The Market</a>
+    <a href="#act-7" class="sidebar-item" data-section="act-7">Act VII · The Company</a>
+    <a href="#coda" class="sidebar-item" data-section="coda">Coda</a>
+  </nav>
+  <div class="sidebar-status">
+    <span class="status-dot"></span>
+    <em>Active</em>
   </div>
-</section>
+</aside>
 
-<div class="section-divider"></div>
+<!-- ─── Main Content ─── -->
+<main id="main-content">
 
-<!-- ═══════════════════════════════════════════════
-     ACT II — THE THREE-LAYER BRAIN
-     ═══════════════════════════════════════════════ -->
-<section id="act-2" class="full-screen" data-section="act-2">
-  <div class="section-inner">
-    <div class="act-label">Act II</div>
-    <h2 class="act-title reveal">How Knowledge Earns Trust</h2>
+  <!-- ═══════════════════════════════════════════
+       PROLOGUE — Hero
+  ═══════════════════════════════════════════ -->
+  <section id="prologue" class="section section-prologue">
+    <div class="prologue-inner">
+      <div class="prologue-logo reveal-up">
+        <img src="assets/logo-light.jpg" alt="AdiOS" height="48" />
+      </div>
+      <h1 class="prologue-headline reveal-up" style="--delay:0.1s">
+        <em>Boot Sovereign.</em>
+      </h1>
+      <p class="prologue-sub reveal-up" style="--delay:0.2s">Architecture-Driven Intelligent Operating System</p>
 
-    <p class="lead-text reveal reveal-delay-1" style="max-width: 640px;">
-      Every claim in the AdiOS brain carries a confidence score. Knowledge is not declared — it is earned through a governance process that mirrors how organizations actually validate truth.
-    </p>
-
-    <!-- Brain Tier Diagram -->
-    <div class="brain-diagram" aria-label="Three-layer brain architecture">
-
-      <div class="brain-tier brain-tier-3">
-        <div class="tier-number">Tier 3</div>
-        <div class="tier-info">
-          <div class="tier-name">NeuralMesh — Enterprise Brain</div>
-          <div class="tier-sub">Enterprise truth. Regulatory-grade.</div>
+      <!-- Terminal card -->
+      <div class="terminal-card reveal-up" style="--delay:0.3s" aria-label="AdiOS boot sequence">
+        <div class="terminal-header">
+          <span class="terminal-dot t-red"></span>
+          <span class="terminal-dot t-amber"></span>
+          <span class="terminal-dot t-green"></span>
+          <span class="terminal-label">adios boot — sovereign init</span>
         </div>
-        <div class="tier-confidence">0.95+</div>
+        <pre class="terminal-body" id="terminal-output"></pre>
       </div>
 
-      <div class="tier-arrow">
-        <div class="tier-arrow-line"></div>
-      </div>
-
-      <div class="brain-tier brain-tier-2">
-        <div class="tier-number">Tier 2</div>
-        <div class="tier-info">
-          <div class="tier-name">NeuralMesh — Domain Brain</div>
-          <div class="tier-sub">Team-validated knowledge.</div>
+      <!-- Stat ribbon -->
+      <div class="stat-ribbon reveal-up" style="--delay:0.4s">
+        <div class="stat-item">
+          <span class="stat-number" data-count="38">0</span>
+          <span class="stat-label">Components</span>
         </div>
-        <div class="tier-confidence">0.85</div>
-      </div>
-
-      <div class="tier-arrow">
-        <div class="tier-arrow-line"></div>
-      </div>
-
-      <div class="brain-tier brain-tier-1">
-        <div class="tier-number">Tier 1</div>
-        <div class="tier-info">
-          <div class="tier-name">SeedVault — Personal Brain</div>
-          <div class="tier-sub">Your local vault. Never leaves your device.</div>
+        <div class="stat-divider" aria-hidden="true">·</div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="5">0</span>
+          <span class="stat-label">Divisions</span>
         </div>
-        <div class="tier-confidence">0.70</div>
-      </div>
-
-    </div>
-
-    <div class="sep-line"></div>
-
-    <div class="reveal text-center mt-lg" style="display:flex;flex-direction:column;align-items:center;gap:16px;">
-      <p style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);">
-        Knowledge flows <span class="text-teal">UP</span> through human governance &nbsp;·&nbsp; Schema flows <span class="text-amber">DOWN</span>
-      </p>
-      <p class="pullquote" style="font-size: clamp(22px, 3vw, 36px);">"Trust is earned, not declared."</p>
-    </div>
-
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ═══════════════════════════════════════════════
-     ACT III — THE THREE PILLARS
-     ═══════════════════════════════════════════════ -->
-<section id="act-3" class="full-screen" data-section="act-3">
-  <div class="section-inner">
-    <div class="act-label">Act III</div>
-    <h2 class="act-title reveal">One Query. Three Pillars. Unified Result.</h2>
-
-    <p class="lead-text reveal reveal-delay-1" style="max-width: 680px;">
-      Most enterprise AI systems answer questions from one data source. AdiOS routes every query simultaneously through three orthogonal pillars, then merges results with a unified confidence score and a provenance trail.
-    </p>
-
-    <div class="pillars-grid" role="list" aria-label="Three platform pillars">
-
-      <div class="pillar-card" role="listitem">
-        <div class="pillar-number">Pillar 01</div>
-        <span class="pillar-icon" aria-hidden="true">◈</span>
-        <div class="pillar-name">Brain</div>
-        <div class="pillar-question">WHO · WHAT · WHY</div>
-        <p class="pillar-desc">Semantic knowledge in RDF/SPARQL. Every entity, relationship, and fact — structured, versioned, governed. The system knows context, not just content.</p>
-      </div>
-
-      <div class="pillar-card" role="listitem">
-        <div class="pillar-number">Pillar 02</div>
-        <span class="pillar-icon" aria-hidden="true">◈</span>
-        <div class="pillar-name">Lakehouse</div>
-        <div class="pillar-question">WHEN · WHERE · HOW MUCH</div>
-        <p class="pillar-desc">Analytical tabular data at scale. Time-series, transactional, operational. The system knows numbers, not just narratives.</p>
-      </div>
-
-      <div class="pillar-card" role="listitem">
-        <div class="pillar-number">Pillar 03</div>
-        <span class="pillar-icon" aria-hidden="true">◈</span>
-        <div class="pillar-name">Governance</div>
-        <div class="pillar-question">WHO MAY SEE WHAT</div>
-        <p class="pillar-desc">Policy as architecture. Every query is pre-filtered by entitlements. Compliance is not a middleware concern — it is the foundation.</p>
-      </div>
-
-    </div>
-
-    <div class="query-flow reveal">
-      <span class="query-highlight">One natural-language query</span>
-      &nbsp;→&nbsp; Brain (semantic) &nbsp;+&nbsp; Lakehouse (analytical) &nbsp;+&nbsp; Sentinel (governance)
-      &nbsp;→&nbsp; <span class="query-highlight">127 milliseconds</span> &nbsp;·&nbsp; With a confidence score &nbsp;·&nbsp; With a provenance trail
-    </div>
-
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ═══════════════════════════════════════════════
-     ACT IV — THE ARCHITECTURE
-     ═══════════════════════════════════════════════ -->
-<section id="act-4" class="full-screen" data-section="act-4">
-  <div class="section-inner">
-    <div class="act-label">Act IV</div>
-    <h2 class="act-title reveal">Five Divisions. 38 Components.</h2>
-
-    <p class="lead-text reveal reveal-delay-1" style="max-width: 680px;">
-      AdiOS is not a product — it is a platform stack. Five divisions, each answering a distinct architectural question. Click any division to explore its components.
-    </p>
-
-    <div class="architecture-stack" role="list" aria-label="Architecture divisions" id="arch-stack">
-
-      <!-- ECOSYSTEM -->
-      <div class="arch-layer" role="listitem" tabindex="0" data-layer="ecosystem" aria-expanded="false">
-        <div class="arch-layer-header">
-          <span class="arch-layer-number">Layer 5</span>
-          <span class="arch-layer-name">ECOSYSTEM</span>
-          <span class="arch-component-count">7 components</span>
-          <span class="arch-layer-question">How does it grow?</span>
+        <div class="stat-divider" aria-hidden="true">·</div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="7">0</span>
+          <span class="stat-label">Patent Claims</span>
         </div>
-        <div class="arch-components" aria-hidden="true">
-          <div class="arch-components-list">
-            <span class="component-tag">Forge</span>
-            <span class="component-tag">Marketplace</span>
-            <span class="component-tag">Blueprint</span>
-            <span class="component-tag">RegionKit</span>
-            <span class="component-tag">DevKit</span>
-            <span class="component-tag">PluginAPI</span>
-            <span class="component-tag">OntologyHub</span>
+        <div class="stat-divider" aria-hidden="true">·</div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="1570" data-suffix="+">0</span>
+          <span class="stat-label">Tests</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true">·</div>
+        <div class="stat-item">
+          <span class="stat-number" data-count="127" data-suffix="ms">0</span>
+          <span class="stat-label">Query</span>
+        </div>
+      </div>
+
+      <div class="prologue-tagline reveal-up" style="--delay:0.5s">
+        <p>We help the daring build legendary sovereign AI.</p>
+      </div>
+
+      <div class="scroll-hint reveal-up" style="--delay:0.6s" aria-hidden="true">
+        <span class="scroll-hint-line"></span>
+        <span class="scroll-hint-text">Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ACT I — THE OPERATING SYSTEM
+  ═══════════════════════════════════════════ -->
+  <section id="act-1" class="section section-act">
+    <div class="section-inner">
+      <div class="act-label reveal-up">Act I</div>
+      <h2 class="section-title reveal-up" style="--delay:0.05s">The Operating System</h2>
+
+      <div class="act1-body reveal-up" style="--delay:0.1s">
+        <p class="body-large">Every generation of computing has been defined by its operating system. DOS gave us the command line. Unix gave us multi-user computing. Windows gave us the GUI. Linux gave us the server. Android gave us the pocket. Each era's OS was not just software — it was the substrate of possibility.</p>
+        <p class="body-large">We are at the threshold of a new era. Intelligence is moving from the cloud to the kernel. From external service to foundational layer. The question is not whether AI will be embedded into enterprise infrastructure — it is whether that intelligence will be sovereign or rented.</p>
+      </div>
+
+      <div class="key-question reveal-up" style="--delay:0.15s">
+        <em>"What if intelligence was as fundamental as the file system?"</em>
+      </div>
+
+      <!-- System Tray mockup -->
+      <div class="system-tray-wrap reveal-up" style="--delay:0.2s">
+        <div class="system-tray">
+          <div class="tray-header">
+            <span class="tray-label">adios.system_tray</span>
+            <span class="tray-status-badge">LIVE</span>
+          </div>
+          <div class="tray-row">
+            <span class="tray-key">brain.status</span>
+            <span class="tray-val tray-green">● active — tier 3 enterprise</span>
+          </div>
+          <div class="tray-row">
+            <span class="tray-key">lakehouse.status</span>
+            <span class="tray-val tray-green">● connected — 847 entities indexed</span>
+          </div>
+          <div class="tray-row">
+            <span class="tray-key">sentinel.status</span>
+            <span class="tray-val tray-green">● enforcing — 12 active policies</span>
+          </div>
+          <div class="tray-row">
+            <span class="tray-key">query.latency</span>
+            <span class="tray-val tray-amber">◆ 127ms avg — confidence: 0.94</span>
+          </div>
+          <div class="tray-row">
+            <span class="tray-key">sovereignty</span>
+            <span class="tray-val tray-green">● local — zero cloud egress</span>
           </div>
         </div>
       </div>
 
-      <!-- INTEGRATIONS -->
-      <div class="arch-layer" role="listitem" tabindex="0" data-layer="integrations" aria-expanded="false">
-        <div class="arch-layer-header">
-          <span class="arch-layer-number">Layer 4</span>
-          <span class="arch-layer-name">INTEGRATIONS</span>
-          <span class="arch-component-count">5 components</span>
-          <span class="arch-layer-question">How does it connect?</span>
+      <!-- Act I Diagram: Traditional AI vs AdiOS -->
+      <div class="comparison-diagram reveal-up" style="--delay:0.25s">
+        <div class="comparison-label-row">
+          <span class="comp-label">Traditional AI</span>
+          <span class="comp-label accent">AdiOS</span>
         </div>
-        <div class="arch-components" aria-hidden="true">
-          <div class="arch-components-list">
-            <span class="component-tag">Meridian</span>
-            <span class="component-tag">Conduit</span>
-            <span class="component-tag">Bridge</span>
-            <span class="component-tag">Sync</span>
-            <span class="component-tag">Webhook</span>
-          </div>
-        </div>
+        <svg class="comp-svg" viewBox="0 0 560 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Traditional AI vs AdiOS comparison diagram">
+          <!-- Traditional AI side -->
+          <!-- Cloud icon -->
+          <g transform="translate(40, 60)">
+            <circle cx="30" cy="30" r="24" stroke="#DBCDB3" stroke-width="1.5"/>
+            <path d="M15 38 Q10 44 18 48 H42 Q50 44 45 38 Q48 28 38 26 Q36 18 28 20 Q20 18 18 26 Q10 26 15 38Z" stroke="#DBCDB3" stroke-width="1.5" fill="none"/>
+            <text x="30" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#6B6560">CLOUD</text>
+          </g>
+          <!-- Arrow out -->
+          <line x1="118" y1="90" x2="170" y2="90" stroke="#DBCDB3" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <polygon points="168,85 178,90 168,95" fill="#DBCDB3"/>
+          <!-- Data leaves box -->
+          <rect x="178" y="70" width="84" height="40" rx="4" stroke="#DBCDB3" stroke-width="1.5"/>
+          <text x="220" y="87" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">Data</text>
+          <text x="220" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">Leaves ↑</text>
+          <!-- No provenance -->
+          <text x="220" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#DBCDB3">no provenance</text>
+          <!-- Divider -->
+          <line x1="280" y1="20" x2="280" y2="180" stroke="#DBCDB3" stroke-width="1" stroke-dasharray="6,4"/>
+          <!-- AdiOS side -->
+          <!-- Local icon -->
+          <g transform="translate(320, 60)">
+            <rect x="8" y="8" width="44" height="36" rx="4" stroke="#2A6B5A" stroke-width="1.5"/>
+            <rect x="16" y="48" width="28" height="6" rx="2" stroke="#2A6B5A" stroke-width="1.5"/>
+            <circle cx="30" cy="26" r="8" stroke="#CA5C3D" stroke-width="1.5"/>
+            <text x="30" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#2A6B5A">LOCAL</text>
+          </g>
+          <!-- Arrow stay -->
+          <line x1="398" y1="90" x2="430" y2="90" stroke="#2A6B5A" stroke-width="1.5"/>
+          <polygon points="428,85 438,90 428,95" fill="#2A6B5A"/>
+          <!-- Data stays box -->
+          <rect x="438" y="70" width="84" height="40" rx="4" stroke="#2A6B5A" stroke-width="1.5"/>
+          <text x="480" y="87" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">Data</text>
+          <text x="480" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">Stays ✓</text>
+          <!-- Confidence scored -->
+          <text x="480" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">confidence scored</text>
+        </svg>
       </div>
-
-      <!-- TOOLS -->
-      <div class="arch-layer" role="listitem" tabindex="0" data-layer="tools" aria-expanded="false">
-        <div class="arch-layer-header">
-          <span class="arch-layer-number">Layer 3</span>
-          <span class="arch-layer-name">TOOLS</span>
-          <span class="arch-component-count">6 components</span>
-          <span class="arch-layer-question">How do users interact?</span>
-        </div>
-        <div class="arch-components" aria-hidden="true">
-          <div class="arch-components-list">
-            <span class="component-tag">Lens</span>
-            <span class="component-tag">Grid</span>
-            <span class="component-tag">Query</span>
-            <span class="component-tag">Kanban</span>
-            <span class="component-tag">Cortex</span>
-            <span class="component-tag">Dashboard</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CORE -->
-      <div class="arch-layer" role="listitem" tabindex="0" data-layer="core" aria-expanded="false">
-        <div class="arch-layer-header">
-          <span class="arch-layer-number">Layer 2</span>
-          <span class="arch-layer-name">CORE</span>
-          <span class="arch-component-count">14 components</span>
-          <span class="arch-layer-question">What does it do?</span>
-        </div>
-        <div class="arch-components" aria-hidden="true">
-          <div class="arch-components-list">
-            <span class="component-tag">SeedVault</span>
-            <span class="component-tag">NeuralMesh</span>
-            <span class="component-tag">GraphCore</span>
-            <span class="component-tag">Prism</span>
-            <span class="component-tag">Conductor</span>
-            <span class="component-tag">Sentinel</span>
-            <span class="component-tag">Strata</span>
-            <span class="component-tag">Catalog</span>
-            <span class="component-tag">Lineage</span>
-            <span class="component-tag">Assay</span>
-            <span class="component-tag">Reasoner</span>
-            <span class="component-tag">Vector</span>
-            <span class="component-tag">Embed</span>
-            <span class="component-tag">Entrust</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- SUBSTRATE -->
-      <div class="arch-layer" role="listitem" tabindex="0" data-layer="substrate" aria-expanded="false">
-        <div class="arch-layer-header">
-          <span class="arch-layer-number">Layer 1</span>
-          <span class="arch-layer-name">SUBSTRATE</span>
-          <span class="arch-component-count">5 components</span>
-          <span class="arch-layer-question">Where does it run?</span>
-        </div>
-        <div class="arch-components" aria-hidden="true">
-          <div class="arch-components-list">
-            <span class="component-tag">DeepRoot</span>
-            <span class="component-tag">NixCore</span>
-            <span class="component-tag">RegionStore</span>
-            <span class="component-tag">SecureBoot</span>
-            <span class="component-tag">Hardware Attestation</span>
-          </div>
-        </div>
-      </div>
-
     </div>
+  </section>
 
-    <div class="tests-counter reveal">
-      <div class="tests-number" id="tests-counter" data-count="1570" data-suffix="+">0</div>
-      <div class="tests-label">Tests Passing — Real-Time Quality Signal</div>
-    </div>
+  <!-- ═══════════════════════════════════════════
+       ACT II — THE THREE-LAYER BRAIN
+  ═══════════════════════════════════════════ -->
+  <section id="act-2" class="section section-act section-alt">
+    <div class="section-inner">
+      <div class="act-label reveal-up">Act II</div>
+      <h2 class="section-title reveal-up" style="--delay:0.05s">The Three-Layer Brain</h2>
+      <p class="section-intro reveal-up" style="--delay:0.1s">Intelligence without trust is noise. The AdiOS Brain structures knowledge across three tiers — each assertion earning its confidence score through review, validation, and provenance.</p>
 
-  </div>
-</section>
+      <!-- Brain tiers diagram -->
+      <div class="brain-diagram reveal-up" style="--delay:0.15s">
+        <!-- Tier 3 Enterprise (top) -->
+        <div class="brain-tier tier-3">
+          <div class="tier-particles" id="particles-3" aria-hidden="true"></div>
+          <div class="tier-content">
+            <div class="tier-badge">Tier 3</div>
+            <div class="tier-name">Enterprise</div>
+            <div class="tier-score">0.95+</div>
+            <div class="tier-desc">Validated, cross-domain, high-confidence knowledge. Organization-wide facts and relationships.</div>
+          </div>
+          <div class="tier-arrow-down" aria-hidden="true">↓ schema propagation</div>
+        </div>
+        <!-- Flow particles between tiers -->
+        <div class="tier-flow" aria-hidden="true">
+          <div class="flow-particle"></div>
+          <div class="flow-particle"></div>
+          <div class="flow-particle"></div>
+        </div>
+        <!-- Tier 2 Domain -->
+        <div class="brain-tier tier-2">
+          <div class="tier-particles" id="particles-2" aria-hidden="true"></div>
+          <div class="tier-content">
+            <div class="tier-badge">Tier 2</div>
+            <div class="tier-name">Domain</div>
+            <div class="tier-score">0.85</div>
+            <div class="tier-desc">Department or project-scoped knowledge. Reviewed by domain experts. Higher confidence than personal assertions.</div>
+          </div>
+          <div class="tier-arrow-down" aria-hidden="true">↓ schema propagation</div>
+        </div>
+        <!-- Flow particles -->
+        <div class="tier-flow" aria-hidden="true">
+          <div class="flow-particle"></div>
+          <div class="flow-particle"></div>
+          <div class="flow-particle"></div>
+        </div>
+        <!-- Tier 1 Personal (bottom) -->
+        <div class="brain-tier tier-1">
+          <div class="tier-particles" id="particles-1" aria-hidden="true"></div>
+          <div class="tier-content">
+            <div class="tier-badge">Tier 1</div>
+            <div class="tier-name">Personal</div>
+            <div class="tier-score">0.70</div>
+            <div class="tier-desc">Individual assertions and context. Starting point for all knowledge. Promoted upward through validation gates.</div>
+          </div>
+        </div>
+      </div>
 
-<div class="section-divider"></div>
-
-<!-- ═══════════════════════════════════════════════
-     ACT V — THE CIRCULAR LOOP
-     ═══════════════════════════════════════════════ -->
-<section id="act-5" class="full-screen" data-section="act-5">
-  <div class="section-inner">
-    <div class="act-label">Act V</div>
-    <h2 class="act-title reveal">The System Gets Smarter</h2>
-
-    <p class="lead-text reveal reveal-delay-1" style="max-width: 640px;">
-      AdiOS is a compounding system. Every interaction adds to the knowledge graph, every pattern becomes a recommendation, every validated insight becomes enterprise truth.
-    </p>
-
-    <div class="loop-container">
-      <!-- SVG Circular Loop Diagram -->
-      <div class="loop-svg-wrapper reveal" aria-label="Compounding intelligence loop diagram">
-        <svg id="loop-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="USE → OBSERVE → LEARN → INTELLIGENCE → VALUE → USE circular loop">
-
-          <!-- Outer glow ring -->
-          <circle cx="200" cy="200" r="155" stroke="rgba(78,205,196,0.08)" stroke-width="1"/>
-          <circle cx="200" cy="200" r="140" stroke="rgba(78,205,196,0.12)" stroke-width="1" stroke-dasharray="4 6"/>
-
-          <!-- Animated arc path for flow -->
-          <circle cx="200" cy="200" r="148" id="loop-track"
-            stroke="rgba(78,205,196,0.15)" stroke-width="2" fill="none"/>
-
-          <!-- Animated flow dot -->
-          <circle r="5" fill="#4ecdc4" opacity="0.9">
-            <animateMotion dur="4s" repeatCount="indefinite">
-              <mpath href="#loop-path-motion"/>
-            </animateMotion>
-          </circle>
-          <circle r="3" fill="#d4a843" opacity="0.7">
-            <animateMotion dur="4s" begin="1.3s" repeatCount="indefinite">
-              <mpath href="#loop-path-motion"/>
-            </animateMotion>
-          </circle>
-          <circle r="3" fill="#4ecdc4" opacity="0.5">
-            <animateMotion dur="4s" begin="2.6s" repeatCount="indefinite">
-              <mpath href="#loop-path-motion"/>
-            </animateMotion>
-          </circle>
-
-          <path id="loop-path-motion"
-            d="M 200 52 A 148 148 0 1 1 199.9 52"
-            fill="none" stroke="none"/>
-
-          <!-- Node circles at each position (6 nodes, evenly spaced 60°) -->
-          <!-- USE: top (270° from right = 90° from top) = (200, 52) -->
-          <!-- OBSERVE: top-right = (328, 126) -->
-          <!-- LEARN: bottom-right = (328, 274) -->
-          <!-- INTELLIGENCE: bottom = (200, 348) -->
-          <!-- VALUE: bottom-left = (72, 274) -->
-          <!-- USE (back): top-left = (72, 126) -->
-
-          <!-- Node: USE (top) -->
-          <circle cx="200" cy="52" r="22" fill="#0d1117" stroke="#4ecdc4" stroke-width="1.5"/>
-          <text x="200" y="47" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" font-weight="700" fill="#4ecdc4" letter-spacing="0.05em">USE</text>
-
-          <!-- Node: OBSERVE -->
-          <circle cx="328" cy="126" r="26" fill="#0d1117" stroke="rgba(78,205,196,0.5)" stroke-width="1.5"/>
-          <text x="328" y="123" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7.5" font-weight="600" fill="#9ba3ad">OBSERVE</text>
-
-          <!-- Node: LEARN -->
-          <circle cx="328" cy="274" r="24" fill="#0d1117" stroke="rgba(78,205,196,0.5)" stroke-width="1.5"/>
-          <text x="328" y="271" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" font-weight="600" fill="#9ba3ad">LEARN</text>
-
-          <!-- Node: INTELLIGENCE (bottom) -->
-          <circle cx="200" cy="348" r="30" fill="#0d1117" stroke="rgba(212,168,67,0.6)" stroke-width="2"/>
-          <text x="200" y="343" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" font-weight="700" fill="#d4a843">INTELLI-</text>
-          <text x="200" y="353" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" font-weight="700" fill="#d4a843">GENCE</text>
-
-          <!-- Node: VALUE -->
-          <circle cx="72" cy="274" r="24" fill="#0d1117" stroke="rgba(78,205,196,0.5)" stroke-width="1.5"/>
-          <text x="72" y="271" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="8" font-weight="600" fill="#9ba3ad">VALUE</text>
-
-          <!-- Node: SOVEREIGNTY (top-left) -->
-          <circle cx="72" cy="126" r="28" fill="#0d1117" stroke="rgba(212,168,67,0.4)" stroke-width="1.5"/>
-          <text x="72" y="122" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" font-weight="700" fill="#d4a843">SOVER-</text>
-          <text x="72" y="132" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="7" font-weight="700" fill="#d4a843">EIGNTY</text>
-
-          <!-- Center text -->
-          <text x="200" y="195" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="16" font-style="italic" fill="rgba(232,230,227,0.5)">compounds</text>
-          <text x="200" y="214" text-anchor="middle" font-family="Cormorant Garamond,Georgia,serif" font-size="13" font-style="italic" fill="rgba(232,230,227,0.3)">every cycle</text>
+      <!-- Trust promotion SVG diagram -->
+      <div class="trust-diagram-wrap reveal-up" style="--delay:0.2s">
+        <h3 class="diagram-title">Trust Promotion Flow</h3>
+        <svg class="trust-svg" viewBox="0 0 600 140" fill="none" xmlns="http://www.w3.org/2000/svg" id="trust-svg" aria-label="Trust promotion flow diagram">
+          <!-- Track line -->
+          <line x1="60" y1="70" x2="540" y2="70" stroke="#DBCDB3" stroke-width="1.5" id="trust-track"/>
+          <!-- Stage 1: gray dot — personal assertion -->
+          <circle cx="60" cy="70" r="10" fill="#DBCDB3" stroke="#6B6560" stroke-width="1.5" id="trust-d1"/>
+          <text x="60" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">PERSONAL</text>
+          <text x="60" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">0.70</text>
+          <!-- Gate 1 -->
+          <rect x="155" y="58" width="30" height="24" rx="4" stroke="#DBCDB3" stroke-width="1.5" id="trust-gate1"/>
+          <text x="170" y="72" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">GATE</text>
+          <text x="170" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">REVIEW</text>
+          <!-- Stage 2: medium dot — domain -->
+          <circle cx="280" cy="70" r="12" fill="#E8D5C0" stroke="#CA5C3D" stroke-width="1.5" id="trust-d2"/>
+          <text x="280" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">DOMAIN</text>
+          <text x="280" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">0.85</text>
+          <!-- Gate 2 -->
+          <rect x="375" y="56" width="30" height="28" rx="4" stroke="#CA5C3D" stroke-width="1.5" id="trust-gate2"/>
+          <text x="390" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">GATE</text>
+          <text x="390" y="82" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">2</text>
+          <text x="390" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">VALIDATE</text>
+          <!-- Stage 3: golden dot — enterprise -->
+          <circle cx="540" cy="70" r="14" fill="#CA5C3D" stroke="#CA5C3D" stroke-width="1.5" id="trust-d3"/>
+          <text x="540" y="102" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">ENTERPRISE</text>
+          <text x="540" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">0.95+</text>
+          <!-- Animated dot -->
+          <circle cx="60" cy="70" r="6" fill="#1D1D1D" id="trust-mover"/>
         </svg>
       </div>
 
-      <!-- Actor Table -->
-      <div class="reveal" style="width:100%;">
-        <table class="actor-table" aria-label="Actor contribution and consumption table">
-          <thead>
-            <tr>
-              <th>Actor</th>
-              <th>Contributes</th>
-              <th>Consumes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Human</td>
-              <td>Domain knowledge, decisions</td>
-              <td>AI recommendations</td>
-            </tr>
-            <tr>
-              <td>Bot</td>
-              <td>Pattern detection</td>
-              <td>Context, policies</td>
-            </tr>
-            <tr>
-              <td>Component</td>
-              <td>Telemetry, metrics</td>
-              <td>Configuration</td>
-            </tr>
-            <tr>
-              <td>Plugin</td>
-              <td>Domain ontologies</td>
-              <td>Platform APIs</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="act-mantra reveal-up" style="--delay:0.25s">
+        <em>"Trust is earned, not declared."</em>
       </div>
     </div>
+  </section>
 
-    <div class="sep-line"></div>
-    <p class="pullquote reveal mt-lg" style="font-size: clamp(18px, 2.5vw, 28px);">
-      "The system compounds. This is not a metaphor. This is architecture."
-    </p>
+  <!-- ═══════════════════════════════════════════
+       ACT III — THREE PILLARS
+  ═══════════════════════════════════════════ -->
+  <section id="act-3" class="section section-act">
+    <div class="section-inner">
+      <div class="act-label reveal-up">Act III</div>
+      <h2 class="section-title reveal-up" style="--delay:0.05s">Three Pillars</h2>
+      <p class="section-intro reveal-up" style="--delay:0.1s">Every intelligent query touches three foundational systems simultaneously. Not sequential — concurrent. This is what makes AdiOS architecturally distinct.</p>
 
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ═══════════════════════════════════════════════
-     ACT VI — THE MARKET
-     ═══════════════════════════════════════════════ -->
-<section id="act-6" class="full-screen" data-section="act-6">
-  <div class="section-inner">
-    <div class="act-label">Act VI</div>
-    <h2 class="act-title reveal">The Missing Integration Layer</h2>
-
-    <p class="lead-text reveal reveal-delay-1" style="max-width: 680px;">
-      There is a gap in the enterprise AI stack. Applications sit on top. Models sit below. But between them — between intent and execution — there is nothing sovereign, nothing stateful, nothing that owns the context.
-    </p>
-
-    <!-- Stack Position Diagram -->
-    <div class="stack-diagram reveal reveal-delay-2" role="list" aria-label="AI stack position diagram">
-      <div class="stack-layer" role="listitem">
-        <div class="stack-layer-name">Applications</div>
-        <div class="stack-layer-desc">CRM, ERP, workflow tools, user interfaces</div>
-      </div>
-      <div class="stack-layer adios-layer" role="listitem">
-        <div class="stack-layer-name">← AdiOS</div>
-        <div class="stack-layer-desc">Sovereign AI OS — knowledge, governance, orchestration</div>
-      </div>
-      <div class="stack-layer" role="listitem">
-        <div class="stack-layer-name">Models</div>
-        <div class="stack-layer-desc">LLMs, SLMs, embedding models, inference engines</div>
-      </div>
-      <div class="stack-layer" role="listitem">
-        <div class="stack-layer-name">Compute</div>
-        <div class="stack-layer-desc">GPU clusters, edge hardware, hybrid infrastructure</div>
-      </div>
-      <div class="stack-layer" role="listitem">
-        <div class="stack-layer-name">Regulation</div>
-        <div class="stack-layer-desc">DPDP Act, RBI, IRDAI, EU AI Act, GDPR</div>
-      </div>
-      <div class="stack-layer" role="listitem">
-        <div class="stack-layer-name">DPI</div>
-        <div class="stack-layer-desc">UPI, Aadhaar, ONDC, OCEN, DigiLocker</div>
-      </div>
-    </div>
-
-    <!-- Market Charts -->
-    <div class="market-grid">
-
-      <div class="market-card">
-        <div class="market-card-label">India AI Market</div>
-        <div class="market-card-value">$7.6B → $126B</div>
-        <div class="market-card-sub">2024 to 2030 projection</div>
-        <div class="market-bar-track">
-          <div class="market-bar-fill" style="--target-width: 6%;"></div>
-        </div>
-        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Current: $7.6B &nbsp;/&nbsp; Target: $126B</div>
-        <canvas class="mini-line-chart" id="chart-india" aria-label="India AI market growth chart"></canvas>
-      </div>
-
-      <div class="market-card">
-        <div class="market-card-label">Enterprise AI Adoption</div>
-        <div class="market-card-value">87%</div>
-        <div class="market-card-sub">Enterprises use AI. 0% have a sovereign AI OS.</div>
-        <div class="market-bar-track">
-          <div class="market-bar-fill" style="--target-width: 87%;"></div>
-        </div>
-        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Enterprise AI adoption &nbsp;·&nbsp; 2025</div>
-        <div style="margin-top:16px;padding:12px 16px;background:var(--bg-elevated);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:11px;color:var(--teal);">
-          0% have a sovereign AI OS — this is the gap AdiOS fills.
-        </div>
-      </div>
-
-      <div class="market-card">
-        <div class="market-card-label">GPU Deployment (India)</div>
-        <div class="market-card-value">38K → 200K</div>
-        <div class="market-card-sub">Installed base to national AI mission target</div>
-        <div class="market-bar-track">
-          <div class="market-bar-fill" style="--target-width: 19%;"></div>
-        </div>
-        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Current: 38,000 &nbsp;/&nbsp; Target: 200,000</div>
-      </div>
-
-      <div class="market-card">
-        <div class="market-card-label">Enterprise AI Software</div>
-        <div class="market-card-value">$11B → $71B</div>
-        <div class="market-card-sub">6.5× growth by 2030</div>
-        <div class="market-bar-track">
-          <div class="market-bar-fill" style="--target-width: 15%;"></div>
-        </div>
-        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">Current: $11B &nbsp;/&nbsp; Projected: $71B</div>
-        <canvas class="mini-line-chart" id="chart-enterprise" aria-label="Enterprise AI software market growth"></canvas>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ═══════════════════════════════════════════════
-     ACT VII — THE PATENT MOAT
-     ═══════════════════════════════════════════════ -->
-<section id="act-7" class="full-screen" data-section="act-7">
-  <div class="section-inner">
-    <div class="act-label">Act VII</div>
-    <h2 class="act-title reveal">Seven Interlocking Claims</h2>
-
-    <p class="lead-text reveal reveal-delay-1" style="max-width: 680px;">
-      Each patent claim encodes a distinct architectural innovation. Together, they form a dependency chain — you cannot copy one piece in isolation. The moat is systemic.
-    </p>
-
-    <div class="patents-diagram" aria-label="Patent dependency diagram">
-
-      <div class="patent-node">
-        <div class="patent-id">S1</div>
-        <div>
-          <div class="patent-title">Three-Layer Cognitive Brain</div>
-          <div class="patent-dep">Foundation — all other claims depend on this</div>
-        </div>
-      </div>
-
-      <div class="patent-node">
-        <div class="patent-id">S2</div>
-        <div>
-          <div class="patent-title">Sovereign Model Router</div>
-          <div class="patent-dep">Depends on S1 — routes inference within trust boundaries defined by the brain</div>
-        </div>
-      </div>
-
-      <div class="patent-node">
-        <div class="patent-id">S3</div>
-        <div>
-          <div class="patent-title">Nix-Declarative Sovereign OS</div>
-          <div class="patent-dep">Independent — declarative reproducibility for sovereign deployments</div>
-        </div>
-      </div>
-
-      <div class="patent-node">
-        <div class="patent-id">S4</div>
-        <div>
-          <div class="patent-title">Multi-Architecture AI Inference</div>
-          <div class="patent-dep">Depends on S3 — hardware-agnostic inference layer built on sovereign substrate</div>
-        </div>
-      </div>
-
-      <div class="patent-node">
-        <div class="patent-id">S5</div>
-        <div>
-          <div class="patent-title">Sovereign AI Marketplace</div>
-          <div class="patent-dep">Depends on S2 — governed model distribution within routed sovereignty</div>
-        </div>
-      </div>
-
-      <div class="patent-node">
-        <div class="patent-id">S6</div>
-        <div>
-          <div class="patent-title">India Sovereign AI Compliance</div>
-          <div class="patent-dep">Cross-cuts S1 + S3 — DPDP Act, RBI, IRDAI compliance encoded at architecture level</div>
-        </div>
-      </div>
-
-      <div class="patent-node">
-        <div class="patent-id">S7</div>
-        <div>
-          <div class="patent-title">Enterprise Symbolic Twin</div>
-          <div class="patent-dep">Cross-cuts everything — digital twin of the enterprise encoded in the sovereign brain</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="sep-line"></div>
-    <p class="pullquote reveal mt-lg" style="font-size: clamp(18px, 2.5vw, 30px);">
-      "You can't copy one piece. The moat is the dependency chain."
-    </p>
-
-  </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- ═══════════════════════════════════════════════
-     ACT VIII — THE COMPANY
-     ═══════════════════════════════════════════════ -->
-<section id="act-8" class="full-screen" data-section="act-8">
-  <div class="section-inner">
-    <div class="act-label">Act VIII</div>
-    <h2 class="act-title reveal">AdiOS Platform Private Limited</h2>
-
-    <div class="company-grid">
-
-      <!-- Company Info -->
-      <div class="company-info-block reveal">
-        <div class="info-row">
-          <span class="info-label">Headquarters</span>
-          <span class="info-value">Hyderabad, Telangana, India</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Founded</span>
-          <span class="info-value">2026</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Founder & CTO</span>
-          <span class="info-value">Malay Baral</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Stage</span>
-          <span class="info-value" style="color:var(--amber);">Pre-Seed</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">Mission</span>
-          <span class="info-value">India's first sovereign AI operating system</span>
-        </div>
-      </div>
-
-      <!-- Revenue Tracks -->
-      <div class="reveal reveal-delay-2">
-        <p class="mono-tag mb-lg">Three Revenue Tracks</p>
-        <div class="revenue-tracks">
-          <div class="revenue-track">
-            <div class="track-header">
-              <span class="track-name">Digital Services</span>
-              <span class="track-timeline">6–12 weeks</span>
-            </div>
-            <p class="track-desc">Advisory, integration, knowledge base construction. Fast time-to-value for enterprises beginning their sovereign AI journey.</p>
+      <!-- Three pillars cards -->
+      <div class="pillars-grid reveal-up" style="--delay:0.15s">
+        <div class="pillar-card pillar-brain">
+          <div class="pillar-accent-bar"></div>
+          <div class="pillar-header">
+            <span class="pillar-number">01</span>
+            <h3 class="pillar-name">Brain</h3>
           </div>
-          <div class="revenue-track">
-            <div class="track-header">
-              <span class="track-name">Enterprise Services</span>
-              <span class="track-timeline">12–36 months</span>
-            </div>
-            <p class="track-desc">AI program management, architecture design, regulatory compliance implementation. Deep engagement, durable relationships.</p>
+          <div class="pillar-questions">
+            <span>WHO</span>
+            <span>WHAT</span>
+            <span>WHY</span>
           </div>
-          <div class="revenue-track">
-            <div class="track-header">
-              <span class="track-name">Product Platform</span>
-              <span class="track-timeline">Perpetual</span>
+          <p class="pillar-desc">The knowledge graph and trust layer. Three-tier hierarchy from personal assertion to enterprise truth. Every fact carries confidence and provenance.</p>
+        </div>
+
+        <div class="pillar-card pillar-lakehouse">
+          <div class="pillar-accent-bar"></div>
+          <div class="pillar-header">
+            <span class="pillar-number">02</span>
+            <h3 class="pillar-name">Lakehouse</h3>
+          </div>
+          <div class="pillar-questions">
+            <span>WHEN</span>
+            <span>WHERE</span>
+            <span>HOW MUCH</span>
+          </div>
+          <p class="pillar-desc">Unified data fabric. Time-series, geospatial, and quantitative context. All data remains local — zero cloud egress, full provenance chain.</p>
+        </div>
+
+        <div class="pillar-card pillar-governance">
+          <div class="pillar-accent-bar"></div>
+          <div class="pillar-header">
+            <span class="pillar-number">03</span>
+            <h3 class="pillar-name">Governance</h3>
+          </div>
+          <div class="pillar-questions">
+            <span>WHO</span>
+            <span>MAY</span>
+            <span>SEE WHAT</span>
+          </div>
+          <p class="pillar-desc">Sentinel enforcement layer. Policy-driven access control with audit trails. Sovereign from day one — no data leaves without explicit, logged permission.</p>
+        </div>
+      </div>
+
+      <!-- Query flow animation -->
+      <div class="query-flow-wrap reveal-up" style="--delay:0.2s">
+        <div class="query-flow-label">Query Flow</div>
+        <svg class="query-flow-svg" viewBox="0 0 600 80" fill="none" xmlns="http://www.w3.org/2000/svg" id="query-flow-svg" aria-label="Query flow diagram">
+          <!-- Input -->
+          <rect x="10" y="30" width="70" height="20" rx="4" stroke="#DBCDB3" stroke-width="1.5"/>
+          <text x="45" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">QUERY</text>
+          <!-- Main line -->
+          <line x1="80" y1="40" x2="170" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl1"/>
+          <!-- Split point -->
+          <circle cx="170" cy="40" r="4" fill="#CA5C3D" id="qf-split"/>
+          <!-- Three branches -->
+          <line x1="170" y1="40" x2="260" y2="15" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl2"/>
+          <line x1="170" y1="40" x2="260" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl3"/>
+          <line x1="170" y1="40" x2="260" y2="65" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl4"/>
+          <!-- Pillar nodes -->
+          <rect x="262" y="7" width="60" height="16" rx="3" stroke="#CA5C3D" stroke-width="1.5"/>
+          <text x="292" y="19" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#CA5C3D">BRAIN</text>
+          <rect x="262" y="32" width="60" height="16" rx="3" stroke="#2A6B5A" stroke-width="1.5"/>
+          <text x="292" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#2A6B5A">LAKEHOUSE</text>
+          <rect x="262" y="57" width="60" height="16" rx="3" stroke="#6B6560" stroke-width="1.5"/>
+          <text x="292" y="69" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">SENTINEL</text>
+          <!-- Merge lines -->
+          <line x1="322" y1="15" x2="410" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl5"/>
+          <line x1="322" y1="40" x2="410" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl6"/>
+          <line x1="322" y1="65" x2="410" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl7"/>
+          <!-- Merge point -->
+          <circle cx="410" cy="40" r="4" fill="#CA5C3D" id="qf-merge"/>
+          <!-- Output line -->
+          <line x1="414" y1="40" x2="500" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl8"/>
+          <!-- Output box -->
+          <rect x="500" y="30" width="90" height="20" rx="4" stroke="#2A6B5A" stroke-width="1.5"/>
+          <text x="545" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#2A6B5A">CONFIDENCE 0.94</text>
+        </svg>
+      </div>
+
+      <div class="act-mono reveal-up" style="--delay:0.25s">
+        127 milliseconds. Confidence-scored. Provenance-attached.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ACT IV — ARCHITECTURE
+  ═══════════════════════════════════════════ -->
+  <section id="act-4" class="section section-act section-alt">
+    <div class="section-inner">
+      <div class="act-label reveal-up">Act IV</div>
+      <h2 class="section-title reveal-up" style="--delay:0.05s">Architecture</h2>
+      <p class="section-intro reveal-up" style="--delay:0.1s">Five divisions. Thirty-eight components. One coherent system — designed from first principles, not assembled from parts.</p>
+
+      <!-- Architecture layers -->
+      <div class="arch-layers reveal-up" style="--delay:0.15s">
+        <div class="arch-layer" data-layer="substrate">
+          <div class="arch-layer-inner">
+            <div class="arch-layer-head">
+              <span class="arch-layer-name">Substrate</span>
+              <span class="arch-badge">5 components</span>
             </div>
-            <p class="track-desc">Community Edition (open) → Enterprise (licensed) → Marketplace (ecosystem). The long-term compounding revenue model.</p>
+            <div class="arch-layer-components">
+              <span>Kernel</span>
+              <span>Memory Manager</span>
+              <span>Storage Engine</span>
+              <span>Network Fabric</span>
+              <span>Security Core</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-layer" data-layer="core">
+          <div class="arch-layer-inner">
+            <div class="arch-layer-head">
+              <span class="arch-layer-name">Core</span>
+              <span class="arch-badge">14 components</span>
+            </div>
+            <div class="arch-layer-components">
+              <span>Brain Engine</span>
+              <span>Trust Evaluator</span>
+              <span>Schema Registry</span>
+              <span>Lakehouse</span>
+              <span>Sentinel</span>
+              <span>Query Planner</span>
+              <span>Confidence Scorer</span>
+              <span>Provenance Chain</span>
+              <span>Entity Store</span>
+              <span>Relationship Graph</span>
+              <span>Assertion Manager</span>
+              <span>Promotion Gate</span>
+              <span>Audit Log</span>
+              <span>Policy Engine</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-layer" data-layer="tools">
+          <div class="arch-layer-inner">
+            <div class="arch-layer-head">
+              <span class="arch-layer-name">Tools</span>
+              <span class="arch-badge">6 components</span>
+            </div>
+            <div class="arch-layer-components">
+              <span>CLI</span>
+              <span>Admin Console</span>
+              <span>Query Builder</span>
+              <span>Schema Designer</span>
+              <span>Audit Viewer</span>
+              <span>Policy Editor</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-layer" data-layer="integrations">
+          <div class="arch-layer-inner">
+            <div class="arch-layer-head">
+              <span class="arch-layer-name">Integrations</span>
+              <span class="arch-badge">5 components</span>
+            </div>
+            <div class="arch-layer-components">
+              <span>LLM Gateway</span>
+              <span>Data Connectors</span>
+              <span>Auth Bridge</span>
+              <span>Webhook Engine</span>
+              <span>Export Layer</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-layer" data-layer="ecosystem">
+          <div class="arch-layer-inner">
+            <div class="arch-layer-head">
+              <span class="arch-layer-name">Ecosystem</span>
+              <span class="arch-badge">8 components</span>
+            </div>
+            <div class="arch-layer-components">
+              <span>Node Network</span>
+              <span>Marketplace</span>
+              <span>SDK</span>
+              <span>Developer Portal</span>
+              <span>Partner API</span>
+              <span>Knowledge Exchange</span>
+              <span>Training Loop</span>
+              <span>Intelligence Mesh</span>
+            </div>
           </div>
         </div>
       </div>
 
-    </div>
-
-    <!-- Phase Timeline -->
-    <div class="phase-timeline reveal reveal-delay-3" role="list" aria-label="Market expansion phases">
-      <p class="mono-tag mb-lg">Geographic Expansion</p>
-
-      <div class="phase-row" role="listitem">
-        <span class="phase-label">Phase 1</span>
-        <span class="phase-name">India</span>
-        <span class="phase-regs">DPDP Act · RBI · IRDAI</span>
-      </div>
-      <div class="phase-row" role="listitem">
-        <span class="phase-label">Phase 2</span>
-        <span class="phase-name">Gulf / Middle East</span>
-        <span class="phase-regs">UAE PDPL · Saudi PDPL</span>
-      </div>
-      <div class="phase-row" role="listitem">
-        <span class="phase-label">Phase 3</span>
-        <span class="phase-name">Southeast Asia</span>
-        <span class="phase-regs">PDPA · PDPC</span>
-      </div>
-      <div class="phase-row" role="listitem">
-        <span class="phase-label">Phase 4</span>
-        <span class="phase-name">Europe</span>
-        <span class="phase-regs">GDPR · EU AI Act</span>
+      <!-- Test counter -->
+      <div class="test-counter reveal-up" style="--delay:0.2s">
+        <span class="counter-number" data-count="1570" data-suffix="+">0</span>
+        <span class="counter-label">tests passing</span>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- ═══════════════════════════════════════════
+       ACT V — THE CIRCULAR LOOP
+  ═══════════════════════════════════════════ -->
+  <section id="act-5" class="section section-act">
+    <div class="section-inner">
+      <div class="act-label reveal-up">Act V</div>
+      <h2 class="section-title reveal-up" style="--delay:0.05s">The Circular Loop</h2>
+      <p class="section-intro reveal-up" style="--delay:0.1s">AdiOS is not a static platform. Every interaction compounds. Every node improves every other node. This is not a feature — it is the foundational architecture.</p>
 
-<div class="section-divider"></div>
+      <!-- Circular loop SVG -->
+      <div class="loop-wrap reveal-up" style="--delay:0.15s">
+        <svg class="loop-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" id="loop-svg" aria-label="AdiOS circular intelligence loop">
+          <!-- Background circle -->
+          <circle cx="200" cy="200" r="140" stroke="#DBCDB3" stroke-width="1"/>
+          <!-- Main animated circle -->
+          <circle cx="200" cy="200" r="140" stroke="#CA5C3D" stroke-width="1.5" stroke-dasharray="879" stroke-dashoffset="879" id="loop-circle"/>
 
-<!-- ═══════════════════════════════════════════════
-     CODA — BOOT SOVEREIGN
-     ═══════════════════════════════════════════════ -->
-<section id="coda" class="full-screen" data-section="coda">
-  <div class="section-inner text-center">
+          <!-- Node positions: USE(top), OBSERVE(right), LEARN(bottom-right), INTELLIGENCE(bottom-left), VALUE(left) -->
+          <!-- USE — top center -->
+          <circle cx="200" cy="60" r="18" fill="#EAE6DB" stroke="#CA5C3D" stroke-width="2" id="loop-n1"/>
+          <text x="200" y="56" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#CA5C3D">USE</text>
+          <text x="200" y="67" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">interact</text>
+          <text x="200" y="35" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.1em">USE</text>
 
-    <div class="coda-statement" style="transition-delay: 0s;">
-      <h2>The <em>Operating System</em> — intelligence at the kernel, not the cloud.</h2>
-    </div>
-    <div class="coda-statement" style="transition-delay: 0.2s;">
-      <h2>The <em>Platform</em> — 38 components, five divisions, three pillars.</h2>
-    </div>
-    <div class="coda-statement" style="transition-delay: 0.4s;">
-      <h2>The <em>Ecosystem</em> — every node makes every other node smarter.</h2>
-    </div>
+          <!-- OBSERVE — right -->
+          <circle cx="333" cy="153" r="18" fill="#EAE6DB" stroke="#CA5C3D" stroke-width="2" id="loop-n2"/>
+          <text x="333" y="149" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="600" fill="#CA5C3D">OBS</text>
+          <text x="333" y="159" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">track</text>
+          <text x="362" y="138" text-anchor="start" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">OBSERVE</text>
 
-    <img src="assets/icon-transparent.jpg" alt="AdiOS" class="coda-logo" />
+          <!-- LEARN — bottom right -->
+          <circle cx="310" cy="293" r="18" fill="#EAE6DB" stroke="#CA5C3D" stroke-width="2" id="loop-n3"/>
+          <text x="310" y="289" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#CA5C3D">LEARN</text>
+          <text x="310" y="299" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">adapt</text>
+          <text x="310" y="320" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">LEARN</text>
 
-    <p class="boot-sovereign-coda">Boot Sovereign.</p>
+          <!-- INTELLIGENCE — bottom left -->
+          <circle cx="90" cy="293" r="18" fill="#EAE6DB" stroke="#2A6B5A" stroke-width="2" id="loop-n4"/>
+          <text x="90" y="289" text-anchor="middle" font-family="JetBrains Mono" font-size="6.5" font-weight="600" fill="#2A6B5A">INTEL</text>
+          <text x="90" y="299" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">score</text>
+          <text x="90" y="320" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">INTELLIGENCE</text>
 
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="#waitlist" class="btn-primary">Request Early Access →</a>
-      <a href="#act-1" class="btn-secondary">Read the Manifesto ↑</a>
-    </div>
+          <!-- VALUE — left -->
+          <circle cx="67" cy="153" r="18" fill="#EAE6DB" stroke="#2A6B5A" stroke-width="2" id="loop-n5"/>
+          <text x="67" y="149" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="600" fill="#2A6B5A">VALUE</text>
+          <text x="67" y="159" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">deliver</text>
+          <text x="20" y="138" text-anchor="start" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">VALUE</text>
 
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════
-     WAITLIST FORM
-     ═══════════════════════════════════════════════ -->
-<section id="waitlist" aria-labelledby="waitlist-title">
-  <div class="waitlist-inner">
-    <h2 class="waitlist-title reveal" id="waitlist-title">Join the Sovereign</h2>
-    <p class="waitlist-sub reveal reveal-delay-1">
-      Join enterprises building on India's first sovereign AI operating system.
-    </p>
-
-    <form class="waitlist-form reveal reveal-delay-2" id="waitlist-form" novalidate aria-label="Early access request form">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="wl-name">Full Name</label>
-          <input class="form-input" type="text" id="wl-name" name="name" placeholder="Malay Baral" required autocomplete="name" />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="wl-email">Work Email</label>
-          <input class="form-input" type="email" id="wl-email" name="email" placeholder="you@company.com" required autocomplete="email" />
-        </div>
+          <!-- Animated dot on track -->
+          <circle r="6" fill="#CA5C3D" id="loop-dot" opacity="0.9"/>
+        </svg>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="wl-company">Company</label>
-          <input class="form-input" type="text" id="wl-company" name="company" placeholder="Acme Corp" autocomplete="organization" />
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="wl-role">Role</label>
-          <input class="form-input" type="text" id="wl-role" name="role" placeholder="CTO / Head of AI" autocomplete="organization-title" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="wl-size">Company Size</label>
-          <select class="form-select" id="wl-size" name="company_size">
-            <option value="" disabled selected>Select size</option>
-            <option value="1-10">1–10 employees</option>
-            <option value="11-50">11–50 employees</option>
-            <option value="51-200">51–200 employees</option>
-            <option value="201-1000">201–1,000 employees</option>
-            <option value="1000+">1,000+ employees</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="wl-interest">Primary Interest</label>
-          <select class="form-select" id="wl-interest" name="interest">
-            <option value="" disabled selected>Select interest</option>
-            <option value="digital-services">Digital Services</option>
-            <option value="enterprise-platform">Enterprise Platform</option>
-            <option value="community-edition">Community Edition</option>
-            <option value="partnership">Technology Partnership</option>
-            <option value="investment">Investment / Advisory</option>
-          </select>
+
+      <!-- Actor table -->
+      <div class="actor-table reveal-up" style="--delay:0.2s">
+        <div class="actor-table-inner">
+          <div class="actor-row actor-header">
+            <span>Stage</span>
+            <span>Actor</span>
+            <span>Action</span>
+            <span>Output</span>
+          </div>
+          <div class="actor-row">
+            <span>USE</span>
+            <span>Enterprise / User</span>
+            <span>Query, interact, transact</span>
+            <span>Behavioral signal</span>
+          </div>
+          <div class="actor-row">
+            <span>OBSERVE</span>
+            <span>Sentinel + Lakehouse</span>
+            <span>Log, timestamp, tag</span>
+            <span>Structured event</span>
+          </div>
+          <div class="actor-row">
+            <span>LEARN</span>
+            <span>Brain Engine</span>
+            <span>Validate, promote, link</span>
+            <span>New assertion</span>
+          </div>
+          <div class="actor-row">
+            <span>INTELLIGENCE</span>
+            <span>Confidence Scorer</span>
+            <span>Weight, score, attribute</span>
+            <span>Trusted fact</span>
+          </div>
+          <div class="actor-row">
+            <span>VALUE</span>
+            <span>Query Planner</span>
+            <span>Surface, answer, route</span>
+            <span>127ms response</span>
+          </div>
         </div>
       </div>
-      <button type="submit" class="btn-primary form-submit">
-        Request Early Access →
-      </button>
-    </form>
 
-    <div class="form-success" id="form-success" role="status" aria-live="polite">
-      You're on the list. We'll be in touch.
+      <div class="act-mantra reveal-up" style="--delay:0.25s">
+        <em>"The system compounds. This is not a metaphor. This is architecture."</em>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══════════════════════════════════════════════
+  <!-- ═══════════════════════════════════════════
+       ACT VI — THE MARKET
+  ═══════════════════════════════════════════ -->
+  <section id="act-6" class="section section-act section-alt">
+    <div class="section-inner">
+      <div class="act-label reveal-up">Act VI</div>
+      <h2 class="section-title reveal-up" style="--delay:0.05s">The Market</h2>
+      <p class="section-intro reveal-up" style="--delay:0.1s">The sovereign AI infrastructure market does not yet exist at scale. AdiOS is not competing for a slice of the pie — it is defining the category.</p>
+
+      <!-- Stack position -->
+      <div class="stack-diagram reveal-up" style="--delay:0.1s">
+        <div class="stack-label">Where AdiOS Sits</div>
+        <div class="stack-layers">
+          <div class="stack-layer stack-above">LLM Layer <span>(OpenAI, Claude, Llama)</span></div>
+          <div class="stack-layer stack-adios">
+            <span class="stack-adios-badge">AdiOS</span>
+            Sovereign AI OS Layer <span>(knowledge, governance, provenance)</span>
+          </div>
+          <div class="stack-layer stack-below">Enterprise Data Layer <span>(ERP, CRM, documents)</span></div>
+        </div>
+      </div>
+
+      <!-- Market data -->
+      <div class="market-data reveal-up" style="--delay:0.15s">
+        <div class="market-item">
+          <div class="market-label">India AI Market</div>
+          <div class="market-bar-wrap">
+            <div class="market-bar-track">
+              <div class="market-bar market-bar-start" id="market-bar-now" style="width: 6%">
+                <span class="market-bar-label">$7.6B</span>
+              </div>
+            </div>
+            <div class="market-bar-track">
+              <div class="market-bar market-bar-end" id="market-bar-future" style="width: 0%">
+                <span class="market-bar-label">$126B</span>
+              </div>
+            </div>
+            <div class="market-bar-years">
+              <span>Today</span>
+              <span>2030 Projection</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="market-item">
+          <div class="market-label">GPU Infrastructure Progress</div>
+          <div class="gpu-progress-wrap">
+            <div class="gpu-bar-track">
+              <div class="gpu-bar" id="gpu-bar"></div>
+            </div>
+            <div class="gpu-labels">
+              <span class="gpu-current">38,000 GPUs deployed</span>
+              <span class="gpu-target">Target: 200,000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="market-insight-pair">
+          <div class="insight-item">
+            <div class="insight-bar-wrap">
+              <div class="insight-label-top">Enterprise AI Adoption</div>
+              <div class="insight-bar-track">
+                <div class="insight-bar insight-bar-large" id="insight-bar-1"></div>
+              </div>
+              <div class="insight-stat" id="insight-stat-1">0%</div>
+            </div>
+            <div class="insight-text">use AI in some form</div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-bar-wrap">
+              <div class="insight-label-top">Sovereign OS Ownership</div>
+              <div class="insight-bar-track">
+                <div class="insight-bar insight-bar-small" id="insight-bar-2"></div>
+              </div>
+              <div class="insight-stat" id="insight-stat-2">0%</div>
+            </div>
+            <div class="insight-text">have a sovereign OS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="market-statement reveal-up" style="--delay:0.2s">
+        <span class="market-big">87%</span> use AI. <span class="market-big">0%</span> have a sovereign OS.
+      </div>
+
+      <div class="market-sources reveal-up" style="--delay:0.25s">
+        Sources: NASSCOM AI Report 2024 · India Electronics & Semiconductor Association 2024 · McKinsey Global AI Survey 2024
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ACT VII — THE COMPANY
+  ═══════════════════════════════════════════ -->
+  <section id="act-7" class="section section-act">
+    <div class="section-inner">
+      <div class="act-label reveal-up">Act VII</div>
+      <h2 class="section-title reveal-up" style="--delay:0.05s">The Company</h2>
+
+      <!-- Company info card -->
+      <div class="company-card reveal-up" style="--delay:0.1s">
+        <div class="company-detail-row">
+          <span class="company-detail-key">Entity</span>
+          <span class="company-detail-val">AdiOS Platform Private Limited</span>
+        </div>
+        <div class="company-detail-row">
+          <span class="company-detail-key">Incorporation</span>
+          <span class="company-detail-val">India · Private Limited</span>
+        </div>
+        <div class="company-detail-row">
+          <span class="company-detail-key">Category</span>
+          <span class="company-detail-val">Deep Tech · Sovereign AI Infrastructure</span>
+        </div>
+        <div class="company-detail-row">
+          <span class="company-detail-key">IP Position</span>
+          <span class="company-detail-val">7 interlocking patent claims filed</span>
+        </div>
+        <div class="company-detail-row">
+          <span class="company-detail-key">Stage</span>
+          <span class="company-detail-val">Pre-seed · Early Access Program active</span>
+        </div>
+      </div>
+
+      <!-- Revenue tracks -->
+      <h3 class="subsection-title reveal-up" style="--delay:0.1s">Revenue Architecture</h3>
+      <div class="revenue-grid reveal-up" style="--delay:0.15s">
+        <div class="revenue-card">
+          <div class="revenue-number">01</div>
+          <h4 class="revenue-name">Enterprise Licensing</h4>
+          <p class="revenue-desc">Annual sovereign OS license. Per-division deployment. On-premise or private cloud. SLA-backed with dedicated support.</p>
+          <div class="revenue-timing">Near-term</div>
+        </div>
+        <div class="revenue-card">
+          <div class="revenue-number">02</div>
+          <h4 class="revenue-name">Platform Subscriptions</h4>
+          <p class="revenue-desc">Developer and team tiers. API access, SDK, and marketplace. Usage-based scaling with governance included at every tier.</p>
+          <div class="revenue-timing">Mid-term</div>
+        </div>
+        <div class="revenue-card">
+          <div class="revenue-number">03</div>
+          <h4 class="revenue-name">Ecosystem Marketplace</h4>
+          <p class="revenue-desc">Third-party modules, intelligence packs, and vertical solutions. Platform take-rate on all marketplace transactions. Network effects drive margin.</p>
+          <div class="revenue-timing">Long-term</div>
+        </div>
+      </div>
+
+      <!-- Geographic expansion -->
+      <h3 class="subsection-title reveal-up" style="--delay:0.1s">Geographic Expansion</h3>
+      <div class="geo-timeline reveal-up" style="--delay:0.15s">
+        <div class="geo-phase">
+          <div class="geo-marker geo-active"></div>
+          <div class="geo-phase-name">Phase 1</div>
+          <div class="geo-phase-market">India</div>
+          <div class="geo-phase-time">2024–2025</div>
+        </div>
+        <div class="geo-line"></div>
+        <div class="geo-phase">
+          <div class="geo-marker"></div>
+          <div class="geo-phase-name">Phase 2</div>
+          <div class="geo-phase-market">SEA + Middle East</div>
+          <div class="geo-phase-time">2026</div>
+        </div>
+        <div class="geo-line"></div>
+        <div class="geo-phase">
+          <div class="geo-marker"></div>
+          <div class="geo-phase-name">Phase 3</div>
+          <div class="geo-phase-market">Europe + UK</div>
+          <div class="geo-phase-time">2027</div>
+        </div>
+        <div class="geo-line"></div>
+        <div class="geo-phase">
+          <div class="geo-marker"></div>
+          <div class="geo-phase-name">Phase 4</div>
+          <div class="geo-phase-market">Global</div>
+          <div class="geo-phase-time">2028+</div>
+        </div>
+      </div>
+
+      <!-- Patent moat statement -->
+      <div class="patent-statement reveal-up" style="--delay:0.2s">
+        <div class="patent-number">7</div>
+        <div class="patent-text">
+          <p>interlocking patent claims filed.</p>
+          <p class="patent-sub">The moat is the dependency chain — you can't copy one piece.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CODA
+  ═══════════════════════════════════════════ -->
+  <section id="coda" class="section section-coda">
+    <div class="section-inner">
+      <div class="act-label coda-label reveal-up">Coda</div>
+
+      <div class="coda-statements">
+        <div class="coda-statement reveal-up" style="--delay:0.05s">
+          <em>"The Operating System —<br>intelligence at the kernel, not the cloud."</em>
+        </div>
+        <div class="coda-statement reveal-up" style="--delay:0.15s">
+          <em>"The Platform —<br>38 components, five divisions, three pillars."</em>
+        </div>
+        <div class="coda-statement reveal-up" style="--delay:0.25s">
+          <em>"The Ecosystem —<br>every node makes every other node smarter."</em>
+        </div>
+      </div>
+
+      <div class="coda-logo-wrap reveal-up" style="--delay:0.35s">
+        <img src="assets/logo-dark.jpg" alt="AdiOS" class="coda-logo" />
+        <div class="coda-tagline">Boot Sovereign.</div>
+      </div>
+
+      <div class="coda-cta reveal-up" style="--delay:0.45s">
+        <a href="#waitlist" class="btn-primary">Request Early Access</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       WAITLIST
+  ═══════════════════════════════════════════ -->
+  <section id="waitlist" class="section section-waitlist">
+    <div class="section-inner section-inner-narrow">
+      <h2 class="section-title reveal-up">Join the Early Access Program</h2>
+      <p class="section-intro reveal-up" style="--delay:0.05s">AdiOS is now accepting enterprise and developer partners for early access. Be among the first to deploy sovereign AI infrastructure.</p>
+
+      <form class="waitlist-form reveal-up" id="waitlist-form" style="--delay:0.1s" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="wl-name">Full Name</label>
+            <input type="text" id="wl-name" name="name" class="form-input" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="wl-email">Work Email</label>
+            <input type="email" id="wl-email" name="email" class="form-input" placeholder="you@company.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="wl-company">Company</label>
+            <input type="text" id="wl-company" name="company" class="form-input" placeholder="Company name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="wl-role">Role</label>
+            <select id="wl-role" name="role" class="form-input form-select">
+              <option value="">Select role</option>
+              <option>CTO / Technical Leader</option>
+              <option>Founder / CEO</option>
+              <option>Enterprise Architect</option>
+              <option>Developer / Engineer</option>
+              <option>Investor</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="wl-interest">What interests you most?</label>
+          <textarea id="wl-interest" name="interest" class="form-input form-textarea" placeholder="Tell us about your sovereign AI use case..." rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn-primary btn-full" id="wl-submit">
+          Request Early Access
+        </button>
+        <div class="form-success" id="form-success" aria-live="polite">
+          <span class="success-check">✓</span>
+          Thank you. We'll be in touch within 48 hours.
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════
      FOOTER
-     ═══════════════════════════════════════════════ -->
-<footer id="footer" role="contentinfo">
-  <div class="footer-top">
-    <div class="footer-brand">
-      <img src="assets/logo-dark.jpg" alt="AdiOS Platform" class="footer-logo" />
-      <p class="footer-tagline">Sovereign AI Operating System</p>
-      <p style="font-size:12px;color:var(--text-muted);line-height:1.5;">
-        Architecture-Driven Intelligent Operating System.<br />
-        Hyderabad, Telangana, India. Founded 2026.
-      </p>
+═══════════════════════════════════════════ -->
+<footer id="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo-dark.jpg" alt="AdiOS" height="36" class="footer-logo" />
+        <p class="footer-tagline">Sovereign AI Operating System</p>
+      </div>
+      <div class="footer-columns">
+        <div class="footer-col">
+          <div class="footer-col-title">Operating System</div>
+          <a href="#act-1" class="footer-link">The OS</a>
+          <a href="#act-2" class="footer-link">The Brain</a>
+          <a href="#act-4" class="footer-link">Architecture</a>
+          <a href="#act-5" class="footer-link">The Loop</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Platform</div>
+          <a href="#act-3" class="footer-link">Three Pillars</a>
+          <a href="#act-4" class="footer-link">38 Components</a>
+          <a href="#act-4" class="footer-link">Five Divisions</a>
+          <a href="#waitlist" class="footer-link">Developer Access</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Ecosystem</div>
+          <a href="#act-6" class="footer-link">Market</a>
+          <a href="#act-5" class="footer-link">Intelligence Loop</a>
+          <a href="#waitlist" class="footer-link">Partner Program</a>
+          <a href="#waitlist" class="footer-link">Marketplace</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <a href="#act-7" class="footer-link">About</a>
+          <a href="#act-7" class="footer-link">Patents</a>
+          <a href="#waitlist" class="footer-link">Careers</a>
+          <a href="#waitlist" class="footer-link">Press</a>
+        </div>
+      </div>
     </div>
 
-    <div class="footer-nav-grid">
-      <nav class="footer-nav-col" aria-label="Operating System">
-        <h5>Operating System</h5>
-        <ul>
-          <li><a href="#act-1">Why an OS?</a></li>
-          <li><a href="#act-2">Three-Layer Brain</a></li>
-          <li><a href="#act-4">Architecture</a></li>
-          <li><a href="#act-7">Patent Moat</a></li>
-        </ul>
-      </nav>
-      <nav class="footer-nav-col" aria-label="Platform">
-        <h5>Platform</h5>
-        <ul>
-          <li><a href="#act-3">Three Pillars</a></li>
-          <li><a href="#act-4">38 Components</a></li>
-          <li><a href="#act-5">Circular Loop</a></li>
-          <li><a href="#waitlist">Early Access</a></li>
-        </ul>
-      </nav>
-      <nav class="footer-nav-col" aria-label="Ecosystem">
-        <h5>Ecosystem</h5>
-        <ul>
-          <li><a href="#act-4">Forge</a></li>
-          <li><a href="#act-4">Marketplace</a></li>
-          <li><a href="#act-4">Blueprint</a></li>
-          <li><a href="#act-4">RegionKit</a></li>
-        </ul>
-      </nav>
-      <nav class="footer-nav-col" aria-label="Company">
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#act-8">About</a></li>
-          <li><a href="#act-8">Founder</a></li>
-          <li><a href="#act-8">Revenue Model</a></li>
-          <li><a href="#waitlist">Contact</a></li>
-        </ul>
-      </nav>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span class="footer-copy">© 2026 AdiOS Platform Private Limited. All rights reserved.</span>
+      </div>
+      <div class="footer-bottom-right">
+        <a href="https://linkedin.com/company/adios-platform" class="footer-social" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://x.com/adiosplatform" class="footer-social" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://github.com/adiosplatform" class="footer-social" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" class="footer-pplx">Created with Perplexity Computer</a>
+      </div>
     </div>
-  </div>
-
-  <div class="footer-bottom">
-    <p class="footer-copy">
-      © 2026 AdiOS Platform Private Limited. All rights reserved.
-    </p>
-    <div class="footer-social" aria-label="Social links">
-      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
-      <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">X</a>
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
-    </div>
-    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer" class="footer-pplx">
-      Created with Perplexity Computer
-    </a>
   </div>
 </footer>
 
-<script src="adi-chat.js"></script>
 <script src="app.js"></script>
+<script src="adi-chat.js"></script>
+
 </body>
 </html>
