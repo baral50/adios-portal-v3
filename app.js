@@ -1,171 +1,483 @@
 /* ═══════════════════════════════════════════════════════════
-   AdiOS Portal v3 — App JS
-   Sequoia-style: calm, restrained, editorial animations
+   AdiOS Portal v3 — App Logic
+   High-contrast journey: scroll-driven reveal, counter animations,
+   SVG path drawing, circular loop, adaptive header
 ═══════════════════════════════════════════════════════════ */
 
-'use strict';
+/* ─── easing ─── */
+function easeOutExpo(t) {
+  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+}
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
 
-/* ─── Terminal Boot Sequence ─── */
+/* ─── 1. TERMINAL TYPEWRITER ─── */
 const BOOT_LINES = [
-  '$ adios init --sovereign',
+  '$ adios init --sovereign --mode=enterprise',
+  '> mounting brain.kernel v1.4.2 ............ ✓',
+  '> loading lakehouse.engine ................ ✓',
+  '> activating sentinel.enforcement ......... ✓',
+  '> 1,570 tests passing ..................... ✓',
+  '> confidence.baseline: 0.70 → 0.95+ ....... ✓',
+  '> query.latency: 127ms avg ................ ✓',
+  '> data.egress: ZERO ...................... ✓',
   '',
-  '  AdiOS v3.0.0 — Architecture-Driven Intelligent OS',
-  '  © 2026 AdiOS Platform Private Limited',
-  '',
-  '  [KERNEL]      Loading substrate layer ............... OK',
-  '  [BRAIN]       Initializing knowledge graph ........... OK',
-  '  [LAKEHOUSE]   Connecting data fabric ................. OK',
-  '  [SENTINEL]    Enforcing governance policies .......... OK',
-  '  [QUERY]       Planner warm — 127ms avg latency ........ OK',
-  '',
-  '  38 components loaded · 5 divisions active',
-  '  1,570+ tests passing · Confidence: 0.94',
-  '',
-  '  System status: SOVEREIGN · Zero cloud egress',
-  '',
-  '  Boot complete.',
+  'SOVEREIGN MODE ACTIVE. Boot complete.',
 ];
 
 function runTerminal() {
   const el = document.getElementById('terminal-output');
   if (!el) return;
-
   let lineIdx = 0;
   let charIdx = 0;
-  let output = '';
-  let cursorBlinkCount = 0;
-  let cursorVisible = true;
-  let cursorInterval = null;
+  let text = '';
 
-  // Blinking cursor
-  function startCursorBlink(final) {
-    cursorBlinkCount = 0;
-    cursorInterval = setInterval(() => {
-      cursorVisible = !cursorVisible;
-      el.textContent = output + (cursorVisible ? '▊' : '');
-      cursorBlinkCount++;
-      if (final && cursorBlinkCount >= 6) {
-        clearInterval(cursorInterval);
-        el.textContent = output; // remove cursor
-      }
-    }, 400);
-  }
-
-  function typeChar() {
+  function tick() {
     if (lineIdx >= BOOT_LINES.length) {
-      // All done — blink cursor 3 times then stop
-      startCursorBlink(true);
+      el.textContent = text + '_';
+      // blink cursor
+      let show = true;
+      setInterval(() => {
+        el.textContent = text + (show ? '_' : '');
+        show = !show;
+      }, 530);
       return;
     }
-
     const line = BOOT_LINES[lineIdx];
-
     if (charIdx < line.length) {
-      output += line[charIdx];
+      text += line[charIdx];
       charIdx++;
-      el.textContent = output + '▊';
-      const delay = line.startsWith('  [') ? 14 : line.startsWith('$') ? 60 : 22;
-      setTimeout(typeChar, delay);
+      el.textContent = text + '_';
+      setTimeout(tick, 18 + Math.random() * 16);
     } else {
-      output += '\n';
-      el.textContent = output + '▊';
+      text += '\n';
       lineIdx++;
       charIdx = 0;
-      const delay = lineIdx === 1 ? 80 : 40;
-      setTimeout(typeChar, delay);
+      setTimeout(tick, lineIdx <= 1 ? 120 : 40);
     }
   }
-
-  setTimeout(typeChar, 600);
+  setTimeout(tick, 800);
 }
 
-/* ─── Particle Canvas (scattered warm dots using logo colors) ─── */
-class ParticleSystem {
-  constructor() {
-    this.canvas = document.getElementById('particle-canvas');
-    if (!this.canvas) return;
-    this.ctx = this.canvas.getContext('2d');
-    this.particles = [];
-    this.animFrame = null;
-    this.resize();
-    this.init();
-    this.animate();
-    window.addEventListener('resize', () => this.resize(), { passive: true });
+/* ─── 2. PARTICLE CANVAS ─── */
+function initParticles() {
+  const canvas = document.getElementById('particle-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
+  resize();
+  window.addEventListener('resize', resize);
 
-  resize() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
-  }
+  const particles = Array.from({ length: 55 }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.4 + 0.3,
+    vx: (Math.random() - 0.5) * 0.18,
+    vy: (Math.random() - 0.5) * 0.18,
+    alpha: Math.random() * 0.4 + 0.05,
+    color: Math.random() > 0.5 ? '59,155,143' : '232,151,63',
+  }));
 
-  init() {
-    const count = Math.floor((window.innerWidth * window.innerHeight) / 28000);
-    this.particles = [];
-    for (let i = 0; i < count; i++) {
-      this.particles.push(this.createParticle());
-    }
-  }
-
-  createParticle() {
-    // Logo colors: teal, amber, navy, cream border
-    const colors = ['#3B9B8F', '#E8973F', '#2D3E50', '#DBCDB3', '#C4B498'];
-    return {
-      x: Math.random() * this.canvas.width,
-      y: Math.random() * this.canvas.height,
-      r: Math.random() * 2 + 0.8,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      alpha: Math.random() * 0.22 + 0.04,
-      vx: (Math.random() - 0.5) * 0.15,
-      vy: (Math.random() - 0.5) * 0.15,
-      alphaDir: Math.random() > 0.5 ? 1 : -1,
-      alphaDelta: Math.random() * 0.003 + 0.001,
-    };
-  }
-
-  animate() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    for (const p of this.particles) {
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
-      p.alpha += p.alphaDelta * p.alphaDir;
-      if (p.alpha > 0.28 || p.alpha < 0.03) p.alphaDir *= -1;
-
-      if (p.x < -10) p.x = this.canvas.width + 10;
-      if (p.x > this.canvas.width + 10) p.x = -10;
-      if (p.y < -10) p.y = this.canvas.height + 10;
-      if (p.y > this.canvas.height + 10) p.y = -10;
-
-      this.ctx.beginPath();
-      this.ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      this.ctx.fillStyle = p.color;
-      this.ctx.globalAlpha = p.alpha;
-      this.ctx.fill();
-    }
-
-    this.ctx.globalAlpha = 1;
-    this.animFrame = requestAnimationFrame(() => this.animate());
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
   }
+  draw();
 }
 
-/* ─── Header Scroll State ─── */
+/* ─── 3. HEADER — adaptive light/dark ─── */
 function initHeader() {
   const header = document.getElementById('site-header');
   if (!header) return;
 
-  const onScroll = () => {
-    if (window.scrollY > 40) {
+  // Sections with light backgrounds — header needs to go dark-text
+  const lightSections = ['act-1', 'act-3', 'act-5', 'act-6', 'act-7', 'waitlist'];
+  // Dark sections — header stays light-text  
+  const darkSections = ['prologue', 'act-2', 'act-4', 'coda'];
+
+  let lastScrollY = 0;
+
+  function updateHeader() {
+    const scrollY = window.scrollY;
+    if (scrollY > 20) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
-  };
 
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+    // Find which section is at the top of the viewport
+    const headerBottom = header.getBoundingClientRect().bottom;
+    let currentSection = 'prologue';
+
+    // Check dark sections
+    for (const id of [...darkSections, ...lightSections]) {
+      const el = document.getElementById(id);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= headerBottom && rect.bottom > headerBottom) {
+        currentSection = id;
+        break;
+      }
+    }
+
+    if (lightSections.includes(currentSection)) {
+      header.classList.add('header-light');
+    } else {
+      header.classList.remove('header-light');
+    }
+    lastScrollY = scrollY;
+  }
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
 }
 
-/* ─── Hamburger + Mobile Nav ─── */
+/* ─── 4. SIDEBAR ACTIVE STATE ─── */
+function initSidebar() {
+  const items = document.querySelectorAll('.sidebar-item[data-section]');
+  const sections = Array.from(items).map(i => document.getElementById(i.dataset.section)).filter(Boolean);
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        items.forEach(item => {
+          item.classList.toggle('active', item.dataset.section === id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+  sections.forEach(s => io.observe(s));
+}
+
+/* ─── 5. REVEAL ANIMATIONS — scroll-driven ─── */
+function initReveal() {
+  const ups = document.querySelectorAll('.reveal-up');
+  const lefts = document.querySelectorAll('.reveal-left');
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -80px 0px', threshold: 0.05 });
+
+  ups.forEach(el => io.observe(el));
+  lefts.forEach(el => io.observe(el));
+
+  // Stagger children
+  const staggers = document.querySelectorAll('.reveal-stagger');
+  const staggerIO = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        Array.from(entry.target.children).forEach((child, i) => {
+          child.style.transitionDelay = `${i * 0.18}s`;
+        });
+        staggerIO.unobserve(entry.target);
+        // Card border draw
+        setTimeout(() => {
+          entry.target.querySelectorAll('.card-border-draw').forEach(c => {
+            c.classList.add('border-drawn');
+          });
+        }, 400);
+      }
+    });
+  }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+  staggers.forEach(el => staggerIO.observe(el));
+}
+
+/* ─── 6. STAT COUNTERS — easeOutExpo ─── */
+function animateCounter(el, target, suffix, duration = 1400) {
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeOutExpo(progress);
+    const current = Math.round(eased * target);
+    el.textContent = current.toLocaleString() + (suffix || '');
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+function initCounters() {
+  const counters = document.querySelectorAll('[data-count]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count, 10);
+        const suffix = el.dataset.suffix || '';
+        animateCounter(el, target, suffix);
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => io.observe(c));
+}
+
+/* ─── 7. MARKET BARS — animated on scroll ─── */
+function initMarketBars() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+
+      if (id === 'market-bar-now') {
+        setTimeout(() => { entry.target.style.width = '6%'; }, 200);
+      }
+      if (id === 'market-bar-future') {
+        setTimeout(() => { entry.target.style.width = '100%'; }, 500);
+      }
+      if (id === 'gpu-bar') {
+        setTimeout(() => { entry.target.style.width = '19%'; }, 300); // 38k / 200k
+      }
+      if (id === 'insight-bar-1') {
+        setTimeout(() => {
+          entry.target.style.width = '87%';
+          animateCounter(document.getElementById('insight-stat-1'), 87, '%', 1200);
+        }, 400);
+      }
+      if (id === 'insight-bar-2') {
+        setTimeout(() => {
+          document.getElementById('insight-stat-2').textContent = '0%';
+        }, 500);
+      }
+
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.3 });
+
+  ['market-bar-now', 'market-bar-future', 'gpu-bar', 'insight-bar-1', 'insight-bar-2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+}
+
+/* ─── 8. SVG LINE DRAW — query flow ─── */
+function initFlowLines() {
+  const flowLines = document.querySelectorAll('.flow-line');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const lines = entry.target.querySelectorAll('.flow-line');
+        lines.forEach((line, i) => {
+          setTimeout(() => {
+            line.style.strokeDashoffset = '0';
+          }, i * 80);
+        });
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const flowSVG = document.getElementById('query-flow-svg');
+  if (flowSVG) io.observe(flowSVG);
+}
+
+/* ─── 9. TRUST SVG ANIMATION ─── */
+function initTrustAnimation() {
+  const svg = document.getElementById('trust-svg');
+  if (!svg) return;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateTrustDot();
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  io.observe(svg);
+}
+
+function animateTrustDot() {
+  const dot = document.getElementById('trust-mover');
+  if (!dot) return;
+
+  // Waypoints: personal (60,80) → gate1 (186,80) → domain (320,80) → gate2 (436,80) → enterprise (580,80)
+  const waypoints = [
+    { x: 60,  y: 80,  color: '#9AA3B0', scale: 1 },
+    { x: 186, y: 80,  color: '#C07030', scale: 1 },
+    { x: 320, y: 80,  color: '#E8973F', scale: 1.3 },
+    { x: 436, y: 80,  color: '#E8973F', scale: 1.2 },
+    { x: 580, y: 80,  color: '#3B9B8F', scale: 1.6 },
+    { x: 60,  y: 80,  color: '#9AA3B0', scale: 1 },
+  ];
+
+  let idx = 0;
+  function moveNext() {
+    if (idx >= waypoints.length - 1) {
+      idx = 0;
+      setTimeout(moveNext, 1200);
+      return;
+    }
+    const from = waypoints[idx];
+    const to = waypoints[idx + 1];
+    const dur = idx === 0 ? 600 : idx === 2 ? 800 : 500;
+    const start = performance.now();
+
+    function step(now) {
+      const t = Math.min((now - start) / dur, 1);
+      const eased = easeInOutCubic(t);
+      const x = from.x + (to.x - from.x) * eased;
+      const y = from.y + (to.y - from.y) * eased;
+      const r = (from.scale + (to.scale - from.scale) * eased) * 7;
+
+      dot.setAttribute('cx', x);
+      dot.setAttribute('cy', y);
+      dot.setAttribute('r', r);
+      dot.setAttribute('fill', t > 0.5 ? to.color : from.color);
+
+      if (t < 1) {
+        requestAnimationFrame(step);
+      } else {
+        idx++;
+        setTimeout(moveNext, idx === waypoints.length - 1 ? 800 : 200);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  moveNext();
+}
+
+/* ─── 10. CIRCULAR LOOP SVG ANIMATION ─── */
+function initLoopAnimation() {
+  const svg = document.getElementById('loop-svg');
+  if (!svg) return;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        startLoop();
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  io.observe(svg);
+}
+
+function startLoop() {
+  const circle = document.getElementById('loop-circle');
+  const dot = document.getElementById('loop-dot');
+  const trail1 = document.getElementById('loop-trail1');
+  const trail2 = document.getElementById('loop-trail2');
+  const nodes = [
+    document.getElementById('loop-n1'),
+    document.getElementById('loop-n2'),
+    document.getElementById('loop-n3'),
+    document.getElementById('loop-n4'),
+    document.getElementById('loop-n5'),
+  ];
+  if (!circle || !dot) return;
+
+  // Draw the ring first
+  const circumference = 942;
+  circle.style.transition = 'stroke-dashoffset 2s cubic-bezier(0.25,0.46,0.45,0.94)';
+  setTimeout(() => { circle.style.strokeDashoffset = '0'; }, 200);
+
+  // Orbit parameters — center (220,220), radius 150
+  const cx = 220, cy = 220, r = 150;
+  // Node positions by angle (degrees, measured clockwise from top = -90deg)
+  const nodeAngles = [
+    -90,   // USE (top)
+    -24,   // OBSERVE (right-ish)
+    54,    // LEARN (bottom right)
+    126,   // INTELLIGENCE (bottom left)
+    204,   // VALUE (left)
+  ];
+
+  let angle = -90; // start at top (USE)
+  const SPEED = 0.35; // degrees per frame
+  let trailAngle1 = angle - 12;
+  let trailAngle2 = angle - 24;
+  let raf;
+
+  // Node pulse on pass
+  let lastNodeIdx = 0;
+
+  function step() {
+    angle += SPEED;
+    trailAngle1 = angle - 14;
+    trailAngle2 = angle - 28;
+
+    function angleToXY(a) {
+      const rad = (a * Math.PI) / 180;
+      return {
+        x: cx + r * Math.cos(rad),
+        y: cy + r * Math.sin(rad),
+      };
+    }
+
+    const pos = angleToXY(angle);
+    const t1 = angleToXY(trailAngle1);
+    const t2 = angleToXY(trailAngle2);
+
+    dot.setAttribute('cx', pos.x);
+    dot.setAttribute('cy', pos.y);
+    trail1.setAttribute('cx', t1.x);
+    trail1.setAttribute('cy', t1.y);
+    trail2.setAttribute('cx', t2.x);
+    trail2.setAttribute('cy', t2.y);
+
+    // Update gradient ring rotation subtly
+    const normalizedAngle = ((angle % 360) + 360) % 360;
+    circle.style.transform = `rotate(${normalizedAngle * 0.05}deg)`;
+
+    // Pulse nearest node
+    const currentNormAngle = ((angle % 360) + 360) % 360;
+    nodeAngles.forEach((na, i) => {
+      const normalNA = ((na % 360) + 360) % 360;
+      const diff = Math.abs(currentNormAngle - normalNA);
+      if (diff < 8 || diff > 352) {
+        if (lastNodeIdx !== i) {
+          lastNodeIdx = i;
+          pulseNode(nodes[i]);
+        }
+      }
+    });
+
+    raf = requestAnimationFrame(step);
+  }
+
+  // Start after ring draw
+  setTimeout(() => { raf = requestAnimationFrame(step); }, 800);
+}
+
+function pulseNode(node) {
+  if (!node) return;
+  node.style.transition = 'r 0.2s ease, opacity 0.2s ease';
+  const origR = parseFloat(node.getAttribute('r')) || 28;
+  node.setAttribute('r', origR * 1.3);
+  setTimeout(() => {
+    node.style.transition = 'r 0.4s ease';
+    node.setAttribute('r', origR);
+  }, 200);
+}
+
+/* ─── 11. HAMBURGER / MOBILE NAV ─── */
 function initMobileNav() {
   const btn = document.getElementById('hamburger-btn');
   const nav = document.getElementById('mobile-nav');
@@ -174,520 +486,42 @@ function initMobileNav() {
   btn.addEventListener('click', () => {
     const open = btn.classList.toggle('open');
     nav.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', open.toString());
-    nav.setAttribute('aria-hidden', (!open).toString());
+    btn.setAttribute('aria-expanded', open);
+    nav.setAttribute('aria-hidden', !open);
   });
 
-  nav.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
       btn.classList.remove('open');
       nav.classList.remove('open');
       btn.setAttribute('aria-expanded', 'false');
-      nav.setAttribute('aria-hidden', 'true');
     });
   });
 }
 
-/* ─── Reveal on scroll (IntersectionObserver) ─── */
-function initReveal() {
-  // Standard reveal-up elements
-  const elements = document.querySelectorAll('.reveal-up');
-  if (elements.length) {
-    const observer = new IntersectionObserver((entries) => {
+/* ─── 12. ARCH LAYER CASCADE ─── */
+function initArchLayers() {
+  const layers = document.querySelectorAll('.arch-layer');
+  layers.forEach(layer => {
+    const components = layer.querySelectorAll('.arch-layer-components span');
+    const io = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
-    });
-    elements.forEach(el => observer.observe(el));
-  }
-
-  // Stagger containers — stagger children with 150ms intervals
-  const staggerContainers = document.querySelectorAll('.reveal-stagger');
-  if (staggerContainers.length) {
-    const staggerObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const children = Array.from(entry.target.children);
-          children.forEach((child, i) => {
-            child.style.transitionDelay = `${i * 0.15}s`;
+          components.forEach((c, i) => {
+            setTimeout(() => {
+              c.classList.add('cascade-in');
+            }, i * 55);
           });
-          entry.target.classList.add('visible');
-          staggerObserver.unobserve(entry.target);
-          // Trigger border-draw on children
-          children.forEach((child, i) => {
-            if (child.classList.contains('card-border-draw')) {
-              setTimeout(() => child.classList.add('border-drawn'), i * 150 + 200);
-            }
-          });
+          io.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -40px 0px'
-    });
-    staggerContainers.forEach(el => staggerObserver.observe(el));
-  }
-
-  // Border-draw standalone cards
-  const borderCards = document.querySelectorAll('.card-border-draw:not(.reveal-stagger *)');
-  if (borderCards.length) {
-    const borderObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('border-drawn');
-          borderObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    borderCards.forEach(el => borderObserver.observe(el));
-  }
-}
-
-/* ─── Sidebar Scroll-Spy ─── */
-function initScrollSpy() {
-  const sidebarItems = document.querySelectorAll('.sidebar-item[data-section]');
-  if (!sidebarItems.length) return;
-
-  const sections = [];
-  sidebarItems.forEach(item => {
-    const id = item.dataset.section;
-    const el = document.getElementById(id);
-    if (el) sections.push({ id, el, item });
-  });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        sidebarItems.forEach(item => {
-          item.classList.toggle('active', item.dataset.section === id);
-        });
-      }
-    });
-  }, {
-    rootMargin: '-30% 0px -60% 0px',
-    threshold: 0
-  });
-
-  sections.forEach(({ el }) => observer.observe(el));
-}
-
-/* ─── Smooth Scroll for sidebar/header nav ─── */
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 80;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
+    }, { threshold: 0.3 });
+    io.observe(layer);
   });
 }
 
-/* ─── easeOutExpo ─── */
-function easeOutExpo(t) {
-  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-}
-
-/* ─── Counter animations ─── */
-function initCounters() {
-  const counters = document.querySelectorAll('[data-count]');
-  if (!counters.length) return;
-
-  const animateCounter = (el) => {
-    const target = parseInt(el.dataset.count);
-    const suffix = el.dataset.suffix || '';
-    const duration = 1600;
-    const start = performance.now();
-
-    function tick(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const value = Math.floor(easeOutExpo(progress) * target);
-      el.textContent = value.toLocaleString() + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(el => observer.observe(el));
-}
-
-/* ─── Market bar animations with elastic easing ─── */
-function initMarketBars() {
-  const gpuBar = document.getElementById('gpu-bar');
-  const marketBarFuture = document.getElementById('market-bar-future');
-  const insightBar1 = document.getElementById('insight-bar-1');
-  const insightBar2 = document.getElementById('insight-bar-2');
-  const insightStat1 = document.getElementById('insight-stat-1');
-  const insightStat2 = document.getElementById('insight-stat-2');
-
-  const animateValue = (el, from, to, duration, suffix = '') => {
-    const start = performance.now();
-    function tick(now) {
-      const progress = Math.min((now - start) / duration, 1);
-      el.textContent = Math.floor(easeOutExpo(progress) * (to - from) + from) + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  };
-
-  const targets = [
-    { el: gpuBar, action: () => { gpuBar.style.width = '19%'; } },
-    { el: marketBarFuture, action: () => { marketBarFuture.style.width = '100%'; } },
-    {
-      el: insightBar1, action: () => {
-        insightBar1.style.width = '87%';
-        if (insightStat1) animateValue(insightStat1, 0, 87, 1400, '%');
-      }
-    },
-    {
-      el: insightBar2, action: () => {
-        if (insightStat2) {
-          insightStat2.textContent = '0%';
-          insightStat2.style.color = 'var(--text-secondary)';
-        }
-      }
-    },
-  ];
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const found = targets.find(t => t.el === entry.target);
-        if (found) {
-          found.action();
-          observer.unobserve(entry.target);
-        }
-      }
-    });
-  }, { threshold: 0.4 });
-
-  targets.forEach(({ el }) => { if (el) observer.observe(el); });
-}
-
-/* ─── Act V Loop animation: comet trail + gradient ring rotation ─── */
-function initLoopAnimation() {
-  const circle = document.getElementById('loop-circle');
-  const dot = document.getElementById('loop-dot');
-  const svg = document.getElementById('loop-svg');
-  if (!circle || !dot || !svg) return;
-
-  let isAnimating = false;
-  let trailDots = [];
-
-  // Gradient ring slow rotation
-  let gradientAngle = 0;
-  const gradient = svg.querySelector('#loopGradient');
-  function rotateGradient() {
-    if (!gradient) return;
-    gradientAngle = (gradientAngle + 0.2) % 360;
-    const rad = (gradientAngle * Math.PI) / 180;
-    const x2 = (Math.cos(rad) * 0.5 + 0.5) * 100;
-    const y2 = (Math.sin(rad) * 0.5 + 0.5) * 100;
-    gradient.setAttribute('x1', (100 - x2) + '%');
-    gradient.setAttribute('y1', (100 - y2) + '%');
-    gradient.setAttribute('x2', x2 + '%');
-    gradient.setAttribute('y2', y2 + '%');
-    requestAnimationFrame(rotateGradient);
-  }
-  rotateGradient();
-
-  // Create trail circles in SVG
-  function createTrail() {
-    for (let i = 0; i < 6; i++) {
-      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      c.setAttribute('r', 6 - i * 0.7);
-      c.setAttribute('fill', '#3B9B8F');
-      c.setAttribute('opacity', 0);
-      c.classList.add('loop-comet-trail');
-      svg.insertBefore(c, dot);
-      trailDots.push({ el: c, x: 200, y: 60, alpha: 0 });
-    }
-  }
-  createTrail();
-
-  const circleObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !isAnimating) {
-        isAnimating = true;
-        circle.style.transition = 'stroke-dashoffset 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        circle.style.strokeDashoffset = '0';
-        setTimeout(() => animateDot(), 600);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  circleObserver.observe(svg);
-
-  const nodePositions = [
-    { x: 200, y: 60 },
-    { x: 333, y: 153 },
-    { x: 310, y: 293 },
-    { x: 90, y: 293 },
-    { x: 67, y: 153 },
-    { x: 200, y: 60 },
-  ];
-
-  let dotStepIdx = 0;
-  let dotAnimFrame = null;
-  let prevPositions = [];
-
-  function updateTrail(x, y) {
-    prevPositions.unshift({ x, y });
-    if (prevPositions.length > trailDots.length) prevPositions.pop();
-    trailDots.forEach((t, i) => {
-      const pos = prevPositions[i] || { x, y };
-      t.el.setAttribute('cx', pos.x);
-      t.el.setAttribute('cy', pos.y);
-      const alpha = Math.max(0, 0.45 - i * 0.07);
-      t.el.setAttribute('opacity', alpha);
-    });
-  }
-
-  function animateDot() {
-    dotStepIdx = 0;
-    prevPositions = [];
-    moveDotStep();
-  }
-
-  function moveDotStep() {
-    if (dotStepIdx >= nodePositions.length - 1) {
-      setTimeout(() => {
-        dotStepIdx = 0;
-        prevPositions = [];
-        moveDotStep();
-      }, 2000);
-      return;
-    }
-
-    const from = nodePositions[dotStepIdx];
-    const to = nodePositions[dotStepIdx + 1];
-    const duration = 1200;
-    const start = performance.now();
-
-    function tick(now) {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-
-      const x = from.x + (to.x - from.x) * eased;
-      const y = from.y + (to.y - from.y) * eased;
-
-      dot.setAttribute('cx', x);
-      dot.setAttribute('cy', y);
-      updateTrail(x, y);
-
-      // Color shift per segment
-      dot.setAttribute('fill', dotStepIdx % 2 === 0 ? '#3B9B8F' : '#E8973F');
-
-      if (t < 1) {
-        dotAnimFrame = requestAnimationFrame(tick);
-      } else {
-        dotStepIdx++;
-        setTimeout(moveDotStep, 300);
-      }
-    }
-
-    if (dotAnimFrame) cancelAnimationFrame(dotAnimFrame);
-    dotAnimFrame = requestAnimationFrame(tick);
-  }
-
-  dot.setAttribute('cx', nodePositions[0].x);
-  dot.setAttribute('cy', nodePositions[0].y);
-}
-
-/* ─── Trust SVG animation: comet trail + tier pulse ─── */
-function initTrustAnimation() {
-  const svg = document.getElementById('trust-svg');
-  const mover = document.getElementById('trust-mover');
-  if (!svg || !mover) return;
-
-  // Create comet trail for trust mover
-  const trailCount = 5;
-  const trails = [];
-  for (let i = 0; i < trailCount; i++) {
-    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    c.setAttribute('r', 5 - i * 0.6);
-    c.setAttribute('fill', '#E8973F');
-    c.setAttribute('opacity', 0);
-    svg.insertBefore(c, mover);
-    trails.push(c);
-  }
-
-  let trailPositions = [];
-  function updateTrail(x, y) {
-    trailPositions.unshift({ x, y });
-    if (trailPositions.length > trailCount) trailPositions.pop();
-    trails.forEach((t, i) => {
-      const pos = trailPositions[i] || { x, y };
-      t.setAttribute('cx', pos.x);
-      t.setAttribute('cy', pos.y);
-      t.setAttribute('opacity', Math.max(0, 0.4 - i * 0.08));
-    });
-  }
-
-  let animated = false;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !animated) {
-        animated = true;
-        animateTrustMover();
-      }
-    });
-  }, { threshold: 0.4 });
-
-  observer.observe(svg);
-
-  const tierIds = ['trust-d1', 'trust-gate1', 'trust-d2', 'trust-gate2', 'trust-d3'];
-  const waypoints = [
-    { x: 60, y: 70, delay: 0 },
-    { x: 170, y: 70, delay: 800 },
-    { x: 280, y: 70, delay: 600 },
-    { x: 390, y: 70, delay: 800 },
-    { x: 540, y: 70, delay: 600 },
-  ];
-
-  mover.setAttribute('cx', 60);
-  mover.setAttribute('cy', 70);
-
-  function pulseTier(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.style.transition = 'filter 0.3s';
-    el.style.filter = 'drop-shadow(0 0 8px rgba(232, 151, 63, 0.8))';
-    setTimeout(() => { el.style.filter = ''; }, 600);
-  }
-
-  function animateTrustMover() {
-    let idx = 0;
-    trailPositions = [];
-
-    function step() {
-      if (idx >= waypoints.length - 1) return;
-      const from = waypoints[idx];
-      const to = waypoints[idx + 1];
-      const duration = 700;
-      const start = performance.now();
-
-      pulseTier(tierIds[idx]);
-
-      function tick(now) {
-        const t = Math.min((now - start) / duration, 1);
-        const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        const x = from.x + (to.x - from.x) * eased;
-        const y = from.y + (to.y - from.y) * eased;
-        mover.setAttribute('cx', x);
-        mover.setAttribute('cy', y);
-        updateTrail(x, y);
-
-        if (t > 0.5 && idx === 1) mover.setAttribute('fill', '#3B9B8F');
-        if (t > 0.5 && idx === 3) mover.setAttribute('fill', '#E8973F');
-
-        if (t < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          pulseTier(tierIds[idx + 1]);
-          idx++;
-          if (idx < waypoints.length - 1) {
-            setTimeout(step, to.delay || 400);
-          }
-        }
-      }
-      requestAnimationFrame(tick);
-    }
-
-    setTimeout(step, 400);
-  }
-}
-
-/* ─── Query flow: glowing amber pulse travels along lines ─── */
-function initQueryFlow() {
-  const svg = document.getElementById('query-flow-svg');
-  if (!svg) return;
-
-  let drawn = false;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !drawn) {
-        drawn = true;
-        const lines = svg.querySelectorAll('.flow-line');
-        lines.forEach((line, i) => {
-          setTimeout(() => {
-            line.classList.add('drawn');
-            // Add glowing pulse dot traveling along the line
-            addPulseOnLine(line, i);
-          }, i * 80);
-        });
-      }
-    });
-  }, { threshold: 0.4 });
-
-  observer.observe(svg);
-
-  function addPulseOnLine(line, delay) {
-    setTimeout(() => {
-      const pulse = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      pulse.setAttribute('r', '4');
-      pulse.setAttribute('fill', '#E8973F');
-      pulse.setAttribute('filter', 'url(#ambGlow)');
-      pulse.setAttribute('opacity', '0.9');
-      svg.appendChild(pulse);
-
-      // Get line endpoints
-      const x1 = parseFloat(line.getAttribute('x1') || 0);
-      const y1 = parseFloat(line.getAttribute('y1') || 0);
-      const x2 = parseFloat(line.getAttribute('x2') || 0);
-      const y2 = parseFloat(line.getAttribute('y2') || 0);
-
-      const duration = 600;
-      const start = performance.now();
-      function tick(now) {
-        const t = Math.min((now - start) / duration, 1);
-        pulse.setAttribute('cx', x1 + (x2 - x1) * t);
-        pulse.setAttribute('cy', y1 + (y2 - y1) * t);
-        pulse.setAttribute('opacity', 0.9 * (1 - t));
-        if (t < 1) requestAnimationFrame(tick);
-        else pulse.remove();
-      }
-      requestAnimationFrame(tick);
-    }, delay * 120 + 400);
-  }
-
-  // Add amber glow filter if not present
-  let defs = svg.querySelector('defs');
-  if (!defs) {
-    defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-    svg.insertBefore(defs, svg.firstChild);
-  }
-  const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-  filter.setAttribute('id', 'ambGlow');
-  filter.innerHTML = '<feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>';
-  defs.appendChild(filter);
-}
-
-/* ─── Waitlist form ─── */
-function initWaitlistForm() {
+/* ─── 13. WAITLIST FORM ─── */
+function initForm() {
   const form = document.getElementById('waitlist-form');
   const success = document.getElementById('form-success');
   const submitBtn = document.getElementById('wl-submit');
@@ -695,173 +529,58 @@ function initWaitlistForm() {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const nameEl = document.getElementById('wl-name');
+    const emailEl = document.getElementById('wl-email');
 
-    const name = form.querySelector('#wl-name').value.trim();
-    const email = form.querySelector('#wl-email').value.trim();
-
-    if (!name || !email) {
-      form.style.animation = 'shake 0.3s ease';
-      setTimeout(() => form.style.animation = '', 300);
+    if (!nameEl.value.trim() || !emailEl.value.trim()) {
+      [nameEl, emailEl].forEach(el => {
+        if (!el.value.trim()) {
+          el.style.borderColor = '#E85555';
+          el.addEventListener('input', () => { el.style.borderColor = ''; }, { once: true });
+        }
+      });
       return;
     }
 
     submitBtn.textContent = 'Submitting...';
     submitBtn.disabled = true;
-
-    await new Promise(r => setTimeout(r, 800));
-
-    form.querySelectorAll('.form-row, .form-group').forEach(el => {
-      el.style.opacity = '0.4';
-      el.style.pointerEvents = 'none';
-    });
+    await new Promise(r => setTimeout(r, 900));
+    success.classList.add('show');
     submitBtn.style.display = 'none';
-
-    if (success) {
-      success.classList.add('show');
-    }
   });
 }
 
-/* ─── Arch layer expand — waterfall cascade tags ─── */
-function initArchLayers() {
-  document.querySelectorAll('.arch-layer').forEach(layer => {
-    const comps = layer.querySelector('.arch-layer-components');
-    if (!comps) return;
-
-    let cascaded = false;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !cascaded) {
-          cascaded = true;
-          const spans = Array.from(comps.querySelectorAll('span'));
-          spans.forEach((span, i) => {
-            span.style.opacity = '0';
-            span.style.transform = 'translateX(-12px)';
-            span.style.transition = `opacity 0.3s ease ${i * 0.05}s, transform 0.3s ease ${i * 0.05}s`;
-            setTimeout(() => {
-              span.style.opacity = '1';
-              span.style.transform = 'translateX(0)';
-            }, 100 + i * 50);
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-
-    observer.observe(layer);
-  });
-}
-
-/* ─── Act I: Traditional side drift, AdiOS side pulse ─── */
-function initAct1Diagram() {
-  const svg = document.querySelector('.comp-svg');
-  if (!svg) return;
-
-  let observed = false;
-  const observer = new IntersectionObserver((entries) => {
+/* ─── 14. REVENUE CARD BORDER DRAW ─── */
+function initRevenueBorderDraw() {
+  const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting && !observed) {
-        observed = true;
-        // Elements on Traditional side (left half) drift slightly
-        const traditionalEls = svg.querySelectorAll('[transform^="translate(40"]');
-        traditionalEls.forEach(el => {
-          el.style.animation = 'traditionalDrift 3s ease-in-out infinite';
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.card-border-draw').forEach((c, i) => {
+          setTimeout(() => c.classList.add('border-drawn'), i * 200);
         });
-        // AdiOS side (right half) pulses with glow
-        const adiosEls = svg.querySelectorAll('[transform^="translate(320"]');
-        adiosEls.forEach(el => {
-          el.style.animation = 'adiosPulse 2.5s ease-in-out infinite';
-        });
+        io.unobserve(entry.target);
       }
     });
   }, { threshold: 0.4 });
 
-  observer.observe(svg);
+  const revGrid = document.querySelector('.revenue-grid');
+  if (revGrid) io.observe(revGrid);
 }
 
-/* ─── Prologue stat counter trigger ─── */
-function initPrologueCounters() {
-  const ribbon = document.querySelector('.stat-ribbon');
-  if (!ribbon) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        ribbon.querySelectorAll('.stat-number[data-count]').forEach(el => {
-          const target = parseInt(el.dataset.count);
-          const suffix = el.dataset.suffix || '';
-          const duration = 1200 + Math.random() * 400;
-          const start = performance.now();
-          function tick(now) {
-            const p = Math.min((now - start) / duration, 1);
-            el.textContent = Math.floor(easeOutExpo(p) * target).toLocaleString() + suffix;
-            if (p < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-        });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  observer.observe(ribbon);
-}
-
-/* ─── Parallax on scroll ─── */
-function initParallax() {
-  const tintSections = document.querySelectorAll('.section-teal-tint, .section-amber-tint, .section-alt');
-  if (!tintSections.length) return;
-
-  window.addEventListener('scroll', () => {
-    tintSections.forEach(section => {
-      const rect = section.getBoundingClientRect();
-      const viewH = window.innerHeight;
-      if (rect.bottom < 0 || rect.top > viewH) return;
-      const scrolled = -rect.top * 0.5;
-      section.style.backgroundPositionY = `${scrolled}px`;
-    });
-  }, { passive: true });
-}
-
-/* ─── Add keyframes ─── */
-function addKeyframes() {
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes shake {
-      0%,100%{transform:translateX(0)}
-      25%{transform:translateX(-6px)}
-      75%{transform:translateX(6px)}
-    }
-    @keyframes traditionalDrift {
-      0%,100%{transform:translate(40px, 60px) translateX(0);}
-      50%{transform:translate(40px, 60px) translateX(2px) translateY(1px);}
-    }
-    @keyframes adiosPulse {
-      0%,100%{filter:drop-shadow(0 0 0px rgba(59,155,143,0));}
-      50%{filter:drop-shadow(0 0 8px rgba(59,155,143,0.5));}
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-/* ─── Init all ─── */
+/* ─── INIT ALL ─── */
 document.addEventListener('DOMContentLoaded', () => {
-  addKeyframes();
-  new ParticleSystem();
   runTerminal();
+  initParticles();
   initHeader();
-  initMobileNav();
+  initSidebar();
   initReveal();
-  initScrollSpy();
-  initSmoothScroll();
   initCounters();
-  initPrologueCounters();
   initMarketBars();
-  initLoopAnimation();
+  initFlowLines();
   initTrustAnimation();
-  initQueryFlow();
+  initLoopAnimation();
+  initMobileNav();
   initArchLayers();
-  initAct1Diagram();
-  initWaitlistForm();
-  initParallax();
+  initForm();
+  initRevenueBorderDraw();
 });

@@ -100,7 +100,7 @@
 <main id="main-content">
 
   <!-- ═══════════════════════════════════════════
-       PROLOGUE — Hero
+       PROLOGUE — DARK (#1A1D27), dramatic entrance
   ═══════════════════════════════════════════ -->
   <section id="prologue" class="section section-prologue">
     <div class="prologue-inner">
@@ -112,7 +112,7 @@
       </h1>
       <p class="prologue-sub reveal-up" style="--delay:0.2s">Architecture-Driven Intelligent Operating System</p>
 
-      <!-- Terminal card -->
+      <!-- Terminal card — glowing on dark bg -->
       <div class="terminal-card reveal-up" style="--delay:0.3s" aria-label="AdiOS boot sequence">
         <div class="terminal-header">
           <span class="terminal-dot t-red"></span>
@@ -163,9 +163,9 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT I — THE OPERATING SYSTEM
+       ACT I — CREAM (#F5F0E8), warm editorial
   ═══════════════════════════════════════════ -->
-  <section id="act-1" class="section section-act">
+  <section id="act-1" class="section section-cream">
     <div class="section-inner">
       <div class="act-label reveal-up">Act I</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">The Operating System</h2>
@@ -209,57 +209,119 @@
         </div>
       </div>
 
-      <!-- Act I Diagram: Traditional AI vs AdiOS -->
+      <!-- Act I Diagram: Traditional vs AdiOS — high contrast SVG -->
       <div class="comparison-diagram reveal-up" style="--delay:0.25s">
         <div class="comparison-label-row">
           <span class="comp-label">Traditional AI</span>
-          <span class="comp-label accent">AdiOS</span>
+          <span class="comp-label accent">With AdiOS</span>
         </div>
-        <svg class="comp-svg" viewBox="0 0 560 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Traditional AI vs AdiOS comparison diagram">
-          <!-- Traditional AI side -->
-          <!-- Cloud icon -->
-          <g transform="translate(40, 60)">
-            <circle cx="30" cy="30" r="24" stroke="#DBCDB3" stroke-width="1.5"/>
-            <path d="M15 38 Q10 44 18 48 H42 Q50 44 45 38 Q48 28 38 26 Q36 18 28 20 Q20 18 18 26 Q10 26 15 38Z" stroke="#DBCDB3" stroke-width="1.5" fill="none"/>
-            <text x="30" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#6B6560">CLOUD</text>
+        <!-- Striking two-panel comparison SVG -->
+        <svg class="comp-svg" viewBox="0 0 640 260" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Traditional AI vs AdiOS comparison">
+          <defs>
+            <linearGradient id="tealGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3B9B8F" stop-opacity="0.15"/>
+              <stop offset="100%" stop-color="#3B9B8F" stop-opacity="0.05"/>
+            </linearGradient>
+            <linearGradient id="redFade" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#D84545" stop-opacity="0.1"/>
+              <stop offset="100%" stop-color="#D84545" stop-opacity="0.03"/>
+            </linearGradient>
+            <filter id="tealGlowFilter">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- LEFT PANEL — Traditional AI, faded/muted -->
+          <rect x="8" y="8" width="296" height="244" rx="8" fill="url(#redFade)" stroke="#E8B0A8" stroke-width="1.5"/>
+          <text x="156" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="600" letter-spacing="0.15em" fill="#B87870">TRADITIONAL AI</text>
+
+          <!-- Cloud icon row -->
+          <g transform="translate(36, 55)">
+            <circle cx="24" cy="24" r="22" fill="#F5E8E8" stroke="#E8B0A8" stroke-width="1.5"/>
+            <path d="M10 30 Q6 36 14 40H34Q42 36 38 30Q40 20 30 18Q28 10 20 12Q12 10 10 18Q4 18 10 30Z" stroke="#D98080" stroke-width="1.5" fill="none"/>
+            <text x="24" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C88080">CLOUD</text>
           </g>
-          <!-- Arrow out -->
-          <line x1="118" y1="90" x2="170" y2="90" stroke="#DBCDB3" stroke-width="1.5" stroke-dasharray="4,3"/>
-          <polygon points="168,85 178,90 168,95" fill="#DBCDB3"/>
+          <!-- Arrow OUT with red tint -->
+          <path d="M96 79 L146 79" stroke="#D98080" stroke-width="2" stroke-dasharray="5,4"/>
+          <polygon points="144,74 156,79 144,84" fill="#D98080" opacity="0.7"/>
           <!-- Data leaves box -->
-          <rect x="178" y="70" width="84" height="40" rx="4" stroke="#DBCDB3" stroke-width="1.5"/>
-          <text x="220" y="87" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">Data</text>
-          <text x="220" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">Leaves ↑</text>
-          <!-- No provenance -->
-          <text x="220" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#DBCDB3">no provenance</text>
-          <!-- Divider -->
-          <line x1="280" y1="20" x2="280" y2="180" stroke="#DBCDB3" stroke-width="1" stroke-dasharray="6,4"/>
-          <!-- AdiOS side -->
-          <!-- Local icon -->
-          <g transform="translate(320, 60)">
-            <rect x="8" y="8" width="44" height="36" rx="4" stroke="#2A6B5A" stroke-width="1.5"/>
-            <rect x="16" y="48" width="28" height="6" rx="2" stroke="#2A6B5A" stroke-width="1.5"/>
-            <circle cx="30" cy="26" r="8" stroke="#CA5C3D" stroke-width="1.5"/>
-            <text x="30" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#2A6B5A">LOCAL</text>
+          <rect x="160" y="62" width="100" height="34" rx="5" fill="#FEF0EE" stroke="#E8A0A0" stroke-width="1.5"/>
+          <text x="210" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#B87070" font-weight="600">Data</text>
+          <text x="210" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#D84545">Leaves ↑</text>
+
+          <!-- Row 2 — No provenance -->
+          <g transform="translate(36, 130)">
+            <circle cx="24" cy="24" r="22" fill="#F5E8E8" stroke="#E8B0A8" stroke-width="1.5"/>
+            <text x="24" y="22" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="#D98080">?</text>
+            <text x="24" y="32" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C88080">provenance</text>
+            <text x="24" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C88080">UNKNOWN</text>
           </g>
-          <!-- Arrow stay -->
-          <line x1="398" y1="90" x2="430" y2="90" stroke="#2A6B5A" stroke-width="1.5"/>
-          <polygon points="428,85 438,90 428,95" fill="#2A6B5A"/>
-          <!-- Data stays box -->
-          <rect x="438" y="70" width="84" height="40" rx="4" stroke="#2A6B5A" stroke-width="1.5"/>
-          <text x="480" y="87" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">Data</text>
-          <text x="480" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">Stays ✓</text>
-          <!-- Confidence scored -->
-          <text x="480" y="128" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">confidence scored</text>
+          <rect x="160" y="138" width="100" height="34" rx="5" fill="#FEF0EE" stroke="#E8A0A0" stroke-width="1.5"/>
+          <text x="210" y="156" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#D98080">No traceability</text>
+          <text x="210" y="168" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#D84545">0% provenance</text>
+
+          <!-- Row 3 — 7 months -->
+          <g transform="translate(36, 205)">
+            <rect x="4" y="4" width="40" height="32" rx="4" fill="#F5E8E8" stroke="#E8B0A8" stroke-width="1.5"/>
+            <text x="24" y="18" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C88080">⏱</text>
+            <text x="24" y="29" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#D98080">7 months</text>
+            <text x="24" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C88080">MANUAL</text>
+          </g>
+          <rect x="160" y="210" width="100" height="30" rx="5" fill="#FEF0EE" stroke="#E8A0A0" stroke-width="1.5"/>
+          <text x="210" y="228" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#D84545">7 months manual</text>
+
+          <!-- VS divider -->
+          <line x1="322" y1="20" x2="322" y2="240" stroke="#C8BDAA" stroke-width="1" stroke-dasharray="6,4"/>
+          <circle cx="322" cy="130" r="18" fill="#1A1D1D"/>
+          <text x="322" y="134" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#F5F0E8">VS</text>
+
+          <!-- RIGHT PANEL — AdiOS, vibrant teal -->
+          <rect x="336" y="8" width="296" height="244" rx="8" fill="url(#tealGlow)" stroke="#3B9B8F" stroke-width="2"/>
+          <text x="484" y="36" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" letter-spacing="0.15em" fill="#3B9B8F">WITH ADIOS</text>
+
+          <!-- Shield icon row — data stays -->
+          <g transform="translate(360, 55)" filter="url(#tealGlowFilter)">
+            <circle cx="24" cy="24" r="22" fill="rgba(59,155,143,0.15)" stroke="#3B9B8F" stroke-width="2"/>
+            <path d="M24 10 L36 16 V26 C36 33 30 38 24 40 C18 38 12 33 12 26 V16 Z" fill="none" stroke="#3B9B8F" stroke-width="1.5"/>
+            <path d="M18 25 L22 29 L30 21" stroke="#3B9B8F" stroke-width="2" stroke-linecap="round"/>
+            <text x="24" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#3B9B8F" font-weight="600">SHIELD</text>
+          </g>
+          <path d="M420 79 L470 79" stroke="#3B9B8F" stroke-width="2"/>
+          <polygon points="468,74 480,79 468,84" fill="#3B9B8F"/>
+          <rect x="484" y="62" width="116" height="34" rx="5" fill="rgba(59,155,143,0.12)" stroke="#3B9B8F" stroke-width="2"/>
+          <text x="542" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#3B9B8F" font-weight="700">Data</text>
+          <text x="542" y="92" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#3B9B8F">Stays Sovereign ✓</text>
+
+          <!-- Row 2 — Confidence scored -->
+          <g transform="translate(360, 130)" filter="url(#tealGlowFilter)">
+            <circle cx="24" cy="24" r="22" fill="rgba(59,155,143,0.15)" stroke="#3B9B8F" stroke-width="2"/>
+            <text x="24" y="21" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#E8973F">0.94</text>
+            <text x="24" y="32" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#3B9B8F">confidence</text>
+            <text x="24" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#3B9B8F" font-weight="600">SCORED</text>
+          </g>
+          <rect x="484" y="138" width="116" height="34" rx="5" fill="rgba(59,155,143,0.12)" stroke="#3B9B8F" stroke-width="2"/>
+          <text x="542" y="156" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#3B9B8F" font-weight="700">Full provenance</text>
+          <text x="542" y="168" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#E8973F">100% traced</text>
+
+          <!-- Row 3 — Lightning fast -->
+          <g transform="translate(360, 205)" filter="url(#tealGlowFilter)">
+            <circle cx="24" cy="24" r="22" fill="rgba(232,151,63,0.15)" stroke="#E8973F" stroke-width="2"/>
+            <text x="24" y="22" text-anchor="middle" font-family="JetBrains Mono" font-size="16" fill="#E8973F">⚡</text>
+            <text x="24" y="32" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#E8973F">127ms</text>
+            <text x="24" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#E8973F" font-weight="600">AUTO</text>
+          </g>
+          <rect x="484" y="210" width="116" height="30" rx="5" fill="rgba(232,151,63,0.12)" stroke="#E8973F" stroke-width="2"/>
+          <text x="542" y="228" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#E8973F" font-weight="700">127ms automated</text>
         </svg>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT II — THE THREE-LAYER BRAIN
+       ACT II — NAVY (#2D3E50), deep trust
   ═══════════════════════════════════════════ -->
-  <section id="act-2" class="section section-act section-alt">
+  <section id="act-2" class="section section-navy">
     <div class="section-inner">
       <div class="act-label reveal-up">Act II</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">The Three-Layer Brain</h2>
@@ -269,7 +331,6 @@
       <div class="brain-diagram reveal-up" style="--delay:0.15s">
         <!-- Tier 3 Enterprise (top) -->
         <div class="brain-tier tier-3">
-          <div class="tier-particles" id="particles-3" aria-hidden="true"></div>
           <div class="tier-content">
             <div class="tier-badge">Tier 3</div>
             <div class="tier-name">Enterprise</div>
@@ -278,7 +339,6 @@
           </div>
           <div class="tier-arrow-down" aria-hidden="true">↓ schema propagation</div>
         </div>
-        <!-- Flow particles between tiers -->
         <div class="tier-flow" aria-hidden="true">
           <div class="flow-particle"></div>
           <div class="flow-particle"></div>
@@ -286,7 +346,6 @@
         </div>
         <!-- Tier 2 Domain -->
         <div class="brain-tier tier-2">
-          <div class="tier-particles" id="particles-2" aria-hidden="true"></div>
           <div class="tier-content">
             <div class="tier-badge">Tier 2</div>
             <div class="tier-name">Domain</div>
@@ -295,7 +354,6 @@
           </div>
           <div class="tier-arrow-down" aria-hidden="true">↓ schema propagation</div>
         </div>
-        <!-- Flow particles -->
         <div class="tier-flow" aria-hidden="true">
           <div class="flow-particle"></div>
           <div class="flow-particle"></div>
@@ -303,7 +361,6 @@
         </div>
         <!-- Tier 1 Personal (bottom) -->
         <div class="brain-tier tier-1">
-          <div class="tier-particles" id="particles-1" aria-hidden="true"></div>
           <div class="tier-content">
             <div class="tier-badge">Tier 1</div>
             <div class="tier-name">Personal</div>
@@ -313,35 +370,58 @@
         </div>
       </div>
 
-      <!-- Trust promotion SVG diagram -->
+      <!-- Trust promotion SVG diagram — vertical, glowing on navy -->
       <div class="trust-diagram-wrap reveal-up" style="--delay:0.2s">
         <h3 class="diagram-title">Trust Promotion Flow</h3>
-        <svg class="trust-svg" viewBox="0 0 600 140" fill="none" xmlns="http://www.w3.org/2000/svg" id="trust-svg" aria-label="Trust promotion flow diagram">
-          <!-- Track line -->
-          <line x1="60" y1="70" x2="540" y2="70" stroke="#DBCDB3" stroke-width="1.5" id="trust-track"/>
-          <!-- Stage 1: gray dot — personal assertion -->
-          <circle cx="60" cy="70" r="10" fill="#DBCDB3" stroke="#6B6560" stroke-width="1.5" id="trust-d1"/>
-          <text x="60" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">PERSONAL</text>
-          <text x="60" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">0.70</text>
+        <svg class="trust-svg" viewBox="0 0 640 200" fill="none" xmlns="http://www.w3.org/2000/svg" id="trust-svg" aria-label="Trust promotion flow diagram">
+          <defs>
+            <filter id="nodeGlow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <linearGradient id="trustTrack" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3A3F4E"/>
+              <stop offset="50%" stop-color="#E8973F" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#3B9B8F"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Track line — now gradient -->
+          <line x1="60" y1="80" x2="580" y2="80" stroke="url(#trustTrack)" stroke-width="2" id="trust-track"/>
+
+          <!-- Stage 1: Personal -->
+          <circle cx="60" cy="80" r="28" fill="rgba(58,63,78,0.6)" stroke="#5A6275" stroke-width="2" id="trust-d1" filter="url(#nodeGlow)"/>
+          <text x="60" y="75" text-anchor="middle" font-family="JetBrains Mono" font-size="11" font-weight="700" fill="#9AA3B0">0.70</text>
+          <text x="60" y="88" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6A7380">personal</text>
+          <text x="60" y="125" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="600" letter-spacing="0.1em" fill="#8A95A3">PERSONAL</text>
+
           <!-- Gate 1 -->
-          <rect x="155" y="58" width="30" height="24" rx="4" stroke="#DBCDB3" stroke-width="1.5" id="trust-gate1"/>
-          <text x="170" y="72" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">GATE</text>
-          <text x="170" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">REVIEW</text>
-          <!-- Stage 2: medium dot — domain -->
-          <circle cx="280" cy="70" r="12" fill="#E8D5C0" stroke="#CA5C3D" stroke-width="1.5" id="trust-d2"/>
-          <text x="280" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">DOMAIN</text>
-          <text x="280" y="110" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">0.85</text>
+          <rect x="160" y="60" width="52" height="40" rx="6" fill="rgba(255,255,255,0.04)" stroke="#5A6275" stroke-width="1.5" id="trust-gate1"/>
+          <text x="186" y="77" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#6A7380">GATE</text>
+          <text x="186" y="89" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6A7380">REVIEW</text>
+          <text x="186" y="125" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#5A6275">peer review</text>
+
+          <!-- Stage 2: Domain -->
+          <circle cx="320" cy="80" r="34" fill="rgba(232,151,63,0.12)" stroke="#E8973F" stroke-width="2.5" id="trust-d2" filter="url(#nodeGlow)"/>
+          <text x="320" y="74" text-anchor="middle" font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#E8973F">0.85</text>
+          <text x="320" y="89" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#B8905A">domain</text>
+          <text x="320" y="133" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" letter-spacing="0.1em" fill="#E8973F">DOMAIN</text>
+
           <!-- Gate 2 -->
-          <rect x="375" y="56" width="30" height="28" rx="4" stroke="#CA5C3D" stroke-width="1.5" id="trust-gate2"/>
-          <text x="390" y="70" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">GATE</text>
-          <text x="390" y="82" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">2</text>
-          <text x="390" y="100" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#CA5C3D">VALIDATE</text>
-          <!-- Stage 3: golden dot — enterprise -->
-          <circle cx="540" cy="70" r="14" fill="#CA5C3D" stroke="#CA5C3D" stroke-width="1.5" id="trust-d3"/>
-          <text x="540" y="102" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">ENTERPRISE</text>
-          <text x="540" y="112" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2A6B5A">0.95+</text>
+          <rect x="410" y="58" width="52" height="44" rx="6" fill="rgba(232,151,63,0.06)" stroke="#C07030" stroke-width="1.5" id="trust-gate2"/>
+          <text x="436" y="77" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#C07030">GATE</text>
+          <text x="436" y="89" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#C07030">2</text>
+          <text x="436" y="125" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#A06030">expert validate</text>
+
+          <!-- Stage 3: Enterprise — glowing teal -->
+          <circle cx="580" cy="80" r="40" fill="rgba(59,155,143,0.15)" stroke="#3B9B8F" stroke-width="3" id="trust-d3" filter="url(#nodeGlow)"/>
+          <text x="580" y="74" text-anchor="middle" font-family="JetBrains Mono" font-size="14" font-weight="700" fill="#3B9B8F">0.95+</text>
+          <text x="580" y="90" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#3B9B8F">enterprise</text>
+          <text x="580" y="140" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" letter-spacing="0.1em" fill="#3B9B8F">ENTERPRISE</text>
+          <text x="580" y="155" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#2D7068">TRUTH</text>
+
           <!-- Animated dot -->
-          <circle cx="60" cy="70" r="6" fill="#1D1D1D" id="trust-mover"/>
+          <circle cx="60" cy="80" r="7" fill="#E8973F" id="trust-mover" filter="url(#nodeGlow)"/>
         </svg>
       </div>
 
@@ -352,9 +432,9 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT III — THREE PILLARS
+       ACT III — CREAM TEAL TINT, airy pillars
   ═══════════════════════════════════════════ -->
-  <section id="act-3" class="section section-act section-teal-tint">
+  <section id="act-3" class="section section-cream-teal">
     <div class="section-inner">
       <div class="act-label reveal-up">Act III</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">Three Pillars</h2>
@@ -405,39 +485,59 @@
         </div>
       </div>
 
-      <!-- Query flow animation -->
+      <!-- Query flow animation — enhanced SVG -->
       <div class="query-flow-wrap reveal-up" style="--delay:0.2s">
-        <div class="query-flow-label">Query Flow</div>
-        <svg class="query-flow-svg" viewBox="0 0 600 80" fill="none" xmlns="http://www.w3.org/2000/svg" id="query-flow-svg" aria-label="Query flow diagram">
-          <!-- Input -->
-          <rect x="10" y="30" width="70" height="20" rx="4" stroke="#DBCDB3" stroke-width="1.5"/>
-          <text x="45" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#6B6560">QUERY</text>
-          <!-- Main line -->
-          <line x1="80" y1="40" x2="170" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl1"/>
+        <div class="query-flow-label">Query Flow — 127ms end-to-end</div>
+        <svg class="query-flow-svg" viewBox="0 0 620 100" fill="none" xmlns="http://www.w3.org/2000/svg" id="query-flow-svg" aria-label="Query flow diagram">
+          <defs>
+            <marker id="arrowTeal" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M1,1 L7,4 L1,7 Z" fill="#3B9B8F"/>
+            </marker>
+            <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+              <path d="M1,1 L7,4 L1,7 Z" fill="#E8973F"/>
+            </marker>
+          </defs>
+
+          <!-- Input box -->
+          <rect x="8" y="38" width="80" height="24" rx="5" fill="white" stroke="#C8BDAA" stroke-width="1.5"/>
+          <text x="48" y="54" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="600" fill="#1A1D1D">QUERY</text>
+
+          <!-- Main line to split -->
+          <line x1="88" y1="50" x2="170" y2="50" stroke="#3B9B8F" stroke-width="2" class="flow-line" id="qfl1" marker-end="url(#arrowTeal)"/>
+
           <!-- Split point -->
-          <circle cx="170" cy="40" r="4" fill="#CA5C3D" id="qf-split"/>
-          <!-- Three branches -->
-          <line x1="170" y1="40" x2="260" y2="15" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl2"/>
-          <line x1="170" y1="40" x2="260" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl3"/>
-          <line x1="170" y1="40" x2="260" y2="65" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl4"/>
+          <circle cx="176" cy="50" r="5" fill="#3B9B8F" id="qf-split"/>
+
+          <!-- Three branches — teal for Brain, amber for Lakehouse, navy for Sentinel -->
+          <path d="M176,50 L256,18" stroke="#3B9B8F" stroke-width="1.8" class="flow-line" id="qfl2" stroke-dasharray="300" stroke-dashoffset="300"/>
+          <path d="M176,50 L256,50" stroke="#E8973F" stroke-width="1.8" class="flow-line" id="qfl3" stroke-dasharray="300" stroke-dashoffset="300"/>
+          <path d="M176,50 L256,82" stroke="#5A7898" stroke-width="1.8" class="flow-line" id="qfl4" stroke-dasharray="300" stroke-dashoffset="300"/>
+
           <!-- Pillar nodes -->
-          <rect x="262" y="7" width="60" height="16" rx="3" stroke="#CA5C3D" stroke-width="1.5"/>
-          <text x="292" y="19" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#CA5C3D">BRAIN</text>
-          <rect x="262" y="32" width="60" height="16" rx="3" stroke="#2A6B5A" stroke-width="1.5"/>
-          <text x="292" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#2A6B5A">LAKEHOUSE</text>
-          <rect x="262" y="57" width="60" height="16" rx="3" stroke="#6B6560" stroke-width="1.5"/>
-          <text x="292" y="69" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">SENTINEL</text>
+          <rect x="258" y="8" width="80" height="20" rx="4" fill="rgba(59,155,143,0.12)" stroke="#3B9B8F" stroke-width="1.5"/>
+          <text x="298" y="22" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#3B9B8F">BRAIN</text>
+
+          <rect x="258" y="40" width="80" height="20" rx="4" fill="rgba(232,151,63,0.12)" stroke="#E8973F" stroke-width="1.5"/>
+          <text x="298" y="54" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#C07030">LAKEHOUSE</text>
+
+          <rect x="258" y="72" width="80" height="20" rx="4" fill="rgba(45,62,80,0.1)" stroke="#5A7898" stroke-width="1.5"/>
+          <text x="298" y="86" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#5A7898">SENTINEL</text>
+
           <!-- Merge lines -->
-          <line x1="322" y1="15" x2="410" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl5"/>
-          <line x1="322" y1="40" x2="410" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl6"/>
-          <line x1="322" y1="65" x2="410" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl7"/>
+          <path d="M338,18 L418,50" stroke="#3B9B8F" stroke-width="1.8" class="flow-line" id="qfl5" stroke-dasharray="300" stroke-dashoffset="300"/>
+          <path d="M338,50 L418,50" stroke="#E8973F" stroke-width="1.8" class="flow-line" id="qfl6" stroke-dasharray="300" stroke-dashoffset="300"/>
+          <path d="M338,82 L418,50" stroke="#5A7898" stroke-width="1.8" class="flow-line" id="qfl7" stroke-dasharray="300" stroke-dashoffset="300"/>
+
           <!-- Merge point -->
-          <circle cx="410" cy="40" r="4" fill="#CA5C3D" id="qf-merge"/>
+          <circle cx="424" cy="50" r="5" fill="#E8973F" id="qf-merge"/>
+
           <!-- Output line -->
-          <line x1="414" y1="40" x2="500" y2="40" stroke="#CA5C3D" stroke-width="1.5" class="flow-line" id="qfl8"/>
+          <line x1="429" y1="50" x2="524" y2="50" stroke="#E8973F" stroke-width="2" class="flow-line" id="qfl8" stroke-dasharray="300" stroke-dashoffset="300" marker-end="url(#arrowAmber)"/>
+
           <!-- Output box -->
-          <rect x="500" y="30" width="90" height="20" rx="4" stroke="#2A6B5A" stroke-width="1.5"/>
-          <text x="545" y="44" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#2A6B5A">CONFIDENCE 0.94</text>
+          <rect x="526" y="32" width="88" height="36" rx="5" fill="rgba(59,155,143,0.12)" stroke="#3B9B8F" stroke-width="2"/>
+          <text x="570" y="47" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#3B9B8F">CONFIDENCE</text>
+          <text x="570" y="60" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" fill="#E8973F">0.94</text>
         </svg>
       </div>
 
@@ -448,21 +548,24 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT IV — ARCHITECTURE
+       ACT IV — DARK (#1A1D27), technical depth
   ═══════════════════════════════════════════ -->
-  <section id="act-4" class="section section-act section-teal-tint">
+  <section id="act-4" class="section section-dark-act">
     <div class="section-inner">
       <div class="act-label reveal-up">Act IV</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">Architecture</h2>
       <p class="section-intro reveal-up" style="--delay:0.1s">Five divisions. Thirty-eight components. One coherent system — designed from first principles, not assembled from parts.</p>
 
-      <!-- Architecture layers -->
+      <!-- Architecture layers — geological cross-section -->
       <div class="arch-layers reveal-up" style="--delay:0.15s">
         <div class="arch-layer" data-layer="substrate">
           <div class="arch-layer-inner">
             <div class="arch-layer-head">
-              <span class="arch-layer-name">Substrate</span>
-              <span class="arch-badge">5 components</span>
+              <div style="display:flex;align-items:center;">
+                <span class="arch-count-badge">5</span>
+                <span class="arch-layer-name">Substrate</span>
+              </div>
+              <span class="arch-badge">foundation layer</span>
             </div>
             <div class="arch-layer-components">
               <span>Kernel</span>
@@ -476,8 +579,11 @@
         <div class="arch-layer" data-layer="core">
           <div class="arch-layer-inner">
             <div class="arch-layer-head">
-              <span class="arch-layer-name">Core</span>
-              <span class="arch-badge">14 components</span>
+              <div style="display:flex;align-items:center;">
+                <span class="arch-count-badge">14</span>
+                <span class="arch-layer-name">Core</span>
+              </div>
+              <span class="arch-badge">intelligence layer</span>
             </div>
             <div class="arch-layer-components">
               <span>Brain Engine</span>
@@ -500,8 +606,11 @@
         <div class="arch-layer" data-layer="tools">
           <div class="arch-layer-inner">
             <div class="arch-layer-head">
-              <span class="arch-layer-name">Tools</span>
-              <span class="arch-badge">6 components</span>
+              <div style="display:flex;align-items:center;">
+                <span class="arch-count-badge">6</span>
+                <span class="arch-layer-name">Tools</span>
+              </div>
+              <span class="arch-badge">operator layer</span>
             </div>
             <div class="arch-layer-components">
               <span>CLI</span>
@@ -516,8 +625,11 @@
         <div class="arch-layer" data-layer="integrations">
           <div class="arch-layer-inner">
             <div class="arch-layer-head">
-              <span class="arch-layer-name">Integrations</span>
-              <span class="arch-badge">5 components</span>
+              <div style="display:flex;align-items:center;">
+                <span class="arch-count-badge">5</span>
+                <span class="arch-layer-name">Integrations</span>
+              </div>
+              <span class="arch-badge">connector layer</span>
             </div>
             <div class="arch-layer-components">
               <span>LLM Gateway</span>
@@ -531,8 +643,11 @@
         <div class="arch-layer" data-layer="ecosystem">
           <div class="arch-layer-inner">
             <div class="arch-layer-head">
-              <span class="arch-layer-name">Ecosystem</span>
-              <span class="arch-badge">8 components</span>
+              <div style="display:flex;align-items:center;">
+                <span class="arch-count-badge">8</span>
+                <span class="arch-layer-name">Ecosystem</span>
+              </div>
+              <span class="arch-badge">network layer</span>
             </div>
             <div class="arch-layer-components">
               <span>Node Network</span>
@@ -557,62 +672,89 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT V — THE CIRCULAR LOOP
+       ACT V — CREAM WARM, the loop feels organic
   ═══════════════════════════════════════════ -->
-  <section id="act-5" class="section section-act">
+  <section id="act-5" class="section section-cream-warm">
     <div class="section-inner">
       <div class="act-label reveal-up">Act V</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">The Circular Loop</h2>
       <p class="section-intro reveal-up" style="--delay:0.1s">AdiOS is not a static platform. Every interaction compounds. Every node improves every other node. This is not a feature — it is the foundational architecture.</p>
 
-      <!-- Circular loop SVG -->
+      <!-- Circular loop SVG — SIGNATURE visual -->
       <div class="loop-wrap reveal-up" style="--delay:0.15s">
-        <svg class="loop-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" id="loop-svg" aria-label="AdiOS circular intelligence loop">
+        <svg class="loop-svg" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg" id="loop-svg" aria-label="AdiOS circular intelligence loop">
           <defs>
             <linearGradient id="loopGradient" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stop-color="#3B9B8F"/>
-              <stop offset="50%" stop-color="#E8973F"/>
+              <stop offset="40%" stop-color="#E8973F"/>
+              <stop offset="70%" stop-color="#2D3E50"/>
               <stop offset="100%" stop-color="#3B9B8F"/>
             </linearGradient>
+            <filter id="dotGlow">
+              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="nodeGlow2">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
           </defs>
-          <!-- Background circle -->
-          <circle cx="200" cy="200" r="140" stroke="#DBCDB3" stroke-width="1"/>
-          <!-- Main animated circle with gradient stroke -->
-          <circle cx="200" cy="200" r="140" stroke="url(#loopGradient)" stroke-width="2" stroke-dasharray="879" stroke-dashoffset="879" id="loop-circle"/>
 
-          <!-- Node positions: USE(top), OBSERVE(right), LEARN(bottom-right), INTELLIGENCE(bottom-left), VALUE(left) -->
-          <!-- USE — top center -->
-          <circle cx="200" cy="60" r="18" fill="#EAE6DB" stroke="#CA5C3D" stroke-width="2" id="loop-n1"/>
-          <text x="200" y="56" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#CA5C3D">USE</text>
-          <text x="200" y="67" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">interact</text>
-          <text x="200" y="35" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.1em">USE</text>
+          <!-- Outer decoration ring -->
+          <circle cx="220" cy="220" r="175" stroke="#E8D5C0" stroke-width="0.5" stroke-dasharray="3,8"/>
+          <!-- Main track -->
+          <circle cx="220" cy="220" r="150" stroke="#C8BDAA" stroke-width="1.5"/>
+          <!-- Animated gradient ring -->
+          <circle cx="220" cy="220" r="150" stroke="url(#loopGradient)" stroke-width="4"
+                  stroke-dasharray="942" stroke-dashoffset="942" id="loop-circle"
+                  style="transform-origin:220px 220px; stroke-linecap:round;"/>
 
-          <!-- OBSERVE — right -->
-          <circle cx="333" cy="153" r="18" fill="#EAE6DB" stroke="#CA5C3D" stroke-width="2" id="loop-n2"/>
-          <text x="333" y="149" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="600" fill="#CA5C3D">OBS</text>
-          <text x="333" y="159" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">track</text>
-          <text x="362" y="138" text-anchor="start" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">OBSERVE</text>
+          <!-- Center label -->
+          <circle cx="220" cy="220" r="48" fill="rgba(26,29,39,0.06)" stroke="#C8BDAA" stroke-width="1"/>
+          <text x="220" y="215" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" letter-spacing="0.2em" fill="#7A7267">ADIOS</text>
+          <text x="220" y="230" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#9A9288">INTELLIGENCE</text>
+          <text x="220" y="244" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="#E8973F">LOOP</text>
 
-          <!-- LEARN — bottom right -->
-          <circle cx="310" cy="293" r="18" fill="#EAE6DB" stroke="#CA5C3D" stroke-width="2" id="loop-n3"/>
-          <text x="310" y="289" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="600" fill="#CA5C3D">LEARN</text>
-          <text x="310" y="299" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">adapt</text>
-          <text x="310" y="320" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">LEARN</text>
+          <!-- Node 1: USE — top center (220, 70) -->
+          <circle cx="220" cy="70" r="28" fill="#3B9B8F" stroke="#2D7A70" stroke-width="2" id="loop-n1" filter="url(#nodeGlow2)"/>
+          <text x="220" y="66" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="white">USE</text>
+          <text x="220" y="78" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="rgba(255,255,255,0.8)">interact</text>
+          <text x="220" y="35" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" letter-spacing="0.15em" fill="#1A1D1D">USE</text>
+          <line x1="220" y1="42" x2="220" y2="56" stroke="#C8BDAA" stroke-width="1"/>
 
-          <!-- INTELLIGENCE — bottom left -->
-          <circle cx="90" cy="293" r="18" fill="#EAE6DB" stroke="#2A6B5A" stroke-width="2" id="loop-n4"/>
-          <text x="90" y="289" text-anchor="middle" font-family="JetBrains Mono" font-size="6.5" font-weight="600" fill="#2A6B5A">INTEL</text>
-          <text x="90" y="299" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">score</text>
-          <text x="90" y="320" text-anchor="middle" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">INTELLIGENCE</text>
+          <!-- Node 2: OBSERVE — right (363, 153) -->
+          <circle cx="363" cy="153" r="28" fill="#E8973F" stroke="#C07030" stroke-width="2" id="loop-n2" filter="url(#nodeGlow2)"/>
+          <text x="363" y="149" text-anchor="middle" font-family="JetBrains Mono" font-size="8" font-weight="700" fill="white">OBSERVE</text>
+          <text x="363" y="161" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="rgba(255,255,255,0.8)">track</text>
+          <text x="408" y="140" text-anchor="start" font-family="JetBrains Mono" font-size="10" font-weight="700" letter-spacing="0.12em" fill="#1A1D1D">OBSERVE</text>
+          <line x1="393" y1="148" x2="406" y2="144" stroke="#C8BDAA" stroke-width="1"/>
 
-          <!-- VALUE — left -->
-          <circle cx="67" cy="153" r="18" fill="#EAE6DB" stroke="#2A6B5A" stroke-width="2" id="loop-n5"/>
-          <text x="67" y="149" text-anchor="middle" font-family="JetBrains Mono" font-size="7" font-weight="600" fill="#2A6B5A">VALUE</text>
-          <text x="67" y="159" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#6B6560">deliver</text>
-          <text x="20" y="138" text-anchor="start" font-family="JetBrains Mono" font-size="8" fill="#1D1D1D" letter-spacing="0.08em">VALUE</text>
+          <!-- Node 3: LEARN — bottom right (332, 324) -->
+          <circle cx="332" cy="324" r="28" fill="#2D3E50" stroke="#1D2E40" stroke-width="2" id="loop-n3" filter="url(#nodeGlow2)"/>
+          <text x="332" y="320" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="white">LEARN</text>
+          <text x="332" y="332" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="rgba(255,255,255,0.7)">adapt</text>
+          <text x="332" y="368" text-anchor="middle" font-family="JetBrains Mono" font-size="10" font-weight="700" letter-spacing="0.12em" fill="#1A1D1D">LEARN</text>
+          <line x1="332" y1="353" x2="332" y2="360" stroke="#C8BDAA" stroke-width="1"/>
+
+          <!-- Node 4: INTELLIGENCE — bottom left (108, 324) -->
+          <circle cx="108" cy="324" r="28" fill="#3B9B8F" stroke="#2D7A70" stroke-width="2" id="loop-n4" filter="url(#nodeGlow2)"/>
+          <text x="108" y="318" text-anchor="middle" font-family="JetBrains Mono" font-size="7.5" font-weight="700" fill="white">INTEL</text>
+          <text x="108" y="330" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="rgba(255,255,255,0.8)">score</text>
+          <text x="108" y="368" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" letter-spacing="0.1em" fill="#1A1D1D">INTELLIGENCE</text>
+          <line x1="108" y1="353" x2="108" y2="360" stroke="#C8BDAA" stroke-width="1"/>
+
+          <!-- Node 5: VALUE — left (77, 153) -->
+          <circle cx="77" cy="153" r="28" fill="#E8973F" stroke="#C07030" stroke-width="2" id="loop-n5" filter="url(#nodeGlow2)"/>
+          <text x="77" y="149" text-anchor="middle" font-family="JetBrains Mono" font-size="9" font-weight="700" fill="white">VALUE</text>
+          <text x="77" y="161" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="rgba(255,255,255,0.8)">deliver</text>
+          <text x="8" y="140" text-anchor="start" font-family="JetBrains Mono" font-size="10" font-weight="700" letter-spacing="0.12em" fill="#1A1D1D">VALUE</text>
+          <line x1="47" y1="144" x2="60" y2="148" stroke="#C8BDAA" stroke-width="1"/>
 
           <!-- Animated dot on track -->
-          <circle r="6" fill="#CA5C3D" id="loop-dot" opacity="0.9"/>
+          <circle r="9" fill="#E8973F" id="loop-dot" opacity="0.95" filter="url(#dotGlow)"/>
+          <!-- Trail dots -->
+          <circle r="6" fill="#E8973F" id="loop-trail1" opacity="0.45"/>
+          <circle r="4" fill="#E8973F" id="loop-trail2" opacity="0.2"/>
         </svg>
       </div>
 
@@ -658,16 +800,16 @@
         </div>
       </div>
 
-      <div class="act-mantra reveal-up" style="--delay:0.25s">
+      <div class="key-question reveal-up" style="--delay:0.25s">
         <em>"The system compounds. This is not a metaphor. This is architecture."</em>
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT VI — THE MARKET
+       ACT VI — AMBER-TINTED CREAM, market energy
   ═══════════════════════════════════════════ -->
-  <section id="act-6" class="section section-act section-amber-tint">
+  <section id="act-6" class="section section-amber-tint">
     <div class="section-inner">
       <div class="act-label reveal-up">Act VI</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">The Market</h2>
@@ -677,45 +819,46 @@
       <div class="stack-diagram reveal-up" style="--delay:0.1s">
         <div class="stack-label">Where AdiOS Sits</div>
         <div class="stack-layers">
-          <div class="stack-layer stack-above">LLM Layer <span>(OpenAI, Claude, Llama)</span></div>
+          <div class="stack-layer">LLM Layer <span>(OpenAI, Claude, Llama)</span></div>
           <div class="stack-layer stack-adios">
             <span class="stack-adios-badge">AdiOS</span>
             Sovereign AI OS Layer <span>(knowledge, governance, provenance)</span>
           </div>
-          <div class="stack-layer stack-below">Enterprise Data Layer <span>(ERP, CRM, documents)</span></div>
+          <div class="stack-layer">Enterprise Data Layer <span>(ERP, CRM, documents)</span></div>
         </div>
       </div>
 
-      <!-- Market data -->
+      <!-- Market data — animated on scroll -->
       <div class="market-data reveal-up" style="--delay:0.15s">
         <div class="market-item">
-          <div class="market-label">India AI Market</div>
+          <div class="market-label">India AI Market Growth</div>
           <div class="market-bar-wrap">
             <div class="market-bar-track">
-              <div class="market-bar market-bar-start" id="market-bar-now" style="width: 6%">
-                <span class="market-bar-label">$7.6B</span>
+              <div class="market-bar market-bar-start" id="market-bar-now" style="width: 0%">
+                <span class="market-bar-label">$7.6B today</span>
               </div>
             </div>
             <div class="market-bar-track">
               <div class="market-bar market-bar-end" id="market-bar-future" style="width: 0%">
-                <span class="market-bar-label">$126B</span>
+                <span class="market-bar-label">$126B by 2030</span>
               </div>
             </div>
             <div class="market-bar-years">
-              <span>Today</span>
-              <span>2030 Projection</span>
+              <span>2024</span>
+              <span style="color:#E8973F;font-weight:700;">← AdiOS enters 2026</span>
+              <span>2030</span>
             </div>
           </div>
         </div>
 
         <div class="market-item">
-          <div class="market-label">GPU Infrastructure Progress</div>
+          <div class="market-label">GPU Infrastructure Progress — India</div>
           <div class="gpu-progress-wrap">
             <div class="gpu-bar-track">
               <div class="gpu-bar" id="gpu-bar"></div>
             </div>
             <div class="gpu-labels">
-              <span class="gpu-current">38,000 GPUs deployed</span>
+              <span class="gpu-current" style="color:#3B9B8F;font-weight:600;">38,000 GPUs deployed</span>
               <span class="gpu-target">Target: 200,000</span>
             </div>
           </div>
@@ -738,7 +881,7 @@
               <div class="insight-bar-track">
                 <div class="insight-bar insight-bar-small" id="insight-bar-2"></div>
               </div>
-              <div class="insight-stat" id="insight-stat-2">0%</div>
+              <div class="insight-stat" id="insight-stat-2" style="color:#E85555;">0%</div>
             </div>
             <div class="insight-text">have a sovereign OS</div>
           </div>
@@ -750,15 +893,15 @@
       </div>
 
       <div class="market-sources reveal-up" style="--delay:0.25s">
-        Sources: NASSCOM AI Report 2024 · India Electronics & Semiconductor Association 2024 · McKinsey Global AI Survey 2024
+        Sources: NASSCOM AI Report 2024 · India Electronics &amp; Semiconductor Association 2024 · McKinsey Global AI Survey 2024
       </div>
     </div>
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT VII — THE COMPANY
+       ACT VII — CREAM (#F5F0E8), professional
   ═══════════════════════════════════════════ -->
-  <section id="act-7" class="section section-act">
+  <section id="act-7" class="section section-cream">
     <div class="section-inner">
       <div class="act-label reveal-up">Act VII</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">The Company</h2>
@@ -854,7 +997,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       CODA
+       CODA — DARK, dramatic close
   ═══════════════════════════════════════════ -->
   <section id="coda" class="section section-coda">
     <div class="section-inner">
@@ -884,7 +1027,7 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       WAITLIST
+       WAITLIST — CREAM
   ═══════════════════════════════════════════ -->
   <section id="waitlist" class="section section-waitlist">
     <div class="section-inner section-inner-narrow">
@@ -938,7 +1081,7 @@
 </main>
 
 <!-- ═══════════════════════════════════════════
-     FOOTER
+     FOOTER — DARK
 ═══════════════════════════════════════════ -->
 <footer id="site-footer">
   <div class="footer-inner">
