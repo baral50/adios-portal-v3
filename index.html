@@ -51,7 +51,8 @@
 <header id="site-header">
   <div class="header-inner">
     <a href="#prologue" class="header-logo" aria-label="AdiOS Home">
-      <img src="assets/logo-light.jpg" alt="AdiOS" height="32" />
+      <img src="assets/icon-transparent.jpg" alt="AdiOS" class="header-icon" />
+      <span class="header-wordmark">AdiOS</span>
     </a>
     <nav class="header-nav" aria-label="Main navigation">
       <a href="#act-1" class="nav-item">Operating System</a>
@@ -76,7 +77,7 @@
 <!-- ─── Sidebar ─── -->
 <aside id="sidebar" aria-label="Story navigation">
   <div class="sidebar-top">
-    <img src="assets/icon-128.jpg" alt="AdiOS icon" width="28" height="28" class="sidebar-icon" />
+    <img src="assets/icon-128.jpg" alt="AdiOS icon" class="sidebar-icon" />
   </div>
   <nav class="sidebar-nav" aria-label="Section navigation">
     <a href="#prologue" class="sidebar-item active" data-section="prologue">Prologue</a>
@@ -104,7 +105,7 @@
   <section id="prologue" class="section section-prologue">
     <div class="prologue-inner">
       <div class="prologue-logo reveal-up">
-        <img src="assets/logo-light.jpg" alt="AdiOS" height="48" />
+        <img src="assets/icon-transparent.jpg" alt="AdiOS" class="prologue-icon" />
       </div>
       <h1 class="prologue-headline reveal-up" style="--delay:0.1s">
         <em>Boot Sovereign.</em>
@@ -353,15 +354,15 @@
   <!-- ═══════════════════════════════════════════
        ACT III — THREE PILLARS
   ═══════════════════════════════════════════ -->
-  <section id="act-3" class="section section-act">
+  <section id="act-3" class="section section-act section-teal-tint">
     <div class="section-inner">
       <div class="act-label reveal-up">Act III</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">Three Pillars</h2>
       <p class="section-intro reveal-up" style="--delay:0.1s">Every intelligent query touches three foundational systems simultaneously. Not sequential — concurrent. This is what makes AdiOS architecturally distinct.</p>
 
       <!-- Three pillars cards -->
-      <div class="pillars-grid reveal-up" style="--delay:0.15s">
-        <div class="pillar-card pillar-brain">
+      <div class="pillars-grid reveal-stagger">
+        <div class="pillar-card pillar-brain card-border-draw">
           <div class="pillar-accent-bar"></div>
           <div class="pillar-header">
             <span class="pillar-number">01</span>
@@ -375,7 +376,7 @@
           <p class="pillar-desc">The knowledge graph and trust layer. Three-tier hierarchy from personal assertion to enterprise truth. Every fact carries confidence and provenance.</p>
         </div>
 
-        <div class="pillar-card pillar-lakehouse">
+        <div class="pillar-card pillar-lakehouse card-border-draw">
           <div class="pillar-accent-bar"></div>
           <div class="pillar-header">
             <span class="pillar-number">02</span>
@@ -389,7 +390,7 @@
           <p class="pillar-desc">Unified data fabric. Time-series, geospatial, and quantitative context. All data remains local — zero cloud egress, full provenance chain.</p>
         </div>
 
-        <div class="pillar-card pillar-governance">
+        <div class="pillar-card pillar-governance card-border-draw">
           <div class="pillar-accent-bar"></div>
           <div class="pillar-header">
             <span class="pillar-number">03</span>
@@ -449,7 +450,7 @@
   <!-- ═══════════════════════════════════════════
        ACT IV — ARCHITECTURE
   ═══════════════════════════════════════════ -->
-  <section id="act-4" class="section section-act section-alt">
+  <section id="act-4" class="section section-act section-teal-tint">
     <div class="section-inner">
       <div class="act-label reveal-up">Act IV</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">Architecture</h2>
@@ -567,10 +568,17 @@
       <!-- Circular loop SVG -->
       <div class="loop-wrap reveal-up" style="--delay:0.15s">
         <svg class="loop-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" id="loop-svg" aria-label="AdiOS circular intelligence loop">
+          <defs>
+            <linearGradient id="loopGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3B9B8F"/>
+              <stop offset="50%" stop-color="#E8973F"/>
+              <stop offset="100%" stop-color="#3B9B8F"/>
+            </linearGradient>
+          </defs>
           <!-- Background circle -->
           <circle cx="200" cy="200" r="140" stroke="#DBCDB3" stroke-width="1"/>
-          <!-- Main animated circle -->
-          <circle cx="200" cy="200" r="140" stroke="#CA5C3D" stroke-width="1.5" stroke-dasharray="879" stroke-dashoffset="879" id="loop-circle"/>
+          <!-- Main animated circle with gradient stroke -->
+          <circle cx="200" cy="200" r="140" stroke="url(#loopGradient)" stroke-width="2" stroke-dasharray="879" stroke-dashoffset="879" id="loop-circle"/>
 
           <!-- Node positions: USE(top), OBSERVE(right), LEARN(bottom-right), INTELLIGENCE(bottom-left), VALUE(left) -->
           <!-- USE — top center -->
@@ -659,7 +667,7 @@
   <!-- ═══════════════════════════════════════════
        ACT VI — THE MARKET
   ═══════════════════════════════════════════ -->
-  <section id="act-6" class="section section-act section-alt">
+  <section id="act-6" class="section section-act section-amber-tint">
     <div class="section-inner">
       <div class="act-label reveal-up">Act VI</div>
       <h2 class="section-title reveal-up" style="--delay:0.05s">The Market</h2>
@@ -781,20 +789,20 @@
 
       <!-- Revenue tracks -->
       <h3 class="subsection-title reveal-up" style="--delay:0.1s">Revenue Architecture</h3>
-      <div class="revenue-grid reveal-up" style="--delay:0.15s">
-        <div class="revenue-card">
+      <div class="revenue-grid reveal-stagger">
+        <div class="revenue-card card-border-draw">
           <div class="revenue-number">01</div>
           <h4 class="revenue-name">Enterprise Licensing</h4>
           <p class="revenue-desc">Annual sovereign OS license. Per-division deployment. On-premise or private cloud. SLA-backed with dedicated support.</p>
           <div class="revenue-timing">Near-term</div>
         </div>
-        <div class="revenue-card">
+        <div class="revenue-card card-border-draw">
           <div class="revenue-number">02</div>
           <h4 class="revenue-name">Platform Subscriptions</h4>
           <p class="revenue-desc">Developer and team tiers. API access, SDK, and marketplace. Usage-based scaling with governance included at every tier.</p>
           <div class="revenue-timing">Mid-term</div>
         </div>
-        <div class="revenue-card">
+        <div class="revenue-card card-border-draw">
           <div class="revenue-number">03</div>
           <h4 class="revenue-name">Ecosystem Marketplace</h4>
           <p class="revenue-desc">Third-party modules, intelligence packs, and vertical solutions. Platform take-rate on all marketplace transactions. Network effects drive margin.</p>
@@ -865,7 +873,7 @@
       </div>
 
       <div class="coda-logo-wrap reveal-up" style="--delay:0.35s">
-        <img src="assets/logo-dark.jpg" alt="AdiOS" class="coda-logo" />
+        <img src="assets/icon-dark.jpg" alt="AdiOS" class="coda-icon" />
         <div class="coda-tagline">Boot Sovereign.</div>
       </div>
 
@@ -936,7 +944,7 @@
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
-        <img src="assets/logo-dark.jpg" alt="AdiOS" height="36" class="footer-logo" />
+        <img src="assets/logo-dark.jpg" alt="AdiOS" class="footer-logo" />
         <p class="footer-tagline">Sovereign AI Operating System</p>
       </div>
       <div class="footer-columns">
