@@ -2366,3 +2366,222 @@ body #site-footer { margin-left: var(--sidebar-w); }
 
 /* Hide old sidebar if any remnant exists */
 #sidebar { display: none !important; }
+
+/* ═══════════════════════════════════════════
+   PAGE CONTAINER + SIDEBAR NAVIGATION SYSTEM
+═══════════════════════════════════════════ */
+
+/* --- Disabled Nav Items --- */
+.nav-item.nav-disabled,
+.mobile-nav-item.nav-disabled {
+  opacity: 0.35;
+  pointer-events: none;
+  cursor: not-allowed;
+  position: relative;
+}
+.nav-item.nav-disabled::after {
+  display: none;
+}
+
+/* --- Active nav item highlight --- */
+.nav-item.nav-active {
+  color: var(--accent-teal) !important;
+}
+.nav-item.nav-active::after {
+  width: 100% !important;
+  background: var(--accent-teal);
+}
+
+/* --- Page Containers --- */
+.page-container {
+  display: none;
+  min-height: calc(100vh - var(--header-h));
+}
+.page-container.active {
+  display: flex;
+}
+
+/* Home page is full width, no sidebar */
+.page-container[data-page="home"] {
+  display: none;
+  flex-direction: column;
+}
+.page-container[data-page="home"].active {
+  display: flex;
+}
+
+/* --- Page Sidebar --- */
+.page-sidebar {
+  position: sticky;
+  top: var(--header-h);
+  width: 240px;
+  min-width: 240px;
+  height: calc(100vh - var(--header-h));
+  background: var(--bg-cream);
+  border-right: 1px solid var(--border-cream);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  z-index: 10;
+}
+
+.page-sidebar-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent-teal);
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border-cream);
+}
+
+.page-sidebar-item {
+  display: block;
+  padding: 14px 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.page-sidebar-item:hover {
+  color: var(--text-dark);
+  background: rgba(59, 155, 143, 0.06);
+}
+
+.page-sidebar-item.active {
+  color: var(--accent-teal);
+  font-weight: 700;
+  border-left-color: var(--accent-teal);
+  background: rgba(59, 155, 143, 0.08);
+}
+
+.page-sidebar-item.disabled-item {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* --- Page Content Area --- */
+.page-content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+/* --- Content Panels --- */
+.content-panel {
+  display: none;
+}
+.content-panel.active {
+  display: block;
+}
+
+/* Sections inside panels should not have excess top padding */
+.page-content .section {
+  padding-top: clamp(48px, 6vw, 80px);
+}
+
+/* ═══════════════════════════════════════════
+   TEAM SECTION
+═══════════════════════════════════════════ */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 32px;
+  margin-top: 8px;
+}
+
+.team-card {
+  border: 1.5px solid var(--border-cream);
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 16px rgba(26, 29, 39, 0.07);
+  transition: box-shadow 0.3s, transform 0.3s;
+  text-align: center;
+  padding-bottom: 28px;
+}
+
+.team-card:hover {
+  box-shadow: 0 10px 36px rgba(59, 155, 143, 0.15);
+  transform: translateY(-4px);
+}
+
+.team-photo-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--bg-navy);
+}
+
+.team-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.team-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 20px 20px 4px;
+}
+
+.team-role {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-teal);
+  margin-bottom: 12px;
+}
+
+.team-bio {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  padding: 0 20px;
+}
+
+/* ═══════════════════════════════════════════
+   SIDEBAR RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .page-container {
+    flex-direction: column;
+  }
+  .page-sidebar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    min-width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-cream);
+  }
+  .page-sidebar-title {
+    display: none;
+  }
+  .page-sidebar-item {
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    padding: 12px 16px;
+  }
+  .page-sidebar-item.active {
+    border-left-color: transparent;
+    border-bottom-color: var(--accent-teal);
+  }
+}

@@ -63,10 +63,13 @@
       <span class="header-wordmark">AdiOS</span>
     </a>
     <nav class="header-nav" aria-label="Main navigation">
-      <a href="#act-1" class="nav-item">Operating System</a>
-      <a href="#act-3" class="nav-item">Platform</a>
-      <a href="#act-7" class="nav-item">Ecosystem</a>
-      <a href="#act-7" class="nav-item">Company</a>
+      <a href="#" class="nav-item" data-page="home">Home</a>
+      <a href="#" class="nav-item" data-page="os">Operating System</a>
+      <a href="#" class="nav-item" data-page="platform">Platform</a>
+      <a href="#" class="nav-item nav-disabled" data-page="usecase">Use Case</a>
+      <a href="#" class="nav-item nav-disabled" data-page="builder">Builder</a>
+      <a href="#" class="nav-item" data-page="ecosystem">Ecosystem</a>
+      <a href="#" class="nav-item" data-page="company">Company</a>
     </nav>
     <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -76,24 +79,17 @@
 
 <!-- ─── Mobile Nav Drawer ─── -->
 <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
-  <a href="#act-1" class="mobile-nav-item">Operating System</a>
-  <a href="#act-3" class="mobile-nav-item">Platform</a>
-  <a href="#act-7" class="mobile-nav-item">Ecosystem</a>
-  <a href="#act-7" class="mobile-nav-item">Company</a>
+  <a href="#" class="mobile-nav-item" data-page="home">Home</a>
+  <a href="#" class="mobile-nav-item" data-page="os">Operating System</a>
+  <a href="#" class="mobile-nav-item" data-page="platform">Platform</a>
+  <a href="#" class="mobile-nav-item nav-disabled" data-page="usecase">Use Case</a>
+  <a href="#" class="mobile-nav-item nav-disabled" data-page="builder">Builder</a>
+  <a href="#" class="mobile-nav-item" data-page="ecosystem">Ecosystem</a>
+  <a href="#" class="mobile-nav-item" data-page="company">Company</a>
 </div>
 
-<!-- ─── Floating Nav Dots (right side) ─── -->
-<nav id="dot-nav" aria-label="Section navigation">
-  <a href="#prologue" class="dot-link active" data-section="prologue" title="Prologue"><span class="dot"></span></a>
-  <a href="#act-1" class="dot-link" data-section="act-1" title="The OS"><span class="dot"></span></a>
-  <a href="#act-2" class="dot-link" data-section="act-2" title="The Brain"><span class="dot"></span></a>
-  <a href="#act-3" class="dot-link" data-section="act-3" title="Pillars"><span class="dot"></span></a>
-  <a href="#act-4" class="dot-link" data-section="act-4" title="Architecture"><span class="dot"></span></a>
-  <a href="#act-5" class="dot-link" data-section="act-5" title="The Loop"><span class="dot"></span></a>
-  <a href="#act-6" class="dot-link" data-section="act-6" title="Market"><span class="dot"></span></a>
-  <a href="#act-7" class="dot-link" data-section="act-7" title="Company"><span class="dot"></span></a>
-  <a href="#coda" class="dot-link" data-section="coda" title="Coda"><span class="dot"></span></a>
-</nav>
+<!-- Dot nav hidden — replaced by sidebar navigation -->
+<nav id="dot-nav" aria-label="Section navigation" style="display:none;"></nav>
 
 <!-- Scroll progress bar (top) -->
 <div id="top-progress"><div id="top-progress-fill"></div></div>
@@ -102,8 +98,10 @@
 <main id="main-content">
 
   <!-- ═══════════════════════════════════════════
-       PROLOGUE — DARK (#1A1D27), dramatic entrance
+       PAGE: HOME (Prologue)
   ═══════════════════════════════════════════ -->
+  <div class="page-container active" data-page="home">
+
   <section id="prologue" class="section section-prologue">
     <div class="prologue-inner">
       <div class="prologue-logo reveal-up">
@@ -165,8 +163,17 @@
   </section>
 
   <!-- ═══════════════════════════════════════════
-       ACT I — CREAM (#F5F0E8), warm editorial
+       PAGE: OPERATING SYSTEM (Act I + Act II)
   ═══════════════════════════════════════════ -->
+  <div class="page-container" data-page="os">
+    <aside class="page-sidebar">
+      <div class="page-sidebar-title">Operating System</div>
+      <a href="#" class="page-sidebar-item active" data-panel="os-overview">The OS</a>
+      <a href="#" class="page-sidebar-item" data-panel="os-brain">The Brain</a>
+    </aside>
+    <div class="page-content">
+
+      <div class="content-panel active" data-panel="os-overview">
   <section id="act-1" class="section section-cream">
     <div class="section-inner">
       <div class="act-label reveal-up">Act I</div>
@@ -360,9 +367,9 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       ACT II — NAVY (#2D3E50), deep trust
-  ═══════════════════════════════════════════ -->
+      </div><!-- end panel: os-overview -->
+
+      <div class="content-panel" data-panel="os-brain">
   <section id="act-2" class="section section-navy">
     <div class="section-inner">
       <div class="act-label reveal-up">Act II</div>
@@ -473,9 +480,23 @@
     </div>
   </section>
 
+      </div><!-- end panel: os-brain -->
+    </div><!-- end page-content -->
+  </div><!-- end page: os -->
+
   <!-- ═══════════════════════════════════════════
-       ACT III — CREAM TEAL TINT, airy pillars
+       PAGE: PLATFORM (Act III + Act IV + Act V)
   ═══════════════════════════════════════════ -->
+  <div class="page-container" data-page="platform">
+    <aside class="page-sidebar">
+      <div class="page-sidebar-title">Platform</div>
+      <a href="#" class="page-sidebar-item active" data-panel="plat-pillars">Three Pillars</a>
+      <a href="#" class="page-sidebar-item" data-panel="plat-arch">Architecture</a>
+      <a href="#" class="page-sidebar-item" data-panel="plat-loop">The Loop</a>
+    </aside>
+    <div class="page-content">
+
+      <div class="content-panel active" data-panel="plat-pillars">
   <section id="act-3" class="section section-cream-teal">
     <div class="section-inner">
       <div class="act-label reveal-up">Act III</div>
@@ -589,9 +610,9 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       ACT IV — DARK (#1A1D27), technical depth
-  ═══════════════════════════════════════════ -->
+      </div><!-- end panel: plat-pillars -->
+
+      <div class="content-panel" data-panel="plat-arch">
   <section id="act-4" class="section section-dark-act">
     <div class="section-inner">
       <div class="act-label reveal-up">Act IV</div>
@@ -713,9 +734,9 @@
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════
-       ACT V — CREAM WARM, the loop feels organic
-  ═══════════════════════════════════════════ -->
+      </div><!-- end panel: plat-arch -->
+
+      <div class="content-panel" data-panel="plat-loop">
   <section id="act-5" class="section section-cream-warm">
     <div class="section-inner">
       <div class="act-label reveal-up">Act V</div>
@@ -848,9 +869,63 @@
     </div>
   </section>
 
+      </div><!-- end panel: plat-loop -->
+    </div><!-- end page-content -->
+  </div><!-- end page: platform -->
+
   <!-- ═══════════════════════════════════════════
-       ACT VI — AMBER-TINTED CREAM, market energy
+       PAGE: USE CASE (disabled placeholder)
   ═══════════════════════════════════════════ -->
+  <div class="page-container" data-page="usecase">
+    <aside class="page-sidebar">
+      <div class="page-sidebar-title">Use Case</div>
+      <a href="#" class="page-sidebar-item disabled-item">Coming Soon</a>
+    </aside>
+    <div class="page-content">
+      <div class="content-panel active" data-panel="usecase-placeholder">
+        <section class="section section-cream" style="min-height:80vh;display:flex;align-items:center;justify-content:center;">
+          <div class="section-inner" style="text-align:center;">
+            <div class="act-label">Coming Soon</div>
+            <h2 class="section-title">Use Cases</h2>
+            <p class="section-intro" style="margin-left:auto;margin-right:auto;">Detailed sovereign AI use cases across industries are being documented. Stay tuned.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: BUILDER (disabled placeholder)
+  ═══════════════════════════════════════════ -->
+  <div class="page-container" data-page="builder">
+    <aside class="page-sidebar">
+      <div class="page-sidebar-title">Builder</div>
+      <a href="#" class="page-sidebar-item disabled-item">Coming Soon</a>
+    </aside>
+    <div class="page-content">
+      <div class="content-panel active" data-panel="builder-placeholder">
+        <section class="section section-cream" style="min-height:80vh;display:flex;align-items:center;justify-content:center;">
+          <div class="section-inner" style="text-align:center;">
+            <div class="act-label">Coming Soon</div>
+            <h2 class="section-title">Builder</h2>
+            <p class="section-intro" style="margin-left:auto;margin-right:auto;">The AdiOS Builder tools and developer experience are under active development.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: ECOSYSTEM (Act VI — Market)
+  ═══════════════════════════════════════════ -->
+  <div class="page-container" data-page="ecosystem">
+    <aside class="page-sidebar">
+      <div class="page-sidebar-title">Ecosystem</div>
+      <a href="#" class="page-sidebar-item active" data-panel="eco-market">The Market</a>
+    </aside>
+    <div class="page-content">
+
+      <div class="content-panel active" data-panel="eco-market">
   <section id="act-6" class="section section-amber-tint">
     <div class="section-inner">
       <div class="act-label reveal-up">Act VI</div>
@@ -940,103 +1015,164 @@
     </div>
   </section>
 
+      </div><!-- end panel: eco-market -->
+    </div><!-- end page-content -->
+  </div><!-- end page: ecosystem -->
+
   <!-- ═══════════════════════════════════════════
-       ACT VII — CREAM (#F5F0E8), professional
+       PAGE: COMPANY (Act VII — split into sidebar panels)
   ═══════════════════════════════════════════ -->
-  <section id="act-7" class="section section-cream">
-    <div class="section-inner">
-      <div class="act-label reveal-up">Act VII</div>
-      <h2 class="section-title reveal-up" style="--delay:0.05s">The Company</h2>
+  <div class="page-container" data-page="company">
+    <aside class="page-sidebar">
+      <div class="page-sidebar-title">Company</div>
+      <a href="#" class="page-sidebar-item active" data-panel="comp-about">About</a>
+      <a href="#" class="page-sidebar-item" data-panel="comp-revenue">Revenue</a>
+      <a href="#" class="page-sidebar-item" data-panel="comp-expansion">Expansion</a>
+      <a href="#" class="page-sidebar-item" data-panel="comp-patents">Patents</a>
+      <a href="#" class="page-sidebar-item" data-panel="comp-team">Team</a>
+    </aside>
+    <div class="page-content">
 
-      <!-- Company info card -->
-      <div class="company-card reveal-up" style="--delay:0.1s">
-        <div class="company-detail-row">
-          <span class="company-detail-key">Entity</span>
-          <span class="company-detail-val">AdiOS Platform Private Limited</span>
-        </div>
-        <div class="company-detail-row">
-          <span class="company-detail-key">Incorporation</span>
-          <span class="company-detail-val">India · Private Limited</span>
-        </div>
-        <div class="company-detail-row">
-          <span class="company-detail-key">Category</span>
-          <span class="company-detail-val">Deep Tech · Sovereign AI Infrastructure</span>
-        </div>
-        <div class="company-detail-row">
-          <span class="company-detail-key">IP Position</span>
-          <span class="company-detail-val">7 interlocking patent claims filed</span>
-        </div>
-        <div class="company-detail-row">
-          <span class="company-detail-key">Stage</span>
-          <span class="company-detail-val">Pre-seed · Early Access Program active</span>
-        </div>
+      <!-- Panel: About -->
+      <div class="content-panel active" data-panel="comp-about">
+        <section class="section section-cream">
+          <div class="section-inner">
+            <div class="act-label reveal-up">Act VII</div>
+            <h2 class="section-title reveal-up" style="--delay:0.05s">The Company</h2>
+            <div class="company-card reveal-up" style="--delay:0.1s">
+              <div class="company-detail-row">
+                <span class="company-detail-key">Entity</span>
+                <span class="company-detail-val">AdiOS Platform Private Limited</span>
+              </div>
+              <div class="company-detail-row">
+                <span class="company-detail-key">Incorporation</span>
+                <span class="company-detail-val">India · Private Limited</span>
+              </div>
+              <div class="company-detail-row">
+                <span class="company-detail-key">Category</span>
+                <span class="company-detail-val">Deep Tech · Sovereign AI Infrastructure</span>
+              </div>
+              <div class="company-detail-row">
+                <span class="company-detail-key">IP Position</span>
+                <span class="company-detail-val">7 interlocking patent claims filed</span>
+              </div>
+              <div class="company-detail-row">
+                <span class="company-detail-key">Stage</span>
+                <span class="company-detail-val">Pre-seed · Early Access Program active</span>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <!-- Revenue tracks -->
-      <h3 class="subsection-title reveal-up" style="--delay:0.1s">Revenue Architecture</h3>
-      <div class="revenue-grid reveal-stagger">
-        <div class="revenue-card card-border-draw">
-          <div class="revenue-number">01</div>
-          <h4 class="revenue-name">Enterprise Licensing</h4>
-          <p class="revenue-desc">Annual sovereign OS license. Per-division deployment. On-premise or private cloud. SLA-backed with dedicated support.</p>
-          <div class="revenue-timing">Near-term</div>
-        </div>
-        <div class="revenue-card card-border-draw">
-          <div class="revenue-number">02</div>
-          <h4 class="revenue-name">Platform Subscriptions</h4>
-          <p class="revenue-desc">Developer and team tiers. API access, SDK, and marketplace. Usage-based scaling with governance included at every tier.</p>
-          <div class="revenue-timing">Mid-term</div>
-        </div>
-        <div class="revenue-card card-border-draw">
-          <div class="revenue-number">03</div>
-          <h4 class="revenue-name">Ecosystem Marketplace</h4>
-          <p class="revenue-desc">Third-party modules, intelligence packs, and vertical solutions. Platform take-rate on all marketplace transactions. Network effects drive margin.</p>
-          <div class="revenue-timing">Long-term</div>
-        </div>
+      <!-- Panel: Revenue -->
+      <div class="content-panel" data-panel="comp-revenue">
+        <section class="section section-cream">
+          <div class="section-inner">
+            <div class="act-label reveal-up">Company</div>
+            <h2 class="section-title reveal-up" style="--delay:0.05s">Revenue Architecture</h2>
+            <div class="revenue-grid reveal-stagger">
+              <div class="revenue-card card-border-draw">
+                <div class="revenue-number">01</div>
+                <h4 class="revenue-name">Enterprise Licensing</h4>
+                <p class="revenue-desc">Annual sovereign OS license. Per-division deployment. On-premise or private cloud. SLA-backed with dedicated support.</p>
+                <div class="revenue-timing">Near-term</div>
+              </div>
+              <div class="revenue-card card-border-draw">
+                <div class="revenue-number">02</div>
+                <h4 class="revenue-name">Platform Subscriptions</h4>
+                <p class="revenue-desc">Developer and team tiers. API access, SDK, and marketplace. Usage-based scaling with governance included at every tier.</p>
+                <div class="revenue-timing">Mid-term</div>
+              </div>
+              <div class="revenue-card card-border-draw">
+                <div class="revenue-number">03</div>
+                <h4 class="revenue-name">Ecosystem Marketplace</h4>
+                <p class="revenue-desc">Third-party modules, intelligence packs, and vertical solutions. Platform take-rate on all marketplace transactions. Network effects drive margin.</p>
+                <div class="revenue-timing">Long-term</div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <!-- Geographic expansion -->
-      <h3 class="subsection-title reveal-up" style="--delay:0.1s">Geographic Expansion</h3>
-      <div class="geo-timeline reveal-up" style="--delay:0.15s">
-        <div class="geo-phase">
-          <div class="geo-marker geo-active"></div>
-          <div class="geo-phase-name">Phase 1</div>
-          <div class="geo-phase-market">India</div>
-          <div class="geo-phase-time">2024–2025</div>
-        </div>
-        <div class="geo-line"></div>
-        <div class="geo-phase">
-          <div class="geo-marker"></div>
-          <div class="geo-phase-name">Phase 2</div>
-          <div class="geo-phase-market">SEA + Middle East</div>
-          <div class="geo-phase-time">2026</div>
-        </div>
-        <div class="geo-line"></div>
-        <div class="geo-phase">
-          <div class="geo-marker"></div>
-          <div class="geo-phase-name">Phase 3</div>
-          <div class="geo-phase-market">Europe + UK</div>
-          <div class="geo-phase-time">2027</div>
-        </div>
-        <div class="geo-line"></div>
-        <div class="geo-phase">
-          <div class="geo-marker"></div>
-          <div class="geo-phase-name">Phase 4</div>
-          <div class="geo-phase-market">Global</div>
-          <div class="geo-phase-time">2028+</div>
-        </div>
+      <!-- Panel: Expansion -->
+      <div class="content-panel" data-panel="comp-expansion">
+        <section class="section section-cream">
+          <div class="section-inner">
+            <div class="act-label reveal-up">Company</div>
+            <h2 class="section-title reveal-up" style="--delay:0.05s">Geographic Expansion</h2>
+            <div class="geo-timeline reveal-up" style="--delay:0.15s">
+              <div class="geo-phase">
+                <div class="geo-marker geo-active"></div>
+                <div class="geo-phase-name">Phase 1</div>
+                <div class="geo-phase-market">India</div>
+                <div class="geo-phase-time">2024–2025</div>
+              </div>
+              <div class="geo-line"></div>
+              <div class="geo-phase">
+                <div class="geo-marker"></div>
+                <div class="geo-phase-name">Phase 2</div>
+                <div class="geo-phase-market">SEA + Middle East</div>
+                <div class="geo-phase-time">2026</div>
+              </div>
+              <div class="geo-line"></div>
+              <div class="geo-phase">
+                <div class="geo-marker"></div>
+                <div class="geo-phase-name">Phase 3</div>
+                <div class="geo-phase-market">Europe + UK</div>
+                <div class="geo-phase-time">2027</div>
+              </div>
+              <div class="geo-line"></div>
+              <div class="geo-phase">
+                <div class="geo-marker"></div>
+                <div class="geo-phase-name">Phase 4</div>
+                <div class="geo-phase-market">Global</div>
+                <div class="geo-phase-time">2028+</div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
 
-      <!-- Patent moat statement -->
-      <div class="patent-statement reveal-up" style="--delay:0.2s">
-        <div class="patent-number">7</div>
-        <div class="patent-text">
-          <p>interlocking patent claims filed.</p>
-          <p class="patent-sub">The moat is the dependency chain — you can't copy one piece.</p>
-        </div>
+      <!-- Panel: Patents -->
+      <div class="content-panel" data-panel="comp-patents">
+        <section class="section section-cream">
+          <div class="section-inner">
+            <div class="act-label reveal-up">Company</div>
+            <h2 class="section-title reveal-up" style="--delay:0.05s">Patent Portfolio</h2>
+            <div class="patent-statement reveal-up" style="--delay:0.2s">
+              <div class="patent-number">7</div>
+              <div class="patent-text">
+                <p>interlocking patent claims filed.</p>
+                <p class="patent-sub">The moat is the dependency chain — you can't copy one piece.</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-    </div>
-  </section>
+
+      <!-- Panel: Team -->
+      <div class="content-panel" data-panel="comp-team">
+        <section class="section section-cream">
+          <div class="section-inner">
+            <div class="act-label reveal-up">Company</div>
+            <h2 class="section-title reveal-up" style="--delay:0.05s">The Team</h2>
+            <div class="team-grid reveal-up" style="--delay:0.1s">
+              <div class="team-card">
+                <div class="team-photo-wrap">
+                  <img src="assets/team-malay.jpg" alt="Malay Baral" class="team-photo" />
+                </div>
+                <h4 class="team-name">Malay Baral</h4>
+                <div class="team-role">Founder</div>
+                <p class="team-bio">Visionary behind AdiOS Platform. Building India's first sovereign AI operating system — architecture-driven, intelligence at the kernel.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div><!-- end page-content -->
+  </div><!-- end page: company -->
 
   <!-- ═══════════════════════════════════════════
        CODA — DARK, dramatic close
@@ -1119,6 +1255,8 @@
       </form>
     </div>
   </section>
+
+  </div><!-- end page: home -->
 
 </main>
 

@@ -609,6 +609,147 @@ function initRevenueBorderDraw() {
   if (revGrid) io.observe(revGrid);
 }
 
+/* ─── 15. PAGE + SIDEBAR NAVIGATION ─── */
+function initPageNav() {
+  const pages = document.querySelectorAll('.page-container');
+  const navItems = document.querySelectorAll('.nav-item[data-page], .mobile-nav-item[data-page]');
+
+  function showPage(pageName) {
+    // Hide all pages
+    pages.forEach(p => p.classList.remove('active'));
+    // Show target page
+    const target = document.querySelector('.page-container[data-page="' + pageName + '"]');
+    if (target) target.classList.add('active');
+
+    // Update nav active state
+    document.querySelectorAll('.nav-item[data-page]').forEach(n => {
+      n.classList.toggle('nav-active', n.dataset.page === pageName);
+    });
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Re-trigger reveals for newly visible content
+    setTimeout(() => {
+      initReveal();
+      initCounters();
+      initMarketBars();
+      initFlowLines();
+      initTrustAnimation();
+      initLoopAnimation();
+      initArchLayers();
+      initRevenueBorderDraw();
+    }, 100);
+
+    // Update header style based on page
+    const header = document.getElementById('site-header');
+    if (pageName === 'home') {
+      header.classList.remove('header-light');
+    } else {
+      header.classList.add('header-light');
+    }
+  }
+
+  // Nav item clicks
+  navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (item.classList.contains('nav-disabled')) return;
+      showPage(item.dataset.page);
+
+      // Close mobile nav if open
+      const btn = document.getElementById('hamburger-btn');
+      const mobileNav = document.getElementById('mobile-nav');
+      if (btn && mobileNav) {
+        btn.classList.remove('open');
+        mobileNav.classList.remove('open');
+      }
+    });
+  });
+
+  // Sidebar panel switching
+  document.querySelectorAll('.page-sidebar-item[data-panel]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const panelName = item.dataset.panel;
+      const pageContainer = item.closest('.page-container');
+      if (!pageContainer) return;
+
+      // Update sidebar active state
+      pageContainer.querySelectorAll('.page-sidebar-item').forEach(si => si.classList.remove('active'));
+      item.classList.add('active');
+
+      // Show target panel
+      pageContainer.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+      const targetPanel = pageContainer.querySelector('.content-panel[data-panel="' + panelName + '"]');
+      if (targetPanel) targetPanel.classList.add('active');
+
+      // Re-trigger reveals
+      setTimeout(() => {
+        initReveal();
+        initCounters();
+        initMarketBars();
+        initFlowLines();
+        initTrustAnimation();
+        initLoopAnimation();
+        initArchLayers();
+        initRevenueBorderDraw();
+      }, 100);
+    });
+  });
+
+  // Logo click goes home
+  const logo = document.querySelector('.header-logo');
+  if (logo) {
+    logo.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage('home');
+    });
+  }
+
+  // Footer links should navigate to proper pages
+  document.querySelectorAll('.footer-link').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || !href.startsWith('#')) return;
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sectionId = href.replace('#', '');
+      // Map section IDs to pages + panels
+      const sectionMap = {
+        'act-1': { page: 'os', panel: 'os-overview' },
+        'act-2': { page: 'os', panel: 'os-brain' },
+        'act-3': { page: 'platform', panel: 'plat-pillars' },
+        'act-4': { page: 'platform', panel: 'plat-arch' },
+        'act-5': { page: 'platform', panel: 'plat-loop' },
+        'act-6': { page: 'ecosystem', panel: 'eco-market' },
+        'act-7': { page: 'company', panel: 'comp-about' },
+        'waitlist': { page: 'home', panel: null },
+      };
+      const mapping = sectionMap[sectionId];
+      if (mapping) {
+        showPage(mapping.page);
+        if (mapping.panel) {
+          const pageEl = document.querySelector('.page-container[data-page="' + mapping.page + '"]');
+          if (pageEl) {
+            pageEl.querySelectorAll('.page-sidebar-item').forEach(si => si.classList.remove('active'));
+            const sidebarItem = pageEl.querySelector('.page-sidebar-item[data-panel="' + mapping.panel + '"]');
+            if (sidebarItem) sidebarItem.classList.add('active');
+            pageEl.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
+            const panel = pageEl.querySelector('.content-panel[data-panel="' + mapping.panel + '"]');
+            if (panel) panel.classList.add('active');
+          }
+        }
+        if (sectionId === 'waitlist') {
+          setTimeout(() => {
+            const wl = document.getElementById('waitlist');
+            if (wl) wl.scrollIntoView({ behavior: 'smooth' });
+          }, 200);
+        }
+      }
+    });
+  });
+}
+
 /* ─── INIT ALL ─── */
 document.addEventListener('DOMContentLoaded', () => {
   runTerminal();
@@ -625,4 +766,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initArchLayers();
   initForm();
   initRevenueBorderDraw();
+  initPageNav();
 });
